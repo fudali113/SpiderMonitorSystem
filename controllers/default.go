@@ -20,7 +20,16 @@ func (this *IndexController) Get() {
 }
 
 func (this *MainController) Post() {
-	//defer this.Ctx.Request.Body.close()
-	body, _ := ioutil.ReadAll(this.Ctx.Request.Body)
-	models.Messages <- string(body)
+	defer this.Ctx.Request.Body.Close()
+	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
+	content := string(body)
+
+	if err == nil && content != "" {
+		models.Messages <- content
+		this.Data["json"] = "ok"
+	} else {
+		this.Data["json"] = "fail"
+	}
+
+	this.ServeJSON()
 }

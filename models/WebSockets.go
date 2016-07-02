@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var Wss = make([]*websocket.Conn, 5)
-var Messages = make(chan string)
+var Wss = make([]*websocket.Conn, 50)
+var Messages = make(chan string, 1000)
 
 func myinit() {
 	fmt.Println("init models")
