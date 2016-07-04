@@ -19,7 +19,12 @@ func myinit() {
 				if conn != nil {
 					err := conn.WriteMessage(websocket.TextMessage, []byte(message))
 					if err != nil {
-						panic(err)
+						fmt.Println(err)
+						conn.Close()
+						k := i + 1
+						Wss = append(Wss[:i], Wss[k:]...)
+						Messages <- message
+						break
 					}
 				}
 			}
