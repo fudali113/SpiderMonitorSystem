@@ -22,9 +22,9 @@ func myinit() {
 						fmt.Println(err)
 						conn.Close()
 						k := i + 1
-						Wss = append(Wss[:i], Wss[k:]...)
-						Messages <- message
-						break
+						Wss = append(Wss[:i], Wss[k:]...) //管理websocket连接数组，清除已断开的连接
+						Messages <- message               //保证消息不丢失
+						break                             //退出循环，避免数组下标异常
 					}
 				}
 			}

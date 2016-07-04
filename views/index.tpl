@@ -7,22 +7,13 @@
 </head>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <style type="text/css">
-
-.two{
-	float:left;
-	wight:50%;
-	height:50%
-}
-
-</style>
-<style type="text/css">
 @charset "utf-8";
 /* CSS Document */
 BODY, H1, H2, H3, H4, H5, H6, HR, P, BLOCKQUOTE, DL, DT, DD, UL, OL, LI, PRE, FORM, FIELDSET, LEGEND, BUTTON, TEXTAREA, LABEL {
 	padding:0px;
 	margin:0px;
 	border:0px;
- font-size:12px;
+ 	font-size:12px;
 	color:#7b7b7b;
 }
 UL {
@@ -52,7 +43,7 @@ li {
 }
 </style>
 
-<body>
+<body ng-app="monitor">
 <div>
 	<div class="panel panel-info">
 	   <div class="panel-heading">
@@ -92,20 +83,26 @@ li {
 	      <div style=" clear:both;"></div>
 	    </div>
 	    <div class="miaoshu" style=" position:relative; ">
-	     <div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
+	    <div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
 			进度： <span  class="span1" contenteditable="true" style="">0</span><font>%</font><br>
 		</div>
-	    <div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 进度： <span  class="span2" contenteditable="true" style="">0</span><font>%</font><br>
+	    <div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
+	    	进度： <span  class="span2" contenteditable="true" style="">0</span><font>%</font><br>
 		</div>
-	    <div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 进度： <span contenteditable="true" style="" class="span3">0</span><font>%</font><br>
+	    <div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
+	    	进度： <span contenteditable="true" style="" class="span3">0</span><font>%</font><br>
 	    </div>
 	      
-	     <div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 进度： <span contenteditable="true" style="" class="span4">0</span><font>%</font><br>
-	     </div>
-	     <div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 进度： <span contenteditable="true" style="" class="span5">0</span><font>%</font><br>
-	     </div>
-	      <div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" > 项目总结： </div>
-	      <div style=" clear:both;"></div>
+	    <div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
+	      	进度： <span contenteditable="true" style="" class="span4">0</span><font>%</font><br>
+	    </div>
+	    <div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 
+	    	进度： <span contenteditable="true" style="" class="span5">0</span><font>%</font><br>
+	    </div>
+	    <div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" > 
+	    	项目总结： 
+	    </div>
+	    <div style=" clear:both;"></div>
 	  </div>
 	  <div style=" clear:both;"></div>
 	  </div>
@@ -116,29 +113,8 @@ li {
 	   </div>
 	</div>
 </div>
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">面板标题</h3>
-   </div>
-   <div class="panel-body">
-      这是一个基本的面板
-   </div>
-</div>
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">面板标题</h3>
-   </div>
-   <div class="panel-body">
-      这是一个基本的面板
-   </div>
-</div>
-<div class="panel panel-info">
-   <div class="panel-heading">
-      <h3 class="panel-title">面板标题</h3>
-   </div>
-   <div class="panel-body">
-      这是一个基本的面板
-   </div>
+<div ng-controller="computers">
+	<computer ng-repeat="computer in computers"></computer>
 </div>
 </body>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -146,97 +122,68 @@ li {
 <script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script type="text/javascript">
 
-	var reptileStatusArray = [] 
-
-	var computer = {
-		s:0,
-		cid:null,
-		sid:null,
-		bid:null,
-		hository:new Array(6),
-		receiveData : function(data){
-
-			var data = JSON.parse(data)
-
-			if(data.step == 0 || this.sid != data.sid){
-					this.sid = data.sid
-					this.bid = data.bid
-					$('#sid').html(data.sid)
-					$('#bid').html(data.bid)
-					this.hository = new Array(6)
-					this.initFlowSheet()
-				}
-			this.s = data.step
-			this.hository[data.step] = data
-			this.loadBegin()
-			this.startStep(88)
-			this.loadMessage()
-		},
-		startStep : function(bfb){
-			var i = this.s
-			$(".miaoshu"+i+" .span"+i).text(bfb);
-			w =bfb*140/100;
-			$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
-		},
-		loadBegin : function(){
-			for(i=0;i<this.s;i++){
-				$(".bfb"+i+" img").stop(true,true);
-				$(".bfb"+i+" img").animate({width:140+"px"},"fast")
-				$(".miaoshu"+i+" .span"+i).text(100);
+var monitor = angular.module('monitor', []);
+monitor.directive('computer', function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/static/computer.html',
+        replace: true,
+        link:function(scope, el, attr) {  
+        	$(".miaoshu div").css("display","none");
+            scope.showDetails =   function(event,i){
+				$(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
-		},
-		loadMessage : function(){
+        }
+    };
+});
 
-			for(var i = 0 ; i <= 6 ; i++){
-				var data = this.hository[i]
-				var html = '<font>%</font>'
-				if(data == undefined){
+monitor.controller('computers',function($scope){
 
-				}else{
-					for (var j in data){
-						if(j == 'step'){
-							
-						}else{
-						html += '<br><span contenteditable="true" ><font color="#030303">'+j+'</font> : <font color="#EE4000">'+data[j]+'</font></span>'
-					}
-				}
+	$scope.computers = [newComputer("csafdcsf")]
+	$scope.onMessage = function(data){
+		count = 0
+		for (var i = $scope.computers.length - 1; i >= 0; i--) {
+			if(data.pc_id == $scope.computers[i].cid){
+
 			}
-				$(".miaoshu"+i+" .span"+i).nextAll().remove();
-				$(".miaoshu"+i+" .span"+i).after(html);
-			}
-		},
-		initFlowSheet : function(){
-		
-		for(var i=1 ; i<=6 ; i++){
-			$(".miaoshu"+i+" .span"+i).text(0);
 		}
-		
-		var bfb = $(".miaoshu1 .span1").text();
-		 bfb =bfb*140/100;
-		$(".bfb1 img").animate({width:bfb+"px"})
-		
-	 	var bfb = $(".miaoshu2 .span2").text();
-		 bfb =bfb*140/100;
-		$(".bfb2 img").animate({width:bfb+"px"})
-		
-		var bfb = $(".miaoshu3 .span3").text();
-		 bfb =bfb*140/100;
-		$(".bfb3 img").animate({width:bfb+"px"})
-		
-		var bfb = $(".miaoshu4 .span4").text();
-		 bfb =bfb*140/100;
-		$(".bfb4 img").animate({width:bfb+"px"})
-		
-		var bfb = $(".miaoshu5 .span5").text();
-		 bfb =bfb*140/100;
-		$(".bfb5 img").animate({width:bfb+"px"})
-		
-		var bfb = $(".miaoshu6 .span6").text();
-		 bfb =bfb*140/100;
-		$(".bfb6 img").animate({width:bfb+"px"})
+
+		if (count == 0) {
+			$scope.computers.push(newComputer(data.pc_id))
+		}else{
+
+		}
+
+	$scope.showDetails = function(){
+		$(this).parent().parent().find(".miaoshu .miaoshu2").toggle(500).siblings().fadeOut();
 	}
+
+	var websocket = new WebSocket("ws://localhost:8080/ws");
+	websocket.onopen = function(evt) { 
+            alert('websocket连接成功') 
+        }; 
+    websocket.onclose = function(evt) { 
+			alert(evt)
+            alert('websocket断开连接') 
+        }; 
+    websocket.onmessage = function(evt) {
+			$scope.onMessage(JSON.parse(evt.data))
+        }; 
+    websocket.onerror = function(evt) { 
+			alert(evt)
+            alert('websocket出现错误') 
+        }; 
 	}
-	
+})
+
+
+
+	var showDetails =   function(event,i){
+            	var oo = $(event.target)
+            	var o1 = oo.parent().parent()
+            	var o2 = o1.find(".miaoshu .miaoshu2")
+				jQuery(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
+			}
 	
 	var websocket = new WebSocket("ws://localhost:8080/ws");
 	
@@ -260,9 +207,99 @@ li {
 	}	
 		
 
-	var newComputerPanel = function(){
-
+	var newComputer = function(cid){
+		var computer = {
+			s:0,
+			cid:cid,
+			sid:null,
+			bid:null,
+			hository:new Array(6),
+			receiveData : function(data){
+	
+				var data = JSON.parse(data)
+	
+				if(data.step == 0 || this.sid != data.sid){
+						this.sid = data.sid
+						this.bid = data.bid
+						$('#sid').html(data.sid)
+						$('#bid').html(data.bid)
+						this.hository = new Array(6)
+						this.initFlowSheet()
+					}
+				this.s = data.step
+				this.hository[data.step] = data
+				this.loadBegin()
+				this.startStep(88)
+				this.loadMessage()
+			},
+			startStep : function(bfb){
+				var i = this.s
+				$(".miaoshu"+i+" .span"+i).text(bfb);
+				w =bfb*140/100;
+				$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
+			},
+			loadBegin : function(){
+				for(i=0;i<this.s;i++){
+					$(".bfb"+i+" img").stop(true,true);
+					$(".bfb"+i+" img").animate({width:140+"px"},"fast")
+					$(".miaoshu"+i+" .span"+i).text(100);
+				}
+			},
+			loadMessage : function(){
+	
+				for(var i = 0 ; i <= 6 ; i++){
+					var data = this.hository[i]
+					var html = '<font>%</font>'
+					if(data == undefined){
+	
+					}else{
+						for (var j in data){
+							if(j == 'step'){
+								
+							}else{
+							html += '<br><span contenteditable="true" ><font color="#030303">'+j+'</font> : <font color="#EE4000">'+data[j]+'</font></span>'
+						}
+					}
+				}
+					$(".miaoshu"+i+" .span"+i).nextAll().remove();
+					$(".miaoshu"+i+" .span"+i).after(html);
+				}
+			},
+			initFlowSheet : function(){
+			
+				for(var i=1 ; i<=6 ; i++){
+					$(".miaoshu"+i+" .span"+i).text(0);
+				}
+				
+				var bfb = $(".miaoshu1 .span1").text();
+				 bfb =bfb*140/100;
+				$(".bfb1 img").animate({width:bfb+"px"})
+				
+			 	var bfb = $(".miaoshu2 .span2").text();
+				 bfb =bfb*140/100;
+				$(".bfb2 img").animate({width:bfb+"px"})
+				
+				var bfb = $(".miaoshu3 .span3").text();
+				 bfb =bfb*140/100;
+				$(".bfb3 img").animate({width:bfb+"px"})
+				
+				var bfb = $(".miaoshu4 .span4").text();
+				 bfb =bfb*140/100;
+				$(".bfb4 img").animate({width:bfb+"px"})
+				
+				var bfb = $(".miaoshu5 .span5").text();
+				 bfb =bfb*140/100;
+				$(".bfb5 img").animate({width:bfb+"px"})
+				
+				var bfb = $(".miaoshu6 .span6").text();
+				 bfb =bfb*140/100;
+				$(".bfb6 img").animate({width:bfb+"px"})
+			}
 	}
+		return computer
+	}
+
+	var computer = newComputer("test")
 	
 
 </script>
