@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+BODY, H1, H2, H3, H4, H5, H6, HR, P, BLOCKQUOTE, DL, DT, DD, UL, OL, LI, PRE, FORM, FIELDSET, LEGEND, BUTTON, TEXTAREA, LABEL {
+	padding:0px;
+	margin:0px;
+	border:0px;
+ 	font-size:12px;
+	color:#7b7b7b;
+}
+UL {
+	LIST-STYLE-TYPE: none;
+	LIST-STYLE-IMAGE: none
+}
+OL {
+	LIST-STYLE-TYPE: none;
+	LIST-STYLE-IMAGE: none
+}
+a{
+ 
+	TEXT-DECORATION: none;
+  font-size:14px
+}
+ 
+ 
+div {
+	 font-size:14px;
+	 font-family:'微软雅黑';
+}
+img {
+	border:0 none
+}
+li {
+	list-style-type:none
+}
+
+
+.miaoshu_content{
+	margin-left:13px;
+	-moz-border-radius: 11px;
+	-khtml-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	background:url(static/img/bgt.png) repeat ;
+	padding:10px; display:inline-block;
+	width:225px; height:auto;  
+	position:absolute; 
+	top:10px;
+}
+
+.buzou_click_div{
+	width:40px; 
+	height:40px; 
+	float:left; 
+	cursor:pointer;
+}
+.buzou_bfb_div{
+	width:140px; 
+	height:40px; 
+	float:left; 
+	padding-top:13px;
+}
+.buzou_images{
+	background:url(/static/img/index_05.png) no-repeat; 
+	width:970px; 
+	height:67px; 
+	padding:14px 11px; 
+	margin:0px auto 0 auto;
+}
+.buzou{
+	-moz-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;   
+	background:url(/static/img/bgt.png) repeat ; 
+	padding:5px; 
+	nmargin-bottom:10px;
+}
+.sid_and_bid{
+	-moz-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+	color:#d7d7d7; 
+	font-size:16px; 
+	text-align:center; 
+	background:url(/static/img/bgt.png) repeat ; 
+	padding:5px 0px; 
+}
