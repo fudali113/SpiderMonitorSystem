@@ -142,27 +142,33 @@ monitor.directive('computer', function() {
     };
 });
 
-monitor.controller('computers',function($scope){
-
-	$scope.computers = [newComputer("1234")]
-	$scope.onMessage = function(data){
-		count = 0
-		for (var i = $scope.computers.length - 1; i >= 0; i--) {
-			if(data.pc_id == $scope.computers[i].cid){
-				$scope.computers[i].receiveData(data.bank_status)
-			}else{
-				var new = newComputer(data.pc_id)
-				new.receiveData(data.bank_status)
-				$scope.computers.push(new)
+monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
+    var service = {
+      	computers: [],
+      	addBook: function (data) {
+      		if (this.computers.length == 0) {
+      				var one = newComputer(data.pc_id)
+					one.receiveData(data.bank_status)
+					this.computers.push(one)
+      		}else{
+      			var nowComputer = undefined
+	        	for (var i = this.computers.length - 1; i >= 0; i--) {
+					if(data.pc_id == this.computers[i].cid){
+						nowComputer = i 
+					}
+				}
+				if (nowComputer != undefined) {
+					this.computers[nowComputer].receiveData(data.bank_status)
+				}else{
+						var one = newComputer(data.pc_id)
+						one.receiveData(data.bank_status)
+						this.computers.push(one)
+				}
 			}
-		}
-	}
-
-	$scope.showDetails = function(){
-		$(this).parent().parent().find(".miaoshu .miaoshu2").toggle(500).siblings().fadeOut();
-	}
-
-	var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
+        	$rootScope.$broadcast( 'computers.update' );
+      	}
+    }
+    var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 
@@ -170,13 +176,29 @@ monitor.controller('computers',function($scope){
             alert('websocket断开连接') 
         }; 
     websocket.onmessage = function(evt) {
-			$scope.onMessage(JSON.parse(evt.data))
+			service.addBook(JSON.parse(evt.data))
         }; 
     websocket.onerror = function(evt) { 
             alert('websocket出现错误') 
         }; 
+    return service
+}]);
+
+monitor.controller('computers',['$scope','computer',function($scope,computer){
+
+	$scope.$on( 'computers.update', function( event ) {
+        $scope.computers = computer.computers;
+        $scope.$apply();
+    }); 
+
+	$scope.computers = computer.computers  //[newComputer("1234")]
+
+	$scope.showDetails = function(){
+		$(this).parent().parent().find(".miaoshu .miaoshu2").toggle(500).siblings().fadeOut();
 	}
-})
+
+	
+}])
 
 
 
@@ -217,9 +239,9 @@ monitor.controller('computers',function($scope){
 			bid:null,
 			hository:new Array(6),
 			receiveData : function(data){
-	
-				var data = JSON.parse(data)
-	
+				if (typeof data == 'string'){
+					var data = JSON.parse(data)
+				}
 				if(data.step == 0 || this.sid != data.sid){
 						this.sid = data.sid
 						this.bid = data.bid
