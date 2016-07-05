@@ -2,10 +2,13 @@ package models
 
 import (
 	"fmt"
+	"net"
+	"strings"
 
 	"github.com/gorilla/websocket"
 )
 
+var LocalIp string
 var Wss = make([]*websocket.Conn, 50)
 var Messages = make(chan string, 1000)
 
@@ -32,6 +35,17 @@ func myinit() {
 	}
 }
 
+func getLocalIp() string {
+	conn,err := net.Dial("udp","baidu.com:80")
+	defer conn.Close()
+	if err!=nil {
+		fmt.Println(err)
+		return "localhost"
+	}
+	return strings.Split(conn.LocalAddr().String(),":")[0]
+}
+
 func init() {
+	LocalIp = getLocalIp()
 	go myinit()
 }

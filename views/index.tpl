@@ -83,28 +83,28 @@ li {
 	      <div style=" clear:both;"></div>
 	    </div>
 	    <div class="miaoshu" style=" position:relative; ">
-	    <div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
-			进度： <span  class="span1" contenteditable="true" style="">0</span><font>%</font><br>
-		</div>
-	    <div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
-	    	进度： <span  class="span2" contenteditable="true" style="">0</span><font>%</font><br>
-		</div>
-	    <div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
-	    	进度： <span contenteditable="true" style="" class="span3">0</span><font>%</font><br>
-	    </div>
-	      
-	    <div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
-	      	进度： <span contenteditable="true" style="" class="span4">0</span><font>%</font><br>
-	    </div>
-	    <div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 
-	    	进度： <span contenteditable="true" style="" class="span5">0</span><font>%</font><br>
-	    </div>
-	    <div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" > 
-	    	项目总结： 
-	    </div>
-	    <div style=" clear:both;"></div>
-	  </div>
-	  <div style=" clear:both;"></div>
+		    <div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
+				进度： <span  class="span1" contenteditable="true" style="">0</span><font>%</font><br>
+			</div>
+		    <div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
+		    	进度： <span  class="span2" contenteditable="true" style="">0</span><font>%</font><br>
+			</div>
+		    <div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
+		    	进度： <span contenteditable="true" style="" class="span3">0</span><font>%</font><br>
+		    </div>
+		      
+		    <div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
+		      	进度： <span contenteditable="true" style="" class="span4">0</span><font>%</font><br>
+		    </div>
+		    <div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 
+		    	进度： <span contenteditable="true" style="" class="span5">0</span><font>%</font><br>
+		    </div>
+		    <div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" > 
+		    	项目总结： 
+		    </div>
+		    <div style=" clear:both;"></div>
+		  </div>
+		  <div style=" clear:both;"></div>
 	  </div>
 	  
 	</div>
@@ -130,6 +130,11 @@ monitor.directive('computer', function() {
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
+
+        	for (var i = 6; i > 0; i--) {
+        		$(".bfb"+i+" img").animate({width:+"0px"})	
+        	}
+        	
             scope.showDetails =   function(event,i){
 				$(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
@@ -139,38 +144,35 @@ monitor.directive('computer', function() {
 
 monitor.controller('computers',function($scope){
 
-	$scope.computers = [newComputer("csafdcsf")]
+	$scope.computers = [newComputer("1234")]
 	$scope.onMessage = function(data){
 		count = 0
 		for (var i = $scope.computers.length - 1; i >= 0; i--) {
 			if(data.pc_id == $scope.computers[i].cid){
-
+				$scope.computers[i].receiveData(data.bank_status)
+			}else{
+				var new = newComputer(data.pc_id)
+				new.receiveData(data.bank_status)
+				$scope.computers.push(new)
 			}
 		}
-
-		if (count == 0) {
-			$scope.computers.push(newComputer(data.pc_id))
-		}else{
-
-		}
+	}
 
 	$scope.showDetails = function(){
 		$(this).parent().parent().find(".miaoshu .miaoshu2").toggle(500).siblings().fadeOut();
 	}
 
-	var websocket = new WebSocket("ws://localhost:8080/ws");
+	var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 
     websocket.onclose = function(evt) { 
-			alert(evt)
             alert('websocket断开连接') 
         }; 
     websocket.onmessage = function(evt) {
 			$scope.onMessage(JSON.parse(evt.data))
         }; 
     websocket.onerror = function(evt) { 
-			alert(evt)
             alert('websocket出现错误') 
         }; 
 	}
@@ -185,7 +187,7 @@ monitor.controller('computers',function($scope){
 				jQuery(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
 	
-	var websocket = new WebSocket("ws://localhost:8080/ws");
+	/*var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
 	
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
@@ -200,7 +202,7 @@ monitor.controller('computers',function($scope){
     websocket.onerror = function(evt) { 
 			alert(evt)
             alert('websocket出现错误') 
-        }; 
+        }; */
 		
 	var onMessage = function(data){
 			computer.receiveData(data)

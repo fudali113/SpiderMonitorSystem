@@ -3,6 +3,7 @@ package controllers
 import (
 	"io/ioutil"
 	"look/models"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -16,6 +17,13 @@ type IndexController struct {
 }
 
 func (this *IndexController) Get() {
+	addrs := strings.Split(this.Ctx.Request.RemoteAddr,"::1")
+
+	wsip := models.LocalIp
+	if len(addrs) > 1 {
+		wsip = "localhost"
+	}
+	this.Data["ip"] = wsip
 	this.TplName = "index.tpl"
 }
 
