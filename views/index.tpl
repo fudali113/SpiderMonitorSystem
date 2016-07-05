@@ -6,42 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<style type="text/css">
-@charset "utf-8";
-/* CSS Document */
-BODY, H1, H2, H3, H4, H5, H6, HR, P, BLOCKQUOTE, DL, DT, DD, UL, OL, LI, PRE, FORM, FIELDSET, LEGEND, BUTTON, TEXTAREA, LABEL {
-	padding:0px;
-	margin:0px;
-	border:0px;
- 	font-size:12px;
-	color:#7b7b7b;
-}
-UL {
-	LIST-STYLE-TYPE: none;
-	LIST-STYLE-IMAGE: none
-}
-OL {
-	LIST-STYLE-TYPE: none;
-	LIST-STYLE-IMAGE: none
-}
-a{
- 
-	TEXT-DECORATION: none;
-  font-size:14px
-}
- 
- 
-div {
-	 font-size:14px;
-	 font-family:'微软雅黑';
-}
-img {
-	border:0 none
-}
-li {
-	list-style-type:none
-}
-</style>
+<link rel="stylesheet" href="/static/css/index.css" />
 
 <body ng-app="monitor">
 <div>
@@ -145,7 +110,7 @@ monitor.directive('computer', function() {
 monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
-      	addBook: function (data) {
+      	addComputer: function (data) {
       		if (this.computers.length == 0) {
       				var one = newComputer(data.pc_id)
 					one.receiveData(data.bank_status)
@@ -176,7 +141,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
             alert('websocket断开连接') 
         }; 
     websocket.onmessage = function(evt) {
-			service.addBook(JSON.parse(evt.data))
+			service.addComputer(JSON.parse(evt.data))
         }; 
     websocket.onerror = function(evt) { 
             alert('websocket出现错误') 
@@ -200,130 +165,100 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
 	
 }])
 
-
-
-	var showDetails =   function(event,i){
-            	var oo = $(event.target)
-            	var o1 = oo.parent().parent()
-            	var o2 = o1.find(".miaoshu .miaoshu2")
-				jQuery(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
+var newComputer = function(cid){
+	var computer = {
+		s:0,
+		hb:1, //heartbeat
+		cid:cid,
+		sid:null,
+		bid:null,
+		hository:new Array(6),
+		receiveData : function(data){
+			if (typeof data == 'string'){
+				var data = JSON.parse(data)
 			}
-	
-	/*var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
-	
-	websocket.onopen = function(evt) { 
-            alert('websocket连接成功') 
-        }; 
-    websocket.onclose = function(evt) { 
-			alert(evt)
-            alert('websocket断开连接') 
-        }; 
-    websocket.onmessage = function(evt) {
-			onMessage(evt.data)
-        }; 
-    websocket.onerror = function(evt) { 
-			alert(evt)
-            alert('websocket出现错误') 
-        }; */
-		
-	var onMessage = function(data){
-			computer.receiveData(data)
-	}	
-		
+			if(data.step == 0 || this.sid != data.sid){
+					this.sid = data.sid
+					this.bid = data.bid
+					$('#sid').html(data.sid)
+					$('#bid').html(data.bid)
+					this.hository = new Array(6)
+					this.initFlowSheet()
+				}
+			this.s = data.step
+			this.hository[data.step] = data
+			this.loadBegin()
+			this.startStep(88)
+			this.loadMessage()
+		},
+		startStep : function(bfb){
+			var i = this.s
+			$(".miaoshu"+i+" .span"+i).text(bfb);
+			w =bfb*140/100;
+			$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
+		},
+		loadBegin : function(){
+			for(i=0;i<this.s;i++){
+				$(".bfb"+i+" img").stop(true,true);
+				$(".bfb"+i+" img").animate({width:140+"px"},"fast")
+				$(".miaoshu"+i+" .span"+i).text(100);
+			}
+		},
+		loadMessage : function(){
 
-	var newComputer = function(cid){
-		var computer = {
-			s:0,
-			cid:cid,
-			sid:null,
-			bid:null,
-			hository:new Array(6),
-			receiveData : function(data){
-				if (typeof data == 'string'){
-					var data = JSON.parse(data)
-				}
-				if(data.step == 0 || this.sid != data.sid){
-						this.sid = data.sid
-						this.bid = data.bid
-						$('#sid').html(data.sid)
-						$('#bid').html(data.bid)
-						this.hository = new Array(6)
-						this.initFlowSheet()
-					}
-				this.s = data.step
-				this.hository[data.step] = data
-				this.loadBegin()
-				this.startStep(88)
-				this.loadMessage()
-			},
-			startStep : function(bfb){
-				var i = this.s
-				$(".miaoshu"+i+" .span"+i).text(bfb);
-				w =bfb*140/100;
-				$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
-			},
-			loadBegin : function(){
-				for(i=0;i<this.s;i++){
-					$(".bfb"+i+" img").stop(true,true);
-					$(".bfb"+i+" img").animate({width:140+"px"},"fast")
-					$(".miaoshu"+i+" .span"+i).text(100);
-				}
-			},
-			loadMessage : function(){
-	
-				for(var i = 0 ; i <= 6 ; i++){
-					var data = this.hository[i]
-					var html = '<font>%</font>'
-					if(data == undefined){
-	
-					}else{
-						for (var j in data){
-							if(j == 'step'){
-								
-							}else{
-							html += '<br><span contenteditable="true" ><font color="#030303">'+j+'</font> : <font color="#EE4000">'+data[j]+'</font></span>'
-						}
+			for(var i = 0 ; i <= 6 ; i++){
+				var data = this.hository[i]
+				var html = '<font>%</font>'
+				if(data == undefined){
+
+				}else{
+					for (var j in data){
+						if(j == 'step'){
+							
+						}else{
+						html += '<br><span contenteditable="true" ><font color="#030303">'+j+'</font> : <font color="#EE4000">'+data[j]+'</font></span>'
 					}
 				}
-					$(".miaoshu"+i+" .span"+i).nextAll().remove();
-					$(".miaoshu"+i+" .span"+i).after(html);
-				}
-			},
-			initFlowSheet : function(){
+			}
+				$(".miaoshu"+i+" .span"+i).nextAll().remove();
+				$(".miaoshu"+i+" .span"+i).after(html);
+			}
+		},
+		initFlowSheet : function(){
+		
+			for(var i=1 ; i<=6 ; i++){
+				$(".miaoshu"+i+" .span"+i).text(0);
+			}
 			
-				for(var i=1 ; i<=6 ; i++){
-					$(".miaoshu"+i+" .span"+i).text(0);
-				}
-				
-				var bfb = $(".miaoshu1 .span1").text();
-				 bfb =bfb*140/100;
-				$(".bfb1 img").animate({width:bfb+"px"})
-				
-			 	var bfb = $(".miaoshu2 .span2").text();
-				 bfb =bfb*140/100;
-				$(".bfb2 img").animate({width:bfb+"px"})
-				
-				var bfb = $(".miaoshu3 .span3").text();
-				 bfb =bfb*140/100;
-				$(".bfb3 img").animate({width:bfb+"px"})
-				
-				var bfb = $(".miaoshu4 .span4").text();
-				 bfb =bfb*140/100;
-				$(".bfb4 img").animate({width:bfb+"px"})
-				
-				var bfb = $(".miaoshu5 .span5").text();
-				 bfb =bfb*140/100;
-				$(".bfb5 img").animate({width:bfb+"px"})
-				
-				var bfb = $(".miaoshu6 .span6").text();
-				 bfb =bfb*140/100;
-				$(".bfb6 img").animate({width:bfb+"px"})
-			}
+			var bfb = $(".miaoshu1 .span1").text();
+			 bfb =bfb*140/100;
+			$(".bfb1 img").animate({width:bfb+"px"})
+			
+		 	var bfb = $(".miaoshu2 .span2").text();
+			 bfb =bfb*140/100;
+			$(".bfb2 img").animate({width:bfb+"px"})
+			
+			var bfb = $(".miaoshu3 .span3").text();
+			 bfb =bfb*140/100;
+			$(".bfb3 img").animate({width:bfb+"px"})
+			
+			var bfb = $(".miaoshu4 .span4").text();
+			 bfb =bfb*140/100;
+			$(".bfb4 img").animate({width:bfb+"px"})
+			
+			var bfb = $(".miaoshu5 .span5").text();
+			 bfb =bfb*140/100;
+			$(".bfb5 img").animate({width:bfb+"px"})
+			
+			var bfb = $(".miaoshu6 .span6").text();
+			 bfb =bfb*140/100;
+			$(".bfb6 img").animate({width:bfb+"px"})
+		}
 	}
-		return computer
-	}
+	return computer
+}
 
-	var computer = newComputer("test")
+var computer = newComputer("test")
 	
 
 </script>

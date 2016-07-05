@@ -5,13 +5,13 @@
 	   </div>
 	   <div class="panel-body">		
 			<div style="width:1024px; margin:0 auto;">
-				<div  contenteditable="true" style="-moz-border-radius: 4px;-khtml-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px; color:#d7d7d7; font-size:16px; text-align:center; background:url(/static/img/bgt.png) repeat ; padding:5px 0px; ">
+				<div  contenteditable="true" class="sid_and_bid">
 					<div style="float:left; padding-left:10px;"><font id="sid" color="red">{{computer.sid}}</font></div>
 					<div style="float:right; padding-right:10px;"><font id="bid" color="red">{{computer.bid}}</font></div>
 					<div style=" clear:both;"></div>
 				</div>
 
-				<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(/static/img/bgt.png) repeat ; padding:5px; margin-bottom:10px;">
+				<div class="xiangmu buzou" >
 			    
 				    <div style=" text-align:center;  color:#d7d7d7;">
 				      <div style="float:left; width:113px;">返回验证码 </div>
@@ -24,41 +24,63 @@
 				    </div>
 			    	<div style=" clear:both;"></div>
 				</div>
-			  	<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(/static/img/bgt.png) repeat ; padding:5px; margin-bottom:10px;">
-			    	<div style=" background:url(/static/img/index_05.png) no-repeat; width:970px; height:67px; padding:14px 11px; margin:0px auto 0 auto;">
-					      <div  ng-click="showDetails($event,1)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
-					      <div class="bfb1" style=" width:140px; height:27px; float:left; padding-top:13px;  "><img style=" height:13px; display:block;" src="/static/img/1.png"></div>
-					      <div ng-click="showDetails($event,2)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
-					      <div class="bfb2" style=" width:140px; height:40px; float:left;  padding-top:13px;  "><img style=" height:13px; display:block;" src="/static/img/2.png"></div>
-					      <div ng-click="showDetails($event,3)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
-					      <div  class="bfb3" style=" width:140px; height:40px; float:left;   padding-top:13px;  "><img style=" height:13px; display:block;" src="/static/img/3.png"></div>
-					      <div ng-click="showDetails($event,4)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
-					      <div  class="bfb4" style=" width:140px; height:40px; float:left;   padding-top:13px;  "><img style=" height:13px; display:block;" src="/static/img/4.png"></div>
-					      <div ng-click="showDetails($event,5)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
-					      <div  class="bfb5" style=" width:140px; height:40px; float:left;  padding-top:13px;  "><img style=" height:13px; display:block;" src="/static/img/5.png"></div>
-					      <div ng-click="showDetails($event,6)" style=" width:40px; height:40px; float:left; cursor:pointer;"></div>
+			  	<div class="xiangmu buzou">
+			    	<div class="buzou_images">
+
+					      <div  ng-click="showDetails($event,1)" class="buzou_click_div"></div>
+					      <div class="bfb1" class="buzou_bfb_div">
+					      	<img style=" height:13px; display:block;" src="/static/img/1.png">
+					      </div>
+
+					      <div ng-click="showDetails($event,2)" class="buzou_click_div"></div>
+					      <div class="bfb2" class="buzou_bfb_div">
+					      	<img style=" height:13px; display:block;" src="/static/img/2.png">
+					      </div>
+
+					      <div ng-click="showDetails($event,3)" class="buzou_click_div"></div>
+					      <div  class="bfb3" class="buzou_bfb_div">
+					      	<img style=" height:13px; display:block;" src="/static/img/3.png">
+					      </div>
+
+					      <div ng-click="showDetails($event,4)" class="buzou_click_div"></div>
+					      <div  class="bfb4" class="buzou_bfb_div">
+					      	<img style=" height:13px; display:block;" src="/static/img/4.png">
+					      </div>
+
+					      <div ng-click="showDetails($event,5)" class="buzou_click_div"></div>
+					      <div  class="bfb5" class="buzou_bfb_div">
+					      	<img style=" height:13px; display:block;" src="/static/img/5.png">
+					      </div>
+
+					      <div ng-click="showDetails($event,6)" class="buzou_click_div"></div>
 					      <div style=" clear:both;"></div>
 			    	</div>
 			    	<div class="miaoshu" style=" position:relative; ">
-			     		<div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
+
+			     		<div class="miaoshu1 miaoshu_content"  style="left:-18px;" >	
 							进度： <span  class="span1" contenteditable="true" style="">0</span><font>%</font><br>
 						</div>
-					    <div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
+
+					    <div class="miaoshu2 miaoshu_content"  style="left:105px;" > 
 					    	进度： <span  class="span2" contenteditable="true" style="">0</span><font>%</font><br>
 						</div>
-					    <div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
+
+					    <div class="miaoshu3 miaoshu_content"  style="left:290px;" > 
 					    	进度： <span contenteditable="true" style="" class="span3">0</span><font>%</font><br>
 					    </div>
 			      
-					    <div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
+					    <div class="miaoshu4 miaoshu_content"  style="left:470px;" > 
 					     	进度： <span contenteditable="true" style="" class="span4">0</span><font>%</font><br>
 					    </div>
-					    <div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" >
+
+					    <div class="miaoshu5 miaoshu_content" style=" left:650px;" >
 					     	 进度： <span contenteditable="true" style="" class="span5">0</span><font>%</font><br>
 					    </div>
-			     		<div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(/static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" > 
+
+			     		<div class="miaoshu6 miaoshu_content" style="left:762px;" > 
 			     		 	项目总结：
 			     		</div>
+
 			      		<div style=" clear:both;"></div>
 			  		</div>
 			  		<div style=" clear:both;"></div>
