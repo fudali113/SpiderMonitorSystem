@@ -6,11 +6,8 @@ monitor.directive('computer', function() {
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
-
-
-        	
             scope.showDetails =   function(event,i){
-				$(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
+				$(event.target).parent().parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
         }
     };

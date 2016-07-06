@@ -8,8 +8,13 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/static/css/index.css" />
 <body ng-app="monitor">
-<div ng-controller="computers">
-	<computer ng-repeat="computer in computers"></computer>
+<div class="panel panel-info" ng-controller="computers">
+	<div class="panel-heading">
+	  <h3 class="panel-title">monitor</h3>
+	</div>
+	<div class="panel-body">
+		<computer ng-repeat="computer in computers"></computer>
+	</div>
 </div>
 </body>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
