@@ -9,6 +9,15 @@ monitor.directive('computer', function() {
             scope.showDetails =   function(event,i){
 				$(event.target).parent().parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
+			scope.hideAttr = function(k){
+		    	var hides = ['sid','bid','step']
+		    	for (var i = hides.length - 1; i >= 0; i--) {
+		    		if (k == hides[i]) {
+		    			return true
+		    		}
+		    	}
+		    	return false
+		    }
         }
     };
 });
@@ -68,9 +77,15 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     return service
 }]);
 
-monitor.filter('hb_filter',function(){
+monitor.filter('hide_attr_filter',function(){
 	return function(input){
-		return input == 0 ? 'red' : 'green'
+		var html = ''
+		var kv = input.split(":")
+		var k = kv[0]
+		if (k == "sid" || k =="bid" || k =="step") {}else{
+			hmtl = '<br><font color="#030303">'+k+':</font><font color="#EE4000">'+kv[1]+'</font>'
+		}
+		return html
 	}
 })
 
@@ -82,11 +97,6 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
     }); 
 
 	$scope.computers = computer.computers  //[newComputer("1234")]
-
-	$scope.showDetails = function(){
-		$(this).parent().parent().find(".miaoshu .miaoshu2").toggle(500).siblings().fadeOut();
-	}
-
 	
 }])
 

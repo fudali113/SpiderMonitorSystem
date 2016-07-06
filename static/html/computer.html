@@ -81,47 +81,59 @@
 						<div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
 							进度： <span id="{{computer.cid}}_percent_1" class="span1" contenteditable="true" style="">0</span><font>%</font>
 							<span ng-repeat="(k,v) in computer.hository[1]">
-								<br>
-								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
 							</span>
 						</div>
 
 						<div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
 						    进度： <span id="{{computer.cid}}_percent_2" class="span2" contenteditable="true" style="">0</span><font>%</font>
 						    <span ng-repeat="(k,v) in computer.hository[2]">
+								<span ng-hide="hideAttr(k)">
 									<br>
 									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
 								</span>
+							</span>
 						</div>
 
 						<div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
 							进度： <span id="{{computer.cid}}_percent_3" contenteditable="true" style="" class="span3">0</span><font>%</font>
 							<span ng-repeat="(k,v) in computer.hository[3]">
-								<br>
-								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
 							</span>
 						</div>
 					  
 						<div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
 							进度： <span id="{{computer.cid}}_percent_4" contenteditable="true" style="" class="span4">0</span><font>%</font>
 							<span ng-repeat="(k,v) in computer.hository[4]">
-								<br>
-								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
 							</span>
 						</div>
 
 						<div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 
 							进度： <span id="{{computer.cid}}_percent_5" contenteditable="true" style="" class="span5">0</span><font>%</font>
 							<span ng-repeat="(k,v) in computer.hository[5]">
-								<br>
-								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
 							</span>
 						</div>
 
 						<div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" >
 							<span ng-repeat="(k,v) in computer.hository[6]">
-								<br>
-								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
 							</span>
 						</div>
 
