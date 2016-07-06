@@ -91,14 +91,12 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
-        templateUrl: '/static/computer.html',
+        templateUrl: '/static/html/computer.html',
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
 
-        	for (var i = 6; i > 0; i--) {
-        		$(".bfb"+i+" img").animate({width:+"0px"})	
-        	}
+
         	
             scope.showDetails =   function(event,i){
 				$(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
@@ -170,8 +168,9 @@ var newComputer = function(cid){
 		s:0,
 		hb:1, //heartbeat
 		cid:cid,
-		sid:null,
-		bid:null,
+		sid:undefined,
+		bid:undefined,
+		nowData:{},
 		hository:new Array(6),
 		receiveData : function(data){
 			if (typeof data == 'string'){
@@ -188,14 +187,14 @@ var newComputer = function(cid){
 			this.s = data.step
 			this.hository[data.step] = data
 			this.loadBegin()
-			this.startStep(88)
-			this.loadMessage()
+			if (data.step < this.s) {}else{this.startStep(88)}
+			//this.loadMessage()
 		},
 		startStep : function(bfb){
 			var i = this.s
 			$(".miaoshu"+i+" .span"+i).text(bfb);
 			w =bfb*140/100;
-			$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
+			$("#"+this.cid+"_animate_img_"+i).animate({width:w+"px"},bfb*100)
 		},
 		loadBegin : function(){
 			for(i=0;i<this.s;i++){
@@ -204,7 +203,7 @@ var newComputer = function(cid){
 				$(".miaoshu"+i+" .span"+i).text(100);
 			}
 		},
-		loadMessage : function(){
+		/*loadMessage : function(){
 
 			for(var i = 0 ; i <= 6 ; i++){
 				var data = this.hository[i]
@@ -223,36 +222,13 @@ var newComputer = function(cid){
 				$(".miaoshu"+i+" .span"+i).nextAll().remove();
 				$(".miaoshu"+i+" .span"+i).after(html);
 			}
-		},
+		},*/
 		initFlowSheet : function(){
 		
 			for(var i=1 ; i<=6 ; i++){
+				$("#"+this.cid+"_animate_img_"+i).animate({width:0+"px"})	
 				$(".miaoshu"+i+" .span"+i).text(0);
 			}
-			
-			var bfb = $(".miaoshu1 .span1").text();
-			 bfb =bfb*140/100;
-			$(".bfb1 img").animate({width:bfb+"px"})
-			
-		 	var bfb = $(".miaoshu2 .span2").text();
-			 bfb =bfb*140/100;
-			$(".bfb2 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu3 .span3").text();
-			 bfb =bfb*140/100;
-			$(".bfb3 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu4 .span4").text();
-			 bfb =bfb*140/100;
-			$(".bfb4 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu5 .span5").text();
-			 bfb =bfb*140/100;
-			$(".bfb5 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu6 .span6").text();
-			 bfb =bfb*140/100;
-			$(".bfb6 img").animate({width:bfb+"px"})
 		}
 	}
 	return computer

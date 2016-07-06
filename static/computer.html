@@ -29,27 +29,27 @@
 
 					      <div  ng-click="showDetails($event,1)" class="buzou_click_div"></div>
 					      <div class="bfb1" class="buzou_bfb_div">
-					      	<img style=" height:13px; display:block;" src="/static/img/1.png">
+					      	<img class="buzou_img" src="/static/img/1.png">
 					      </div>
 
 					      <div ng-click="showDetails($event,2)" class="buzou_click_div"></div>
 					      <div class="bfb2" class="buzou_bfb_div">
-					      	<img style=" height:13px; display:block;" src="/static/img/2.png">
+					      	<img class="buzou_img" src="/static/img/2.png">
 					      </div>
 
 					      <div ng-click="showDetails($event,3)" class="buzou_click_div"></div>
 					      <div  class="bfb3" class="buzou_bfb_div">
-					      	<img style=" height:13px; display:block;" src="/static/img/3.png">
+					      	<img class="buzou_img" src="/static/img/3.png">
 					      </div>
 
 					      <div ng-click="showDetails($event,4)" class="buzou_click_div"></div>
 					      <div  class="bfb4" class="buzou_bfb_div">
-					      	<img style=" height:13px; display:block;" src="/static/img/4.png">
+					      	<img class="buzou_img" src="/static/img/4.png">
 					      </div>
 
 					      <div ng-click="showDetails($event,5)" class="buzou_click_div"></div>
 					      <div  class="bfb5" class="buzou_bfb_div">
-					      	<img style=" height:13px; display:block;" src="/static/img/5.png">
+					      	<img class="buzou_img" src="/static/img/5.png">
 					      </div>
 
 					      <div ng-click="showDetails($event,6)" class="buzou_click_div"></div>
@@ -58,7 +58,11 @@
 			    	<div class="miaoshu" style=" position:relative; ">
 
 			     		<div class="miaoshu1 miaoshu_content"  style="left:-18px;" >	
-							进度： <span  class="span1" contenteditable="true" style="">0</span><font>%</font><br>
+							<span class="span1" contenteditable="true">进度： <span>0</span><font>%</font></span>
+							<span ng-repeat=" (k,v) in computer.hostorey[1]">
+								<br>
+								<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+							</span>
 						</div>
 
 					    <div class="miaoshu2 miaoshu_content"  style="left:105px;" > 

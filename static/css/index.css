@@ -86,3 +86,8 @@ li {
 	background:url(/static/img/bgt.png) repeat ; 
 	padding:5px 0px; 
 }
+.buzou_img{
+	height:13px; 
+	display:block;
+	width: 0px;
+}

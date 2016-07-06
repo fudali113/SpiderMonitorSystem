@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"look/models"
 	"strings"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -31,6 +32,8 @@ func (this *MainController) Post() {
 	defer this.Ctx.Request.Body.Close()
 	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
 	content := string(body)
+
+	fmt.Println(content)
 
 	if err == nil && content != "" {
 		models.Messages <- content
