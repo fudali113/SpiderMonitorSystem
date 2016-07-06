@@ -2,14 +2,12 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
-        templateUrl: '/static/computer.html',
+        templateUrl: '/static/html/computer.html',
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
 
-        	for (var i = 6; i > 0; i--) {
-        		$(".bfb"+i+" img").animate({width:+"0px"})	
-        	}
+
         	
             scope.showDetails =   function(event,i){
 				$(event.target).parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
@@ -44,7 +42,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
         	$rootScope.$broadcast( 'computers.update' );
       	}
     }
-    var websocket = new WebSocket("ws://{{.ip}}:8080/ws");
+    var websocket = new WebSocket("ws://"+WebSocketIP+":8080/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 
@@ -83,6 +81,7 @@ var newComputer = function(cid){
 		cid:cid,
 		sid:undefined,
 		bid:undefined,
+		nowData:{},
 		hository:new Array(6),
 		receiveData : function(data){
 			if (typeof data == 'string'){
@@ -99,71 +98,27 @@ var newComputer = function(cid){
 			this.s = data.step
 			this.hository[data.step] = data
 			this.loadBegin()
-			this.startStep(88)
-			this.loadMessage()
+			if (data.step < this.s) {}else{this.startStep(88)}
 		},
 		startStep : function(bfb){
 			var i = this.s
-			$(".miaoshu"+i+" .span"+i).text(bfb);
+			$("#"+this.cid+"_percent_"+i).text(bfb);
 			w =bfb*140/100;
-			$(".bfb"+ i +" img").animate({width:w+"px"},bfb*100)
+			$("#"+this.cid+"_animate_img_"+i).animate({width:w+"px"},bfb*100)
 		},
 		loadBegin : function(){
 			for(i=0;i<this.s;i++){
-				$(".bfb"+i+" img").stop(true,true);
-				$(".bfb"+i+" img").animate({width:140+"px"},"fast")
-				$(".miaoshu"+i+" .span"+i).text(100);
-			}
-		},
-		loadMessage : function(){
-
-			for(var i = 0 ; i <= 6 ; i++){
-				var data = this.hository[i]
-				var html = '<font>%</font>'
-				if(data == undefined){
-
-				}else{
-					for (var j in data){
-						if(j == 'step'){
-							
-						}else{
-						html += '<br><span contenteditable="true" ><font color="#030303">'+j+'</font> : <font color="#EE4000">'+data[j]+'</font></span>'
-					}
-				}
-			}
-				$(".miaoshu"+i+" .span"+i).nextAll().remove();
-				$(".miaoshu"+i+" .span"+i).after(html);
+				$("#"+this.cid+"_animate_img_"+i).stop(true,true);
+				$("#"+this.cid+"_animate_img_"+i).animate({width:140+"px"},"fast")
+				$("#"+this.cid+"_percent_"+i).text(100);
 			}
 		},
 		initFlowSheet : function(){
 		
 			for(var i=1 ; i<=6 ; i++){
-				$(".miaoshu"+i+" .span"+i).text(0);
+				$("#"+this.cid+"_animate_img_"+i).animate({width:0+"px"})	
+				$("#"+this.cid+"_percent_"+i).text(0);
 			}
-			
-			var bfb = $(".miaoshu1 .span1").text();
-			 bfb =bfb*140/100;
-			$(".bfb1 img").animate({width:bfb+"px"})
-			
-		 	var bfb = $(".miaoshu2 .span2").text();
-			 bfb =bfb*140/100;
-			$(".bfb2 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu3 .span3").text();
-			 bfb =bfb*140/100;
-			$(".bfb3 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu4 .span4").text();
-			 bfb =bfb*140/100;
-			$(".bfb4 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu5 .span5").text();
-			 bfb =bfb*140/100;
-			$(".bfb5 img").animate({width:bfb+"px"})
-			
-			var bfb = $(".miaoshu6 .span6").text();
-			 bfb =bfb*140/100;
-			$(".bfb6 img").animate({width:bfb+"px"})
 		}
 	}
 	return computer
