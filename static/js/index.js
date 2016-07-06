@@ -34,7 +34,9 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 				}
 			}
 			if (nowComputer != undefined) {
-				this.computers[nowComputer].receiveData(data.bank_status)
+				if (data.bank_status != undefined) {
+					this.computers[nowComputer].receiveData(data.bank_status)
+				}
 				if (data.hb != undefined) {
 					this.computers[nowComputer].hb = data.hb
 					this.setHbStyle(nowComputer)

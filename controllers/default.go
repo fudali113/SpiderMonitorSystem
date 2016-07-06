@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/astaxie/beego"
-)
+) 
 
 type MainController struct {
 	beego.Controller
@@ -31,6 +31,7 @@ func (this *IndexController) Get() {
 func (this *MainController) Post() {
 	defer this.Ctx.Request.Body.Close()
 	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
+	go models.RecordPcLastTime(body)
 	content := string(body)
 
 	fmt.Println(content)
