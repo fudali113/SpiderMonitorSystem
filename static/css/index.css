@@ -33,6 +33,17 @@ li {
 	list-style-type:none
 }
 
+.circle { 
+	width: 20px; 
+	height: 20px; 
+	background-color: #a72525; 
+	-webkit-border-radius: 10px; 
+	-moz-border-radius : 10px;
+} 
+
+.text_c{
+	text-align: "center";
+}
 
 .miaoshu_content{
 	margin-left:13px;

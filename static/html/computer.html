@@ -1,31 +1,33 @@
 <div>
 	<div class="panel panel-info">
 		<div class="panel-heading">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.cid}}">
-				{{computer.cid}}
-				</a>
-			</h4>
+			<div class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.cid}}">
+					{{computer.cid}}
+					</a>
+				<div style="float:right;" ng-style="computer.hbStyle"  class="circle">
+				</div>
+			</div>
 		</div>
 
 		<div id="{{computer.cid}}" class="panel-collapse collapse in">
 		   	<div class="panel-body">
 			
 				<div style="width:1024px; margin:0 auto;">
-					<div  contenteditable="true" style="-moz-border-radius: 4px;-khtml-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px; color:#d7d7d7; font-size:16px; text-align:center; background:url(static/img/bgt.png) repeat ; padding:5px 0px; ">
+					<div  contenteditable="true" style="-moz-border-radius: 4px;-khtml-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px; color:#d7d7d7; font-size:16px; text-align:center; background:url(static/img/buzou_back.jpg) repeat ; padding:5px 0px; ">
 
 						<div style="float:left; padding-left:10px;">
-							<font id="sid" color="red">{{computer.sid}}</font>
+							<font id="sid" color="black">{{computer.sid}}</font>
 						</div>
 						<div style="float:right; padding-right:10px;">
-							<font id="bid" color="red">{{computer.bid}}</font>
+							<font id="bid">{{computer.bid}}</font>
 						</div>
 						<div style=" clear:both;"></div>
 					</div>
 
-					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/bgt.png) repeat ; padding:5px; margin-bottom:10px;">
+					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/buzou_back1.jpg) repeat ; padding:5px; margin-bottom:10px;">
 
-						<div style=" text-align:center;  color:#d7d7d7;">
+						<div style=" text-align:center;">
 						  <div style="float:left; width:113px;">返回验证码 </div>
 						  <div style="float:left; width:180px; margin-left:34px;">提交用户名和密码信息</div>
 						  <div style="float:left; width:180px;">返回手机验证码</div>
@@ -35,11 +37,9 @@
 						  <div style=" clear:both;"></div>
 						</div>
 
-						<div style=" clear:both;"></div>
-
 					</div>
 
-					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/bgt.png) repeat ; padding:5px; margin-bottom:10px;">
+					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/buzou_back1.jpg) repeat ; padding:5px; margin-bottom:10px;">
 
 						<div style=" background:url(static/img/index_05.png) no-repeat; width:970px; height:67px; padding:14px 11px; margin:0px auto 0 auto;">
 

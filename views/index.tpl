@@ -10,7 +10,7 @@
 <body ng-app="monitor">
 <div class="panel panel-info" ng-controller="computers">
 	<div class="panel-heading">
-	  <h3 class="panel-title">monitor</h3>
+	  <h3 class="panel-title  text_c">Spider Monitor System</h3>
 	</div>
 	<div class="panel-body">
 		<computer ng-repeat="computer in computers"></computer>

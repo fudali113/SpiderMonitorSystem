@@ -17,26 +17,39 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
       	addComputer: function (data) {
-      		if (this.computers.length == 0) {
-      				var one = newComputer(data.pc_id)
-					one.receiveData(data.bank_status)
-					this.computers.push(one)
-      		}else{
-      			var nowComputer = undefined
-	        	for (var i = this.computers.length - 1; i >= 0; i--) {
-					if(data.pc_id == this.computers[i].cid){
-						nowComputer = i 
-					}
-				}
-				if (nowComputer != undefined) {
-					this.computers[nowComputer].receiveData(data.bank_status)
-				}else{
-						var one = newComputer(data.pc_id)
-						one.receiveData(data.bank_status)
-						this.computers.push(one)
+      		
+  			var nowComputer = undefined
+        	for (var i = this.computers.length - 1; i >= 0; i--) {
+				if(data.pc_id == this.computers[i].cid){
+					nowComputer = i 
 				}
 			}
+			if (nowComputer != undefined) {
+				this.computers[nowComputer].receiveData(data.bank_status)
+				if (data.hb != undefined) {
+					this.computers[nowComputer].hb = data.hb
+					this.setHbStyle(nowComputer)
+				}
+			}else{
+					var one = newComputer(data.pc_id)
+      				if (data.bank_status != undefined) {
+						one.receiveData(data.bank_status)
+      				}
+      				if (data.hb !=undefined) {
+      					one.hb = data.hb
+      				}
+					this.setHbStyle(this.computers.push(one)-1)
+			}
+
         	$rootScope.$broadcast( 'computers.update' );
+      	},
+      	setHbStyle:function(i){
+      		var hb = this.computers[i].hb
+      		if (hb == 0) {
+				this.computers[i].hbStyle.background = "red"
+			}else if (hb == 1) {
+				this.computers[i].hbStyle.background = "#00FF7F"
+			}
       	}
     }
     var websocket = new WebSocket("ws://"+WebSocketIP+":8080/ws");
@@ -54,6 +67,12 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
         }; 
     return service
 }]);
+
+monitor.filter('hb_filter',function(){
+	return function(input){
+		return input == 0 ? 'red' : 'green'
+	}
+})
 
 monitor.controller('computers',['$scope','computer',function($scope,computer){
 
@@ -75,6 +94,9 @@ var newComputer = function(cid){
 	var computer = {
 		s:0,
 		hb:1, //heartbeat
+		hbStyle:{
+			background:"blue"
+		},
 		cid:cid,
 		sid:undefined,
 		bid:undefined,
