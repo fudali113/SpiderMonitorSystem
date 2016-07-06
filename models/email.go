@@ -5,11 +5,13 @@ import (
 	"net/smtp"
 	"strings"
 )
-const(
-	user := "fuyi@shanlaohu.com"
-	password := "***"
-	host := "smtp.exmail.qq.com:25"
+
+const (
+	user     = "fuyi@shanlaohu.com"
+	password = "***"
+	host     = "smtp.exmail.qq.com:25"
 )
+
 var ()
 
 func SendToMail(user, password, host, to, subject, body, mailtype string) error {

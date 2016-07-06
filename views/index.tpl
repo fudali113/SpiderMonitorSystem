@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>look</title>
+  <title>Spider Monitor System</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -10,9 +10,17 @@
 <body ng-app="monitor">
 <div class="panel panel-info" ng-controller="computers">
 	<div class="panel-heading">
-	  <h3 class="panel-title  text_c">Spider Monitor System</h3>
-	</div>
+	  	<div class="panel-title">
+					<a href="#">
+					Spider Monitor System
+					</a>
+				<div style="float:right;">
+				<smss></smss>
+				</div>
+			</div>
+		</div>
 	<div class="panel-body">
+		<div ng-show="showDetails">i am sms details</div>
 		<computer ng-repeat="computer in computers"></computer>
 	</div>
 </div>
