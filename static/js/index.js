@@ -2,7 +2,11 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
+<<<<<<< HEAD
         templateUrl: '/theme?mr=' + Math.random(),
+=======
+        templateUrl: '/static/html/computer04.html',
+>>>>>>> ce945451a69368a9de219281cf30b3fc796510bd
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
@@ -143,6 +147,23 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		}).error(function(data){
 			alert("error")
 		});
+
+    $scope.param = {}
+
+    $scope.submitSetting = function(){
+    	$http({
+			url:'/setting',
+			method:'post',
+			data:$scope.param
+		}).success(function(data){
+			alert(data)
+		}).error(function(data){
+			alert("error")
+		});
+    }
+    $scope.submitDefalutSetting = function(){
+    	alert("go")
+    }
 
     $scope.param = {}
 
