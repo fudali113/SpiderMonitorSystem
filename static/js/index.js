@@ -2,7 +2,7 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
-        templateUrl: '/static/html/computer.html',
+        templateUrl: '/static/html/computer04.html',
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
@@ -118,7 +118,7 @@ monitor.filter('hb_filter',function(){
 	}
 })
 
-monitor.controller('computers',['$scope','computer',function($scope,computer){
+monitor.controller('computers',['$scope','$http','computer',function($scope,$http,computer){
 
 	$scope.$on( 'computers.update', function( event ) {
         $scope.computers = computer.computers;
@@ -135,12 +135,31 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
         $scope.$apply();
     }); 
 
+    $scope.param = {}
+
+    $scope.submitSetting = function(){
+    	$http({
+			url:'/setting',
+			method:'post',
+			data:$scope.param
+		}).success(function(data){
+			alert(data)
+		}).error(function(data){
+			alert("error")
+		});
+    }
+    $scope.submitDefalutSetting = function(){
+    	alert("go")
+    }
+
 	$scope.computers = computer.computers  //[newComputer("1234")]
 	$scope.showDetails = false
 	$scope.total = 0
 	$scope.active = 0
 	
 }])
+
+var animateLength = 58
 
 var newComputer = function(cid){
 	var computer = {
@@ -174,13 +193,13 @@ var newComputer = function(cid){
 		startStep : function(bfb){
 			var i = this.s
 			$("#"+this.cid+"_percent_"+i).text(bfb);
-			w =bfb*140/100;
+			w =bfb*animateLength/100;
 			$("#"+this.cid+"_animate_img_"+i).animate({width:w+"px"},bfb*100)
 		},
 		loadBegin : function(){
 			for(i=0;i<this.s;i++){
 				$("#"+this.cid+"_animate_img_"+i).stop(true,true);
-				$("#"+this.cid+"_animate_img_"+i).animate({width:140+"px"},"fast")
+				$("#"+this.cid+"_animate_img_"+i).animate({width:animateLength+"px"},"fast")
 				$("#"+this.cid+"_percent_"+i).text(100);
 			}
 		},

@@ -3,7 +3,6 @@ package controllers
 import (
 	"io/ioutil"
 	"look/models"
-	"strings"
 	"fmt"
 	"strconv"
 
@@ -25,9 +24,11 @@ func (this *SettingController) Post() {
 	
 	hbtime,err := strconv.Atoi(hbTime)
 	if err != nil {
-		result[success] = false
-		result[message] = "heartbeats time should is a number"
+		result["success"] = false
+		result["message"] = "heartbeats time should is a number"
 		this.Data["json"] = result
-		this.ServerJSON()
+		this.ServeJSON()
+		return
 	}
+	models.HeartBeatsTime = hbtime
 }
