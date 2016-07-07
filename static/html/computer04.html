@@ -13,8 +13,14 @@
 
 		<div id="{{computer.cid}}" class="panel-collapse collapse in">
 		   	<div class="panel-body">
+				<p><font color="#030303">step:</font><font color="#EE4000">{{computer.hository[computer.s].step}}</font></p>
+				<label for="name">sid:</label>
+    			<textarea ng-bind="computer.hository[computer.s].sid" class="form-control" rows="3" cols="20"></textarea>
+				<p><font color="#030303">bid:</font><font color="#EE4000">{{computer.hository[computer.s].bid}}</font></p>
 				<span ng-repeat="(k,v) in computer.hository[computer.s]">
+					<span ng-hide="hideAttr(k)">
 						<p><font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font></p>
+					</span>
 				</span>
 		  	</div>
 	  	</div>

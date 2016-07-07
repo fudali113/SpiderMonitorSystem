@@ -1,7 +1,6 @@
 package controllers
 
 import (
-<<<<<<< HEAD
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,24 +9,25 @@ import (
 
 	"github.com/astaxie/beego"
 )
-=======
-	"io/ioutil"
-	"look/models"
-	"fmt"
-	"strconv"
-
-	"github.com/astaxie/beego"
-) 
->>>>>>> ce945451a69368a9de219281cf30b3fc796510bd
 
 type SettingController struct {
 	beego.Controller
 }
+type DefalutController struct {
+	beego.Controller
+}
 
-<<<<<<< HEAD
+func (this *DefalutController) Post() {
+	models.HeartBeatsTime = 5000
+	nowTheme = 0
+	models.ToAddress = "fuyi@shanlaohu.com"
+	this.Data["json"] = true
+	this.ServeJSON()
+}
+
 func (this *SettingController) Get() {
 	result := map[string]interface{}{
-		"time":  models.HeartBeatsTime,
+		"time":  strconv.FormatInt(models.HeartBeatsTime, 10),
 		"theme": nowTheme,
 		"email": models.ToAddress}
 
@@ -49,6 +49,7 @@ func (this *SettingController) Post() {
 		this.Data["json"] = result
 		this.ServeJSON()
 	}()
+
 	body, _ := ioutil.ReadAll(this.Ctx.Request.Body)
 
 	json.Unmarshal(body, &params)
@@ -103,24 +104,3 @@ func createResultMap(s bool, m string) map[string]interface{} {
 func checkEmail(email string) bool {
 	return true
 }
-=======
-func (this *SettingController) Post() {
-	result := make(map[string]interface{})
-
-	hbTime := this.GetString("hbtime")
-
-	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
-	fmt.Println(string(body))
-	
-	
-	hbtime,err := strconv.Atoi(hbTime)
-	if err != nil {
-		result["success"] = false
-		result["message"] = "heartbeats time should is a number"
-		this.Data["json"] = result
-		this.ServeJSON()
-		return
-	}
-	models.HeartBeatsTime = hbtime
-}
->>>>>>> ce945451a69368a9de219281cf30b3fc796510bd

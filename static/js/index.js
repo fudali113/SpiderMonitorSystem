@@ -2,26 +2,14 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
-<<<<<<< HEAD
         templateUrl: '/theme?mr=' + Math.random(),
-=======
-        templateUrl: '/static/html/computer04.html',
->>>>>>> ce945451a69368a9de219281cf30b3fc796510bd
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
             scope.showDetails =   function(event,i){
 				$(event.target).parent().parent().parent().find(".miaoshu .miaoshu"+i).toggle(500).siblings().fadeOut();
 			}
-			scope.hideAttr = function(k){
-		    	var hides = ['sid','bid','step']
-		    	for (var i = hides.length - 1; i >= 0; i--) {
-		    		if (k == hides[i]) {
-		    			return true
-		    		}
-		    	}
-		    	return false
-		    }
+			
         }
     };
 });
@@ -162,9 +150,26 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		});
     }
     $scope.submitDefalutSetting = function(){
-    	alert("go")
+    	$http({
+			url:'/setting/default',
+			method:'post'
+		}).success(function(data){
+			if(data){
+				alert("Has returned to the default settings")
+			}
+		}).error(function(data){
+			alert("error")
+		});
     }
-
+	$scope.hideAttr = function(k){
+		    	var hides = ['sid','bid','step']
+		    	for (var i = hides.length - 1; i >= 0; i--) {
+		    		if (k == hides[i]) {
+		    			return true
+		    		}
+		    	}
+		    	return false
+		    }
     $scope.param = {}
 
     $scope.submitSetting = function(){

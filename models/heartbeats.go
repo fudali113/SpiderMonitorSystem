@@ -18,11 +18,7 @@ const (
 )
 
 var (
-<<<<<<< HEAD
 	HeartBeatsTime int64 = 5000
-=======
-	HeartBeatsTime int
->>>>>>> ce945451a69368a9de219281cf30b3fc796510bd
 )
 
 func RecordPcLastTime(pcstatus []byte) {
@@ -70,12 +66,8 @@ func checkHB() {
 			for k, v := range History {
 				nowTime := time.Now().Unix()
 				missTime := nowTime - v
-<<<<<<< HEAD
 				if missTime > HeartBeatsTime/1000 {
-=======
-				if missTime > 10 {
->>>>>>> ce945451a69368a9de219281cf30b3fc796510bd
-					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 1})
+					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 0})
 				}
 			}
 			t1.Reset(time.Millisecond * time.Duration(HeartBeatsTime))
