@@ -2,7 +2,7 @@ var monitor = angular.module('monitor', []);
 monitor.directive('computer', function() {
     return {
         restrict: 'E',
-        templateUrl: '/static/html/computer.html',
+        templateUrl: '/theme?mr=' + Math.random(),
         replace: true,
         link:function(scope, el, attr) {  
         	$(".miaoshu div").css("display","none");
@@ -30,6 +30,19 @@ monitor.directive('smss',function(){
 			
 		},
 		templateUrl: '/static/html/smss.html'
+	}
+})
+
+monitor.directive('setting',function(){
+	return {
+		restrict: 'E',
+		replace: true,
+		link:function(scope){
+			scope.setting = function(){
+				
+			}
+		},
+		templateUrl: '/static/html/setting.html'
 	}
 })
 
@@ -98,26 +111,55 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     return service
 }]);
 
-monitor.filter('hide_attr_filter',function(){
+monitor.filter('hb_filter',function(){
 	return function(input){
-		var html = ''
-		var kv = input.split(":")
-		var k = kv[0]
-		if (k == "sid" || k =="bid" || k =="step") {}else{
-			hmtl = '<br><font color="#030303">'+k+':</font><font color="#EE4000">'+kv[1]+'</font>'
-		}
-		return html
+		var r = input == 0 ? 0 : 1 
+		return r
 	}
 })
 
-monitor.controller('computers',['$scope','computer',function($scope,computer){
+monitor.controller('computers',['$scope','$http','computer',function($scope,$http,computer){
 
 	$scope.$on( 'computers.update', function( event ) {
         $scope.computers = computer.computers;
 		$scope.total = computer.total
 		$scope.active = computer.active
+		for (var i = computer.computers.length - 1; i >= 0; i--) {
+			var c = computer.computers[i]
+			if (c.hb == 0) {
+				$('#'+c.cid).collapse('hide')
+			}else{
+				$('#'+c.cid).collapse('show')
+			}
+		}
         $scope.$apply();
     }); 
+	
+	$http({
+			url:'/setting',
+			method:'get',
+		}).success(function(data){
+			$scope.param = data
+		}).error(function(data){
+			alert("error")
+		});
+
+    $scope.param = {}
+
+    $scope.submitSetting = function(){
+    	$http({
+			url:'/setting',
+			method:'post',
+			data:$scope.param
+		}).success(function(data){
+			alert(data)
+		}).error(function(data){
+			alert("error")
+		});
+    }
+    $scope.submitDefalutSetting = function(){
+    	alert("go")
+    }
 
 	$scope.computers = computer.computers  //[newComputer("1234")]
 	$scope.showDetails = false
@@ -125,6 +167,8 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
 	$scope.active = 0
 	
 }])
+
+var animateLength = 58
 
 var newComputer = function(cid){
 	var computer = {
@@ -158,13 +202,13 @@ var newComputer = function(cid){
 		startStep : function(bfb){
 			var i = this.s
 			$("#"+this.cid+"_percent_"+i).text(bfb);
-			w =bfb*140/100;
+			w =bfb*animateLength/100;
 			$("#"+this.cid+"_animate_img_"+i).animate({width:w+"px"},bfb*100)
 		},
 		loadBegin : function(){
 			for(i=0;i<this.s;i++){
 				$("#"+this.cid+"_animate_img_"+i).stop(true,true);
-				$("#"+this.cid+"_animate_img_"+i).animate({width:140+"px"},"fast")
+				$("#"+this.cid+"_animate_img_"+i).animate({width:animateLength+"px"},"fast")
 				$("#"+this.cid+"_percent_"+i).text(100);
 			}
 		},

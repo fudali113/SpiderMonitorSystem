@@ -1,0 +1,151 @@
+<div>
+	<div class="panel panel-info" style="float:left;">
+		<div class="panel-heading">
+			<div class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.cid}}">
+					{{computer.cid}}
+					</a>
+				<div style="float:right;text-align:center" ng-style="computer.hbStyle"  class="circle">
+					<strong>{{computer.hb | hb_filter}}</strong>
+				</div>
+			</div>
+		</div>
+
+		<div id="{{computer.cid}}" class="panel-collapse collapse in">
+		   	<div class="panel-body">
+			
+				<div style="width:405px       ; margin:0 auto;">
+					<div  contenteditable="true" style="-moz-border-radius: 4px;-khtml-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px; color:#d7d7d7; font-size:16px; text-align:center; background:url(static/img/buzou_back.jpg) repeat ; padding:5px 0px; ">
+
+						<div style="float:left; padding-left:10px;">
+							<font id="sid" color="black">{{computer.sid}}</font>
+						</div>
+						<div style="float:right; padding-right:10px;">
+							<font id="bid" color="black">bid:{{computer.bid}}</font>
+						</div>
+						<div style=" clear:both;"></div>
+					</div>
+
+					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/buzou_back1.jpg) repeat ; padding:5px; margin-bottom:10px;">
+
+						<div style=" text-align:center;">
+						  <div style="float:left; width:38px     ;">captcha</div>
+						  <div style="float:left; width:60px      ; margin-left:17px       ;">sign in</div>
+						  <div style="float:left; width:60px      ;">phone code</div>
+						  <div style="float:left; width:60px      ;">submit code</div>
+						  <div style="float:left; width:60px      ;">login success</div>
+						  <div style="float:left; width:44px      ; text-align:left; text-indent:20px;">success</div>
+						  <div style=" clear:both;"></div>
+						</div>
+
+					</div>
+
+					<div class="xiangmu" style="-moz-border-radius: 6px;-khtml-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;   background:url(static/img/buzou_back1.jpg) repeat ; padding:5px; margin-bottom:10px;">
+
+						<div style=" background:url(static/img/index_03.png) no-repeat; width:485px    ; height:33px   ; padding:        7px 6px; margin:0px auto 0 auto;">
+
+							<div class="c1" ng-click="showDetails($event,1)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+							<div class="bfb1" style=" width:58px	; height:13px	; float:left; padding-top:6px    ;  ">
+								<img id="{{computer.cid}}_animate_img_1" style=" height:6px    ; display:block; width:0px; " src="static/img/1.png">
+							</div>
+
+							<div class="c2" ng-click="showDetails($event,2)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+							<div class="bfb2" style=" width:58px	; height:20px     ; float:left;  padding-top:6px    ;  ">
+								<img id="{{computer.cid}}_animate_img_2" style="  width:0px; height:6px    ; display:block;" src="static/img/2.png">
+							</div>
+
+							<div class="c3" ng-click="showDetails($event,3)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+							<div  class="bfb3" style=" width:58px	; height:20px     ; float:left;   padding-top:6px    ;  ">
+								<img id="{{computer.cid}}_animate_img_3" style=" height:6px    ; width:0px; display:block;" src="static/img/3.png">
+							</div>
+
+							<div class="c4" ng-click="showDetails($event,4)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+							<div  class="bfb4" style=" width:58px	; height:20px     ; float:left;   padding-top:6px    ;  ">
+								<img id="{{computer.cid}}_animate_img_4" style=" height:6px    ; display:block;  width:0px;" src="static/img/4.png">
+							</div>
+
+							<div class="c5" ng-click="showDetails($event,5)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+							<div  class="bfb5" style=" width:58px	; height:20px     ; float:left;  padding-top:6px    ;  ">
+								<img id="{{computer.cid}}_animate_img_5" style=" height:6px    ; display:block; width:0px;" src="static/img/5.png">
+							</div>
+
+							<div class="c6" ng-click="showDetails($event,6)" style=" width:14px     ; height:20px     ; float:left; cursor:pointer;"></div>
+
+							<div style=" clear:both;"></div>
+
+						</div>
+
+					</div>
+
+					<div class="miaoshu" style=" position:relative; ">
+
+						<div class="miaoshu1"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:-18px;" >	
+							进度： <span id="{{computer.cid}}_percent_1" class="span1" contenteditable="true" style="">0</span><font>%</font>
+							<span ng-repeat="(k,v) in computer.hository[1]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+
+						<div class="miaoshu2"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:105px;" > 
+						    进度： <span id="{{computer.cid}}_percent_2" class="span2" contenteditable="true" style="">0</span><font>%</font>
+						    <span ng-repeat="(k,v) in computer.hository[2]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+
+						<div class="miaoshu3"   style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:290px;" > 
+							进度： <span id="{{computer.cid}}_percent_3" contenteditable="true" style="" class="span3">0</span><font>%</font>
+							<span ng-repeat="(k,v) in computer.hository[3]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+					  
+						<div class="miaoshu4"  style="  margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute;  top:10px; left:470px;" > 
+							进度： <span id="{{computer.cid}}_percent_4" contenteditable="true" style="" class="span4">0</span><font>%</font>
+							<span ng-repeat="(k,v) in computer.hository[4]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+
+						<div class="miaoshu5"  style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:650px;" > 
+							进度： <span id="{{computer.cid}}_percent_5" contenteditable="true" style="" class="span5">0</span><font>%</font>
+							<span ng-repeat="(k,v) in computer.hository[5]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+
+						<div class="miaoshu6"   style="   margin-left:13px;-moz-border-radius: 11px;-khtml-border-radius: 11px;-webkit-border-radius: 11px;border-radius: 11px;  background:url(static/img/bgt.png) repeat ; padding:10px; display:inline-block;width:225px; height:auto;  position:absolute; top:10px; left:762px;" >
+							<span ng-repeat="(k,v) in computer.hository[6]">
+								<span ng-hide="hideAttr(k)">
+									<br>
+									<font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font>
+								</span>
+							</span>
+						</div>
+
+					  	<div style=" clear:both;"></div>
+
+					</div>
+
+		  			<div style=" clear:both;"></div>
+
+		  		</div>
+		  	</div>
+	  	</div>
+	</div>
+</div>

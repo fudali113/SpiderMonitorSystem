@@ -1,0 +1,22 @@
+<div>
+	<div class="panel panel-info" style="float:left;">
+		<div class="panel-heading">
+			<div class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.cid}}">
+					{{computer.cid}}
+					</a>
+				<div style="float:right;text-align:center" ng-style="computer.hbStyle"  class="circle">
+					<strong>{{computer.hb | hb_filter}}</strong>
+				</div>
+			</div>
+		</div>
+
+		<div id="{{computer.cid}}" class="panel-collapse collapse in">
+		   	<div class="panel-body">
+				<span ng-repeat="(k,v) in computer.hository[computer.s]">
+						<p><font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font></p>
+				</span>
+		  	</div>
+	  	</div>
+	</div>
+</div>

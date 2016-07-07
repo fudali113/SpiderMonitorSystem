@@ -12,7 +12,9 @@ const (
 	host     = "smtp.exmail.qq.com:25"
 )
 
-var ()
+var (
+	ToAddress = "fuyi@shanlaohu.com"
+)
 
 func SendToMail(user, password, host, to, subject, body, mailtype string) error {
 	hp := strings.Split(host, ":")

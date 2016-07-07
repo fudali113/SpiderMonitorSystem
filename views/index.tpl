@@ -20,7 +20,9 @@
 			</div>
 		</div>
 	<div class="panel-body">
-		<div ng-show="showDetails">i am sms details</div>
+		<div ng-show="showDetails">
+			<setting></setting>
+		</div>
 		<computer ng-repeat="computer in computers"></computer>
 	</div>
 </div>

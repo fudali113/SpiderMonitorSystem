@@ -17,6 +17,10 @@ const (
 	checkTimer = time.Second * 5
 )
 
+var (
+	HeartBeatsTime int64 = 5000
+)
+
 func RecordPcLastTime(pcstatus []byte) {
 	s := &HeartBeats{HeartBeats: -1}
 	err := json.Unmarshal(pcstatus, s)
@@ -62,11 +66,11 @@ func checkHB() {
 			for k, v := range History {
 				nowTime := time.Now().Unix()
 				missTime := nowTime - v
-				if missTime > 10 {
-					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 0})
+				if missTime > HeartBeatsTime/1000 {
+					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 1})
 				}
 			}
-			t1.Reset(checkTimer)
+			t1.Reset(time.Millisecond * time.Duration(HeartBeatsTime))
 
 		case <-t2.C:
 			t2.Reset(time.Second * 10)
