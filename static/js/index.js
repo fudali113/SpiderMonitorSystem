@@ -33,6 +33,19 @@ monitor.directive('smss',function(){
 	}
 })
 
+monitor.directive('setting',function(){
+	return {
+		restrict: 'E',
+		replace: true,
+		link:function(scope){
+			scope.setting = function(){
+				
+			}
+		},
+		templateUrl: '/static/html/setting.html'
+	}
+})
+
 monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
@@ -111,6 +124,14 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
         $scope.computers = computer.computers;
 		$scope.total = computer.total
 		$scope.active = computer.active
+		for (var i = computer.computers.length - 1; i >= 0; i--) {
+			var c = computer.computers[i]
+			if (c.hb == 0) {
+				$('#'+c.cid).collapse('hide')
+			}else{
+				$('#'+c.cid).collapse('show')
+			}
+		}
         $scope.$apply();
     }); 
 
