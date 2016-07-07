@@ -79,15 +79,10 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     return service
 }]);
 
-monitor.filter('hide_attr_filter',function(){
+monitor.filter('hb_filter',function(){
 	return function(input){
-		var html = ''
-		var kv = input.split(":")
-		var k = kv[0]
-		if (k == "sid" || k =="bid" || k =="step") {}else{
-			hmtl = '<br><font color="#030303">'+k+':</font><font color="#EE4000">'+kv[1]+'</font>'
-		}
-		return html
+		var r = input == 0 ? 0 : 1 
+		return r
 	}
 })
 
