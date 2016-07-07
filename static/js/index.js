@@ -22,15 +22,32 @@ monitor.directive('computer', function() {
     };
 });
 
+monitor.directive('smss',function(){
+	return {
+		restrict: 'E',
+		replace: true,
+		link:function(scope){
+			
+		},
+		templateUrl: '/static/html/smss.html'
+	}
+})
+
 monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
+		total:0,
+		active:0,
       	addComputer: function (data) {
       		
   			var nowComputer = undefined
+			var activeNum = 0
         	for (var i = this.computers.length - 1; i >= 0; i--) {
 				if(data.pc_id == this.computers[i].cid){
 					nowComputer = i 
+				}
+				if(this.computers[i].hb != 0){
+					activeNum++
 				}
 			}
 			if (nowComputer != undefined) {
@@ -52,6 +69,8 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 					this.setHbStyle(this.computers.push(one)-1)
 			}
 
+			this.active = activeNum
+			this.total = this.computers.length
         	$rootScope.$broadcast( 'computers.update' );
       	},
       	setHbStyle:function(i){
@@ -90,10 +109,15 @@ monitor.controller('computers',['$scope','computer',function($scope,computer){
 
 	$scope.$on( 'computers.update', function( event ) {
         $scope.computers = computer.computers;
+		$scope.total = computer.total
+		$scope.active = computer.active
         $scope.$apply();
     }); 
 
 	$scope.computers = computer.computers  //[newComputer("1234")]
+	$scope.showDetails = false
+	$scope.total = 0
+	$scope.active = 0
 	
 }])
 
