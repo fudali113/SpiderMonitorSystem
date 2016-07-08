@@ -47,7 +47,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
       		
   			var nowComputer = undefined
 			var activeNum = 0
-        	for (var i = this.computers.length - 1; i >= 0; i--) {
+        		for (var i = this.computers.length - 1; i >= 0; i--) {
 				if(data.pc_id == this.computers[i].cid){
 					nowComputer = i 
 				}
@@ -62,6 +62,9 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 				if (data.hb != undefined) {
 					this.computers[nowComputer].hb = data.hb
 					this.setHbStyle(nowComputer)
+				}
+				if (data.ip != undefined) {
+					this.computers[nowComputer].ip = data.ip
 				}
 			}else{
 					var one = newComputer(data.pc_id)
@@ -205,6 +208,7 @@ var newComputer = function(cid){
 		hbStyle:{
 			background:"blue"
 		},
+		ip:undefined,
 		cid:cid,
 		sid:undefined,
 		bid:undefined,

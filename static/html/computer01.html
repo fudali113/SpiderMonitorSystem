@@ -3,7 +3,7 @@
 		<div class="panel-heading">
 			<div class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.cid}}">
-					{{computer.cid}}
+					{{computer.cid +"__" + computer.ip}}
 					</a>
 				<div style="float:right;text-align:center" ng-style="computer.hbStyle"  class="circle">
 					<strong>{{computer.hb | hb_filter}}</strong>

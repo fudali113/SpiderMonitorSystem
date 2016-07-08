@@ -10,7 +10,7 @@ import (
 
 const (
 	user     = "fuyi@shanlaohu.com"
-	password = ""
+	password = "fudali133B"
 	host     = "smtp.exmail.qq.com:25"
 )
 
@@ -25,12 +25,16 @@ type Email struct {
 	MailType string
 }
 
-func SendEmail(email Email) error {
+func SendEmail(email Email) {
 	to := email.To
 	subject := email.Subject
 	body := email.Body
 	mailtype := email.MailType
-	return SendToMail(user, password, host, to, subject, body, mailtype)
+	err := SendToMail(user, password, host, to, subject, body, mailtype)
+	if err != nil {
+		fmt.Println(err)
+		SendEmail(email)
+	}
 }
 func SendToMail(user, password, host, to, subject, body, mailtype string) error {
 	hp := strings.Split(host, ":")
@@ -81,9 +85,6 @@ func main() {
 
 	email := Email{To: to, Subject: subject, Body: bodyStr, MailType: "html"}
 	fmt.Println("send email")
-	err1 := SendEmail(email)
-	if err1 != nil {
-		fmt.Println("error")
-	}
+	SendEmail(email)
 
 }

@@ -11,8 +11,14 @@ type HeartBeats struct {
 	HeartBeats int    `json:"hb"`
 }
 
+type StepLastInfo struct {
+	Time int64
+	Data string
+}
+
 var History map[string]int64
 var HistoryData map[string]string
+var HistoryStep map[string]StepLastInfo
 
 const (
 	checkTimer = time.Second * 5
@@ -84,10 +90,7 @@ func checkHB() {
 						Subject:  "haved a computer is down",
 						Body:     body,
 						MailType: "html"}
-					err := SendEmail(email)
-					if err != nil {
-						SendEmail(email)
-					}
+					SendEmail(email)
 					delete(History, k)
 					fmt.Println("send one email to " + ToAddress)
 				}

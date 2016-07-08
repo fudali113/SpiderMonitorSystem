@@ -20,7 +20,7 @@ type DefalutController struct {
 func (this *DefalutController) Post() {
 	models.HeartBeatsTime = 5000
 	nowTheme = 0
-	models.ToAddress = "fuyi@shanlaohu.com"
+	models.ToAddress = "591327191.com"
 	this.Data["json"] = true
 	this.ServeJSON()
 }
@@ -28,7 +28,7 @@ func (this *DefalutController) Post() {
 func (this *SettingController) Get() {
 	result := map[string]interface{}{
 		"time":     strconv.FormatInt(models.HeartBeatsTime, 10),
-		"theme":    nowTheme,
+		"theme":    strconv.Itoa(nowTheme),
 		"email":    models.ToAddress,
 		"sendtime": strconv.FormatInt(models.PcDownSendEmailTime, 10)}
 
@@ -69,7 +69,7 @@ func (this *SettingController) Post() {
 			result["time"] = createResultMap(false, "heartbeats time should is a number")
 		} else {
 			models.HeartBeatsTime = hbtime
-			result["time"] = createResultMap(true, "")
+			result["time"] = createResultMap(true, strconv.FormatInt(models.HeartBeatsTime, 10))
 		}
 	}
 
@@ -80,7 +80,7 @@ func (this *SettingController) Post() {
 			result["sendtime"] = createResultMap(false, "send time should is a number")
 		} else {
 			models.PcDownSendEmailTime = pdset
-			result["sendtime"] = createResultMap(true, "")
+			result["sendtime"] = createResultMap(true, strconv.FormatInt(models.PcDownSendEmailTime, 10))
 		}
 	}
 
@@ -91,7 +91,7 @@ func (this *SettingController) Post() {
 			result["theme"] = createResultMap(false, "theme should is a number")
 		} else {
 			nowTheme = themeNo
-			result["theme"] = createResultMap(true, "")
+			result["theme"] = createResultMap(true, strconv.Itoa(nowTheme))
 		}
 	}
 
@@ -101,7 +101,7 @@ func (this *SettingController) Post() {
 			result["email"] = createResultMap(false, "mail format is error")
 		} else {
 			models.ToAddress = to
-			result["email"] = createResultMap(true, "")
+			result["email"] = createResultMap(true, models.ToAddress)
 		}
 	}
 }
