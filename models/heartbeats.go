@@ -12,16 +12,18 @@ type HeartBeats struct {
 }
 
 var History map[string]int64
+var HistoryData map[string]string
 
 const (
 	checkTimer = time.Second * 5
 )
 
 var (
-	HeartBeatsTime int64 = 5000
+	HeartBeatsTime      int64 = 5000
+	PcDownSendEmailTime int64 = 5
 )
 
-func RecordPcLastTime(pcstatus []byte) {
+func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息的时间
 	s := &HeartBeats{HeartBeats: -1}
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
@@ -32,6 +34,7 @@ func RecordPcLastTime(pcstatus []byte) {
 		sendPcDown(s)
 	}
 	pcid := s.Cid
+	HistoryData[pcid] = string(pcstatus)
 	if notIn(pcid) {
 		go func() {
 			time.Sleep(time.Millisecond * 500)
@@ -69,11 +72,30 @@ func checkHB() {
 				if missTime > HeartBeatsTime/1000 {
 					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 0})
 				}
+				if missTime > PcDownSendEmailTime*60 {
+					m := map[string]interface{}{
+						"before":   missTime,
+						"pc_id":    k,
+						"downTime": v,
+						"lastData": HistoryData[k]}
+
+					body, _ := GetHtmlWithTpl("views/email.tpl", m)
+					email := Email{To: ToAddress,
+						Subject:  "haved a computer is down",
+						Body:     body,
+						MailType: "html"}
+					err := SendEmail(email)
+					if err != nil {
+						SendEmail(email)
+					}
+					delete(History, k)
+					fmt.Println("send one email to " + ToAddress)
+				}
 			}
 			t1.Reset(time.Millisecond * time.Duration(HeartBeatsTime))
 
 		case <-t2.C:
-			t2.Reset(time.Second * 10)
+			t2.Reset(time.Minute * time.Duration(PcDownSendEmailTime))
 		}
 	}
 }
@@ -86,5 +108,6 @@ func sendPcDown(hb *HeartBeats) {
 func init() {
 	fmt.Println("checkHB is init")
 	History = make(map[string]int64)
+	HistoryData = make(map[string]string)
 	go checkHB()
 }

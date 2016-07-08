@@ -128,18 +128,19 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
     }); 
 	
 	$http({
-			url:'/setting',
-			method:'get',
-		}).success(function(data){
-			$scope.param = data
-		}).error(function(data){
-			alert("error")
-		});
+		url:'/setting',
+		method:'get',
+	}).success(function(data){
+		$scope.param = data
+		animateLength = animateLengths[data.theme]
+	}).error(function(data){
+		alert("error")
+	});
 
     $scope.param = {}
 
     $scope.submitSetting = function(){
-    	$http({
+    		$http({
 			url:'/setting',
 			method:'post',
 			data:$scope.param
@@ -150,7 +151,7 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		});
     }
     $scope.submitDefalutSetting = function(){
-    	$http({
+    		$http({
 			url:'/setting/default',
 			method:'post'
 		}).success(function(data){
@@ -194,7 +195,8 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 	
 }])
 
-var animateLength = 58
+var animateLength = 140
+var animateLengths = [140,70,58,0]
 
 var newComputer = function(cid){
 	var computer = {

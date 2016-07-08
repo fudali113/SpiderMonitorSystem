@@ -27,9 +27,10 @@ func (this *DefalutController) Post() {
 
 func (this *SettingController) Get() {
 	result := map[string]interface{}{
-		"time":  strconv.FormatInt(models.HeartBeatsTime, 10),
-		"theme": nowTheme,
-		"email": models.ToAddress}
+		"time":     strconv.FormatInt(models.HeartBeatsTime, 10),
+		"theme":    nowTheme,
+		"email":    models.ToAddress,
+		"sendtime": strconv.FormatInt(models.PcDownSendEmailTime, 10)}
 
 	this.Data["json"] = result
 	this.ServeJSON()
@@ -57,6 +58,7 @@ func (this *SettingController) Post() {
 	fmt.Println(params)
 
 	time := params["time"]
+	sendtime := params["sendtime"]
 	theme := params["theme"]
 	email := params["email"]
 
@@ -68,6 +70,17 @@ func (this *SettingController) Post() {
 		} else {
 			models.HeartBeatsTime = hbtime
 			result["time"] = createResultMap(true, "")
+		}
+	}
+
+	if sendtime != nil {
+		pdset, err := strconv.ParseInt(sendtime.(string), 10, 64)
+		if err != nil {
+			fmt.Println(err)
+			result["sendtime"] = createResultMap(false, "send time should is a number")
+		} else {
+			models.PcDownSendEmailTime = pdset
+			result["sendtime"] = createResultMap(true, "")
 		}
 	}
 
