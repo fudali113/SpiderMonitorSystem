@@ -10,7 +10,7 @@ import (
 
 const (
 	user     = "fuyi@shanlaohu.com"
-	password = "fudali133B"
+	password = ""
 	host     = "smtp.exmail.qq.com:25"
 )
 
