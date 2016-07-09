@@ -7,8 +7,15 @@ import (
 )
 
 type HeartBeats struct {
-	Cid        string `json:"pc_id"`
-	HeartBeats int    `json:"hb"`
+	Cid string `json:"pc_id"`
+	Hb  int    `json:"hb"`
+}
+
+type PcStatus struct {
+	Cid          string                 `json:"pc_id"`
+	Hb           int                    `json:"hb"`
+	Ip           string                 `json:"ip"`
+	SpiderStatus map[string]interface{} `json:"bank_status"`
 }
 
 type StepLastInfo struct {
@@ -30,28 +37,52 @@ var (
 )
 
 func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息的时间
-	s := &HeartBeats{HeartBeats: -1}
+	s := &PcStatus{Hb: -1}
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
 		fmt.Println(err)
 	}
-	if s.HeartBeats == 0 {
-		fmt.Println(s.Cid)
-		sendPcDown(s)
-	}
+
+	fmt.Println(s)
+
 	pcid := s.Cid
-	HistoryData[pcid] = string(pcstatus)
+	ip := s.Ip
+	execption := s.SpiderStatus["exception"]
+
+	if execption != "" {
+		m := map[string]interface{}{
+			"pcid": pcid,
+			"ip":   ip,
+			"ss":   s.SpiderStatus,
+			"data": string(pcstatus)}
+
+		body, _ := GetHtmlWithTpl("views/execption.tpl", m)
+		email := Email{To: ToAddress,
+			Subject:  "haved a spider in execption",
+			Body:     body,
+			MailType: "html"}
+		SendEmail(email)
+	}
+
+	if pcid == "" {
+		return
+	}
+
+	if s.Hb == 0 {
+		fmt.Println(s.Cid)
+		sendPcDown(&HeartBeats{Cid: pcid, Hb: 0})
+	}
+
 	if notIn(pcid) {
 		go func() {
 			time.Sleep(time.Millisecond * 500)
 			Messages <- string(pcstatus)
 		}()
 	}
-	if pcid != "" {
-		nowTime := time.Now().Unix()
-		History[pcid] = nowTime
-		sendPcDown(&HeartBeats{Cid: pcid, HeartBeats: 1})
-	}
+
+	History[pcid] = time.Now().Unix()
+	HistoryData[pcid] = string(pcstatus)
+	sendPcDown(&HeartBeats{Cid: pcid, Hb: 1})
 }
 
 func notIn(id string) bool {
@@ -76,7 +107,7 @@ func checkHB() {
 				nowTime := time.Now().Unix()
 				missTime := nowTime - v
 				if missTime > HeartBeatsTime/1000 {
-					sendPcDown(&HeartBeats{Cid: k, HeartBeats: 0})
+					sendPcDown(&HeartBeats{Cid: k, Hb: 0})
 				}
 				if missTime > PcDownSendEmailTime*60 {
 					m := map[string]interface{}{
