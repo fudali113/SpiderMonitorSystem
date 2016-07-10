@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"look/mysql"
 	"time"
 )
 
@@ -41,19 +42,27 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	fmt.Println(s)
 
+	ss := s.SpiderStatus
+	fmt.Println(ss)
+	fmt.Println(ss["sid"])
+
 	pcid := s.Cid
 	ip := s.Ip
-	execption := s.SpiderStatus["exception"]
+	execption := ss["execption"].(string)
+	step := int(ss["step"].(float64))
+	bid := ss["bid"].(string)
+	sid := ss["sid"].(string)
 
 	if execption != "" {
 		m := map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
-			"ss":   s.SpiderStatus,
+			"ss":   ss,
 			"data": string(pcstatus)}
 
 		body, _ := GetHtmlWithTpl("views/execption.tpl", m)
@@ -62,6 +71,21 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 			Body:     body,
 			MailType: "html"}
 		SendEmail(email)
+		mysql.InsertExecption(&mysql.Execption{
+			Pcid:      pcid,
+			Ip:        ip,
+			Step:      step,
+			Bid:       bid,
+			Execption: execption,
+			Data:      string(pcstatus)})
+	} else {
+		mysql.InsertAll(&mysql.All{
+			Pcid: pcid,
+			Ip:   ip,
+			Step: step,
+			Bid:  bid,
+			Sid:  sid,
+			All:  string(pcstatus)})
 	}
 
 	if pcid == "" {
