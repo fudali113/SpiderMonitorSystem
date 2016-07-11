@@ -57,12 +57,14 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 	step := int(ss["step"].(float64))
 	bid := ss["bid"].(string)
 	sid := ss["sid"].(string)
+	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
 	if execption != "" {
 		m := map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
 			"ss":   ss,
+			"time": nowTime,
 			"data": string(pcstatus)}
 
 		body, _ := GetHtmlWithTpl("views/execption.tpl", m)
@@ -70,16 +72,20 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 			Subject:  "haved a spider in execption",
 			Body:     body,
 			MailType: "html"}
-		SendEmail(email)
-		mysql.InsertExecption(&mysql.Execption{
-			Pcid:      pcid,
-			Ip:        ip,
-			Step:      step,
-			Bid:       bid,
-			Execption: execption,
-			Data:      string(pcstatus)})
+
+		go func() {
+			SendEmail(email)
+			mysql.InsertExecption(&mysql.Execption{
+				Pcid:      pcid,
+				Ip:        ip,
+				Step:      step,
+				Bid:       bid,
+				Execption: execption,
+				Data:      string(pcstatus)})
+		}()
+
 	} else {
-		mysql.InsertAll(&mysql.All{
+		go mysql.InsertAll(&mysql.All{
 			Pcid: pcid,
 			Ip:   ip,
 			Step: step,
@@ -130,24 +136,28 @@ func checkHB() {
 			for k, v := range History {
 				nowTime := time.Now().Unix()
 				missTime := nowTime - v
+				downTimeStr := time.Unix(v, 0).Format("2006-01-02 15:04:05")
+
 				if missTime > HeartBeatsTime/1000 {
 					sendPcDown(&HeartBeats{Cid: k, Hb: 0})
 				}
 				if missTime > PcDownSendEmailTime*60 {
-					m := map[string]interface{}{
-						"before":   missTime,
-						"pc_id":    k,
-						"downTime": v,
-						"lastData": HistoryData[k]}
+					go func() {
+						m := map[string]interface{}{
+							"before":   missTime,
+							"pc_id":    k,
+							"downTime": downTimeStr,
+							"lastData": HistoryData[k]}
 
-					body, _ := GetHtmlWithTpl("views/email.tpl", m)
-					email := Email{To: ToAddress,
-						Subject:  "haved a computer is down",
-						Body:     body,
-						MailType: "html"}
-					SendEmail(email)
-					delete(History, k)
-					fmt.Println("send one email to " + ToAddress)
+						body, _ := GetHtmlWithTpl("views/email.tpl", m)
+						email := Email{To: ToAddress,
+							Subject:  "haved a computer is down",
+							Body:     body,
+							MailType: "html"}
+						SendEmail(email)
+						delete(History, k)
+					}()
+
 				}
 			}
 			t1.Reset(time.Millisecond * time.Duration(HeartBeatsTime))
