@@ -6,6 +6,7 @@ CREATE TABLE `monitor`.`all_data` (
   `bid` VARCHAR(45) NULL,
   `sid` VARCHAR(128) NULL,
   `all` VARCHAR(1000) NULL,
+  `execption` VARCHAR(1000) NULL,
   `deadtime` DATETIME NOT NULL,
   PRIMARY KEY (`id`));
 

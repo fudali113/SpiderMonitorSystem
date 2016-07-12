@@ -84,15 +84,16 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 				Data:      string(pcstatus)})
 		}()
 
-	} else {
-		go mysql.InsertAll(&mysql.All{
-			Pcid: pcid,
-			Ip:   ip,
-			Step: step,
-			Bid:  bid,
-			Sid:  sid,
-			All:  string(pcstatus)})
 	}
+
+	go mysql.InsertAll(&mysql.All{
+		Pcid:      pcid,
+		Ip:        ip,
+		Step:      step,
+		Bid:       bid,
+		Sid:       sid,
+		All:       string(pcstatus),
+		Execption: execption})
 
 	if pcid == "" {
 		return

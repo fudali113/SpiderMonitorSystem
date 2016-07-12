@@ -8,14 +8,15 @@ import (
 )
 
 type All struct {
-	Id   int
-	Pcid string
-	Ip   string
-	Step int
-	Bid  string
-	Sid  string
-	All  string
-	Time time.Time `orm:"auto_now_add;type(datetime)"`
+	Id        int
+	Pcid      string
+	Ip        string
+	Step      int
+	Bid       string
+	Sid       string
+	All       string
+	Execption string
+	Time      time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
 func (a *All) TableName() string {
