@@ -7,6 +7,7 @@ import (
 )
 
 func init() {
+	beego.AutoRouter(&controllers.DataController{})
 	beego.Router("/theme", &controllers.ThemeController{})
 	beego.Router("/setting", &controllers.SettingController{})
 	beego.Router("/setting/default", &controllers.DefalutController{})

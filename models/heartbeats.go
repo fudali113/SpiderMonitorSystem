@@ -84,15 +84,24 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 				Data:      string(pcstatus)})
 		}()
 
-	} else {
-		go mysql.InsertAll(&mysql.All{
+	}
+
+	go func() {
+		mysql.InsertAll(&mysql.All{
+			Pcid:      pcid,
+			Ip:        ip,
+			Step:      step,
+			Bid:       bid,
+			Sid:       sid,
+			Execption: execption,
+			All:       string(pcstatus)})
+
+		mysql.IOUFinish(&mysql.Finish{
 			Pcid: pcid,
-			Ip:   ip,
-			Step: step,
 			Bid:  bid,
 			Sid:  sid,
-			All:  string(pcstatus)})
-	}
+			Step: step})
+	}()
 
 	if pcid == "" {
 		return
@@ -143,6 +152,7 @@ func checkHB() {
 				}
 				if missTime > PcDownSendEmailTime*60 {
 					go func() {
+						mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})
 						m := map[string]interface{}{
 							"before":   missTime,
 							"pc_id":    k,
