@@ -23,3 +23,9 @@ func (this *DataController) StepFinishRatio() {
 	fmt.Println(this.Data["json"])
 	this.ServeJSON()
 }
+
+func (this *DataController) PcDownRatio() {
+	this.Data["json"] = mysql.GetPcDownRatio()
+	fmt.Println(this.Data["json"])
+	this.ServeJSON()
+}

@@ -9,16 +9,22 @@
 <link rel="stylesheet" href="/static/css/index.css" />
 <body>
 <div id="seas" style="height:400px"></div>
-<div id="sf" style="height:480px;width:630px"></div>	
+<div id="pd" style="height:480px;width:630px; float:left"></div>
+<div id="sf" style="height:480px;width:630px ; float:left"></div>	
+
 </body>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script src="/static/js/echarts.js"></script>
 <script type="text/javascript">
+
+$(function(){
+
         // 基于准备好的dom，初始化echarts图表
         var seas = echarts.init(document.getElementById('seas')); 
 		 var sf = echarts.init(document.getElementById('sf')); 
+		var pd = echarts.init(document.getElementById('pd'));
 		
 		var mydata = []
 		
@@ -64,7 +70,7 @@
 		        }
 		    },
 		    legend: {
-        		left: 'left',
+        			left: 'left',
 		        data:['异常','正常','全部']
 		    },
 		    grid: {
@@ -89,8 +95,8 @@
 		
 		$.get('/data/stepfinishratio',{},function(data){
 			
-			datas = []
-			tdatas = []
+			var datas = []
+			var tdatas = []
 			var fcount = 0
 			for(i=0;i<7;i++){
 				var d = data[i]
@@ -145,13 +151,59 @@
 			        {
 			            name:'步骤比率',
 			            type:'pie',
-			            radius: ['40%', '60%'],
+			            radius: ['40%', '70%'],
 			
 			            data:datas
 			        }
 			    ]
 			};
 			sf.setOption(option1);
+			
+		})
+		
+		$.get('/data/pcdownratio',{},function(data){
+			
+			var datas = []
+			var names = []
+			var fcount = 0
+			for(i=0;i<data.length;i++){
+				var d = data[i]
+				names[i] = d.pcid
+				datas[i] = d.count
+			}
+			option2 = {
+				title : {
+			        text: '机器心跳停止次数',
+			        subtext: 'data by spider monitor system',
+			        x:'center'
+			    },
+			    color: ['red'],
+			    tooltip : {
+			        trigger: 'axis',
+			        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+			            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			        }
+			    },
+				legend: {
+                		data:['销量']
+            		},
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis : {data : names},
+			    yAxis: {},
+			    series : [
+			        {
+			            name:'死亡次数',
+			            type:'bar',
+			            data:datas
+			        }
+			    ]
+			};
+			pd.setOption(option2);
 		})
 		
 		function getData(data,s){
@@ -164,5 +216,7 @@
 			if (res == {} ) res = {step:i,value:0}
 			return res
 		}
+	
+})
     </script>
 </html>

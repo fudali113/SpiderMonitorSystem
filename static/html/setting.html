@@ -36,6 +36,14 @@
 	            </h4>
 	         </div>
 	         <div class="modal-body">
+				<div id="myAlertSuccess" class="alert alert-success">
+				   <a href="#" class="close" data-dismiss="alert">&times;</a>
+				   <strong>成功！</strong>您的设置已经生效了。
+				</div>
+				<div id="myAlertError" class="alert alert-warning">
+				   <a href="#" class="close" data-dismiss="alert">&times;</a>
+				   <strong>警告！</strong>您的设置出了一些差错。
+				</div>
 				<div ng-show="" class="alert alert-danger alert-dismissable">
 				   <button type="button" class="close" data-dismiss="alert" 
 				      aria-hidden="true">
@@ -46,23 +54,26 @@
 	            <form class="form-horizontal" role="form">
 				   <div class="form-group">
 				      <label for="firstname" class="col-sm-4 control-label">check heartbeats time:</label>
-				      <div class="col-sm-8">
+				      <div class="col-sm-8 input-group">
 				         <input ng-model="param.time" type="text" class="form-control" id="firstname" 
-				            placeholder="please enter a number of seconds ">
+				            placeholder="please enter a number of millisecond ">
+							<span class="input-group-addon">ms</span>
 				      </div>
 				   </div>
 				   <div class="form-group">
 				      <label for="firstname" class="col-sm-4 control-label">pc down send email time:</label>
-				      <div class="col-sm-8">
+				      <div class="col-sm-8 input-group">
 				         <input ng-model="param.sendtime" type="text" class="form-control" id="firstname" 
 				            placeholder="please enter a number of minutes ">
+							<span class="input-group-addon">minute</span>
 				      </div>
 				   </div>
-				   <div class="form-group">
+				   <div class="form-group ">
 				      <label for="lastname" class="col-sm-4 control-label">spider down call how:</label>
-				      <div class="col-sm-8">
+				      <div class="col-sm-8 input-group">
 				         <input ng-model="param.email" type="text" class="form-control" id="lastname" 
 				            placeholder="please enter an email address">
+							<span class="input-group-addon">email</span>
 				      </div>
 				   </div>
 				   <div class="form-group">
