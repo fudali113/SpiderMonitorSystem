@@ -4,6 +4,7 @@
 		<font>You hava a spider in execption</font><br>
 		<font color="red">pc id:{{.pcid}}</font><br>
 		<font color="red">ip:{{.ip}}</font><br>
+		<font color="red">pc execption:{{.pce}}</font><br>
 		<font color="red">step:{{.ss.step}}</font><br>
 		<font color="red">bid:{{.ss.bid}}</font><br>
 		<font color="red">sid:{{.ss.sid}}</font><br>

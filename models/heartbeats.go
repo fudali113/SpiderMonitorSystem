@@ -15,7 +15,9 @@ type HeartBeats struct {
 type PcStatus struct {
 	Cid          string                 `json:"pc_id"`
 	Hb           int                    `json:"hb"`
-	Ip           string                 `json:"ip"`
+	Ip           string                 `json:"pc_ip"`
+	Bank         string                 `json:"bank_name"`
+	Execption    string                 `json:"execption"`
 	SpiderStatus map[string]interface{} `json:"bank_status"`
 }
 
@@ -54,15 +56,17 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 	pcid := s.Cid
 	ip := s.Ip
 	execption := ss["execption"].(string)
+	pc_execption := s.Execption
 	step := int(ss["step"].(float64))
-	bid := ss["bid"].(string)
+	bid := s.Bank
 	sid := ss["sid"].(string)
 	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
-	if execption != "" {
+	if execption != "" || pc_execption != "" {
 		m := map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
+			"pce":  pc_execption,
 			"ss":   ss,
 			"time": nowTime,
 			"data": string(pcstatus)}
