@@ -40,6 +40,17 @@ func InsertExecption(all *Execption) int64 {
 	return 1
 }
 
+func IOUFinish(all *Finish) int64 {
+	db := orm.NewOrm()
+	db.Using("default") // 默认使用 default，你可以指定为其他数据库
+	r, e := db.InsertOrUpdate(all)
+	if e != nil {
+		fmt.Println(e)
+		return 0
+	}
+	return r
+}
+
 func InsertHB(all *HB) int64 {
 	db := orm.NewOrm()
 	db.Using("default") // 默认使用 default，你可以指定为其他数据库

@@ -28,3 +28,15 @@ CREATE TABLE `monitor`.`heartbeats` (
   `ip` VARCHAR(45) NULL,
   `deadtime` DATETIME NOT NULL,
   PRIMARY KEY (`id`));
+
+CREATE TABLE `monitor`.`finish` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `pcid` VARCHAR(45) NULL ,
+  `bid` VARCHAR(45) NULL;
+  `sid` VARCHAR(128) NOT NULL,
+  `step` VARCHAR(45) NULL,
+  `data` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`, `sid`));
+
+ALTER TABLE `monitor`.`finish` 
+ADD UNIQUE INDEX `sid_UNIQUE` (`sid` ASC);

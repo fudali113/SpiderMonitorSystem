@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>SHOW</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/css/index.css" />
+<body>
+<div id="seas" style="height:400px"></div>
+<div id="sf" style="height:480px;width:630px"></div>	
+</body>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+<script src="/static/js/echarts.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var seas = echarts.init(document.getElementById('seas')); 
+		 var sf = echarts.init(document.getElementById('sf')); 
+		
+		var mydata = []
+		
+		$.get('/data/stepexecallratio',{},function(data){
+			var ndata = []
+			var edata = []
+			var adata = []
+			for(i=0;i<data.length;i++){
+				ndata[i] = data[i].normal 
+				edata[i] = data[i].exec
+				adata[i] = data[i].normal+ data[i].exec
+			}
+			mydata[1] = {
+				name:"正常",
+				type:"bar",
+				data:ndata
+			}
+			mydata[0] = {
+				name:"异常",
+				type:"bar",
+				data:edata
+			}
+			mydata[2] = {
+				name:"全部",
+				type:"bar",
+				data:adata
+			}
+			option.series = mydata
+        	seas.setOption(option); 
+		})
+		
+		option = {
+			title : {
+		        text: '每步异常正常比率',
+				subtext: 'data by spider monitor system',
+		        x: 'center',
+		        align: 'right'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+		        }
+		    },
+		    legend: {
+        		left: 'left',
+		        data:['异常','正常','全部']
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    xAxis : [
+		        {
+		            type : 'category',
+		            data : ['step0','step1','step2','step3','step4','step5','step6']
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    series : mydata
+		};
+		
+		$.get('/data/stepfinishratio',{},function(data){
+			
+			datas = []
+			tdatas = []
+			var fcount = 0
+			for(i=0;i<7;i++){
+				var d = data[i]
+				name ='step'+d.step
+				datas[i] = {name : name , value:d.normal}
+				if(d.step ==6 ){
+					tdatas[1] = {
+						name:"完成",
+						value:d.normal
+					}
+				}else{
+					fcount += d.normal
+				}
+			}
+			tdatas[0] = {
+				name:"未完成",
+				value:fcount
+			}
+			option1 = {
+				title : {
+			        text: '步骤进行比例',
+			        subtext: 'data by spider monitor system',
+			        x:'center'
+			    },
+			    tooltip: {
+			        trigger: 'item',
+			        formatter: "{a} <br/>{b}: {c} ({d}%)"
+			    },
+			    legend: {
+			        orient: 'vertical',
+			        left: 'left',
+			        data: ['step0','step1','step2','step3','step4','step5','step6','完成','未完成']
+			    },
+			    series: [
+			        {
+						name:'完成比率',
+			            type:'pie',
+			            radius: [0, '36%'],
+			
+			            label: {
+			                normal: {
+			                    position: 'inner'
+			                }
+			            },
+			            labelLine: {
+			                normal: {
+			                    show: false
+			                }
+			            },
+			            data:tdatas
+			        },
+			        {
+			            name:'步骤比率',
+			            type:'pie',
+			            radius: ['40%', '60%'],
+			
+			            data:datas
+			        }
+			    ]
+			};
+			sf.setOption(option1);
+		})
+		
+		function getData(data,s){
+			var res = {}
+			for(i=0;i<data.length;i++){
+				if(data[i].step == s){
+					res = data[i]
+				}
+			}
+			if (res == {} ) res = {step:i,value:0}
+			return res
+		}
+    </script>
+</html>
