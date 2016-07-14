@@ -15,7 +15,9 @@ type HeartBeats struct {
 type PcStatus struct {
 	Cid          string                 `json:"pc_id"`
 	Hb           int                    `json:"hb"`
-	Ip           string                 `json:"ip"`
+	Ip           string                 `json:"pc_ip"`
+	Bank         string                 `json:"bank_name"`
+	Execption    string                 `json:"execption"`
 	SpiderStatus map[string]interface{} `json:"bank_status"`
 }
 
@@ -44,25 +46,74 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Println(s)
-
-	ss := s.SpiderStatus
-	fmt.Println(ss)
-	fmt.Println(ss["sid"])
-
 	pcid := s.Cid
 	ip := s.Ip
-	execption := ss["execption"].(string)
-	step := int(ss["step"].(float64))
-	bid := ss["bid"].(string)
-	sid := ss["sid"].(string)
+	ss := s.SpiderStatus
+	pc_execption := s.Execption
+	bid := s.Bank
 	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
-	if execption != "" {
+	if pcid == "" {
+		return
+	}
+
+	if s.Hb == 0 {
+		fmt.Println(s.Cid)
+		sendPcDown(&HeartBeats{Cid: pcid, Hb: 0})
+	}
+
+	if notIn(pcid) {
+		go func() {
+			time.Sleep(time.Millisecond * 500)
+			Messages <- string(pcstatus)
+		}()
+	}
+
+	History[pcid] = time.Now().Unix()
+	HistoryData[pcid] = string(pcstatus)
+	sendPcDown(&HeartBeats{Cid: pcid, Hb: 1})
+
+	if ss == nil {
+		if pc_execption == "" {
+			return
+		} else if pc_execption != "" {
+			m := map[string]interface{}{
+				"pcid": pcid,
+				"ip":   ip,
+				"pce":  pc_execption,
+				"ss":   ss,
+				"time": nowTime,
+				"data": string(pcstatus)}
+
+			body, _ := GetHtmlWithTpl("views/execption.tpl", m)
+			email := Email{To: ToAddress,
+				Subject:  "haved a pc in execption",
+				Body:     body,
+				MailType: "html"}
+
+			SendEmail(email)
+			return
+		}
+	}
+
+	step := -1
+	if ss["step"] != nil {
+		step = int(ss["step"].(float64))
+	}
+	execption := ""
+	if ss["execption"] != nil {
+		execption = ss["execption"].(string)
+	}
+	sid := ""
+	if ss["sid"] != nil {
+		sid = ss["sid"].(string)
+	}
+
+	if execption != "" || pc_execption != "" {
 		m := map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
+			"pce":  pc_execption,
 			"ss":   ss,
 			"time": nowTime,
 			"data": string(pcstatus)}
@@ -85,8 +136,6 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 		}()
 
 	}
-<<<<<<< HEAD
-=======
 
 	go func() {
 		mysql.InsertAll(&mysql.All{
@@ -104,36 +153,6 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 			Sid:  sid,
 			Step: step})
 	}()
->>>>>>> bac974ee35df47bee5aaf03e7349e7f689ee45a1
-
-	go mysql.InsertAll(&mysql.All{
-		Pcid:      pcid,
-		Ip:        ip,
-		Step:      step,
-		Bid:       bid,
-		Sid:       sid,
-		All:       string(pcstatus),
-		Execption: execption})
-
-	if pcid == "" {
-		return
-	}
-
-	if s.Hb == 0 {
-		fmt.Println(s.Cid)
-		sendPcDown(&HeartBeats{Cid: pcid, Hb: 0})
-	}
-
-	if notIn(pcid) {
-		go func() {
-			time.Sleep(time.Millisecond * 500)
-			Messages <- string(pcstatus)
-		}()
-	}
-
-	History[pcid] = time.Now().Unix()
-	HistoryData[pcid] = string(pcstatus)
-	sendPcDown(&HeartBeats{Cid: pcid, Hb: 1})
 }
 
 func notIn(id string) bool {

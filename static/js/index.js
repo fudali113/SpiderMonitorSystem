@@ -30,6 +30,7 @@ monitor.directive('setting',function(){
 		restrict: 'E',
 		replace: true,
 		link:function(scope){
+			$('.alert').hide()
 			scope.setting = function(){
 				
 			}
@@ -90,7 +91,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 			}
       	}
     }
-    var websocket = new WebSocket("ws://"+WebSocketIP+":8080/ws");
+    var websocket = new WebSocket("ws://"+WebSocketIP+":9090/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 
@@ -148,9 +149,9 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 			method:'post',
 			data:$scope.param
 		}).success(function(data){
-			alert(data)
+			$("#myAlertSuccess").show()
 		}).error(function(data){
-			alert("error")
+			$("#myAlertError").show()
 		});
     }
     $scope.submitDefalutSetting = function(){

@@ -36,3 +36,20 @@ func GetStepFinish() []StepExecAllRatio {
 	fmt.Println(sears)
 	return sears
 }
+
+type PcDownRatio struct {
+	Pcid  string `json:"pcid"`
+	Count int    `json:"count"`
+}
+
+func GetPcDownRatio() []PcDownRatio {
+	db := orm.NewOrm()
+	var sears []PcDownRatio
+	_, err := db.Raw("SELECT pcid , count(pcid) count from heartbeats GROUP BY pcid").QueryRows(&sears)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	fmt.Println(sears)
+	return sears
+}
