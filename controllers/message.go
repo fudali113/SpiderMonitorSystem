@@ -19,29 +19,30 @@ type IndexController struct {
 
 func (this *IndexController) Get() {
 	addrs := strings.Split(this.Ctx.Request.RemoteAddr, "::1")
-
+	port := beego.AppConfig.String("httpport")
 	wsip := models.LocalIp
 	if len(addrs) > 1 {
 		wsip = "localhost"
 	}
-	this.Data["ip"] = wsip
+	this.Data["ip"] = wsip + ":" + port
 	this.TplName = "index.tpl"
 }
 
 func (this *MainController) Post() {
 	defer this.Ctx.Request.Body.Close()
 	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
-	go models.RecordPcLastTime(body)
-	content := string(body)
+	fmt.Println(len(body))
+	fmt.Println(string(body))
 
-	fmt.Println(content)
-
-	if err == nil && content != "" {
-		models.Messages <- content
-		this.Data["json"] = "ok"
+	if err == nil && body != nil {
+		select {
+		case models.PS <- body:
+			this.Data["json"] = "ok"
+		default:
+			this.Data["json"] = "server is busy"
+		}
 	} else {
 		this.Data["json"] = "fail"
 	}
-	fmt.Println("beego server")
 	this.ServeJSON()
 }

@@ -17,17 +17,28 @@ type DefalutController struct {
 	beego.Controller
 }
 
+const (
+	defaultT = 0
+)
+
 func (this *DefalutController) Post() {
-	models.HeartBeatsTime = 5000
-	nowTheme = 0
-	models.ToAddress = "591327191.com"
-	this.Data["json"] = true
+	models.HeartbeatTime = models.DefaultHT
+	models.PcDownSendEmailTime = models.DefaultPDSET
+	nowTheme = defaultT
+	models.ToAddress = models.DefaultTA
+	result := map[string]interface{}{
+		"time":     strconv.FormatInt(models.HeartbeatTime, 10),
+		"theme":    strconv.Itoa(nowTheme),
+		"email":    models.ToAddress,
+		"sendtime": strconv.FormatInt(models.PcDownSendEmailTime, 10)}
+
+	this.Data["json"] = result
 	this.ServeJSON()
 }
 
 func (this *SettingController) Get() {
 	result := map[string]interface{}{
-		"time":     strconv.FormatInt(models.HeartBeatsTime, 10),
+		"time":     strconv.FormatInt(models.HeartbeatTime, 10),
 		"theme":    strconv.Itoa(nowTheme),
 		"email":    models.ToAddress,
 		"sendtime": strconv.FormatInt(models.PcDownSendEmailTime, 10)}
@@ -47,8 +58,7 @@ func (this *SettingController) Post() {
 		if err := recover(); err != nil {
 			fmt.Println("出了错：", err)
 		}
-		this.Data["json"] = result
-		this.ServeJSON()
+		this.Get()
 	}()
 
 	body, _ := ioutil.ReadAll(this.Ctx.Request.Body)
@@ -68,8 +78,8 @@ func (this *SettingController) Post() {
 			fmt.Println(err)
 			result["time"] = createResultMap(false, "heartbeats time should is a number")
 		} else {
-			models.HeartBeatsTime = hbtime
-			result["time"] = createResultMap(true, strconv.FormatInt(models.HeartBeatsTime, 10))
+			models.HeartbeatTime = hbtime
+			result["time"] = createResultMap(true, strconv.FormatInt(models.HeartbeatTime, 10))
 		}
 	}
 

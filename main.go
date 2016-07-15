@@ -9,10 +9,6 @@ import (
 	"github.com/astaxie/beego"
 )
 
-func oo(args ...string) {
-	fmt.Println(args)
-}
-
 func main() {
 	fmt.Println("begin")
 	beego.Run()

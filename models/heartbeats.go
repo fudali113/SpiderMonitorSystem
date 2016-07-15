@@ -7,125 +7,105 @@ import (
 	"time"
 )
 
-type HeartBeats struct {
-	Cid string `json:"pc_id"`
-	Hb  int    `json:"hb"`
+type Heartbeat struct {
+	PCid string `json:"pc_id"`
+	Hb   int    `json:"hb"`
 }
 
 type PcStatus struct {
-	Cid          string                 `json:"pc_id"`
-	Hb           int                    `json:"hb"`
+	PCid         string                 `json:"pc_id"`
 	Ip           string                 `json:"pc_ip"`
 	Bank         string                 `json:"bank_name"`
 	Execption    string                 `json:"execption"`
 	SpiderStatus map[string]interface{} `json:"bank_status"`
 }
 
-type StepLastInfo struct {
-	Time int64
-	Data string
-}
+const (
+	DefaultHT    int64 = 5
+	DefaultPDSET int64 = 5
+)
 
-var History map[string]int64
-var HistoryData map[string]string
-var HistoryStep map[string]StepLastInfo
+var (
+	History             = make(map[string]int64)
+	HistoryData         = make(map[string]string)
+	PS                  = make(chan []byte, 10000)
+	HeartbeatTime       = DefaultHT
+	PcDownSendEmailTime = DefaultPDSET
+)
 
 const (
 	checkTimer = time.Second * 5
 )
 
-var (
-	HeartBeatsTime      int64 = 5000
-	PcDownSendEmailTime int64 = 5
-)
-
-func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息的时间
-	s := &PcStatus{Hb: -1}
+func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时间
+	s := &PcStatus{}
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	pcid := s.Cid
+
+	pcid := s.PCid
+	if pcid == "" {
+		return
+	}
 	ip := s.Ip
 	ss := s.SpiderStatus
 	pc_execption := s.Execption
 	bid := s.Bank
 	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
-	if pcid == "" {
-		return
-	}
-
-	if s.Hb == 0 {
-		fmt.Println(s.Cid)
-		sendPcDown(&HeartBeats{Cid: pcid, Hb: 0})
-	}
-
-	if notIn(pcid) {
-		go func() {
-			time.Sleep(time.Millisecond * 500)
-			Messages <- string(pcstatus)
-		}()
-	}
-
 	History[pcid] = time.Now().Unix()
-	HistoryData[pcid] = string(pcstatus)
-	sendPcDown(&HeartBeats{Cid: pcid, Hb: 1})
 
-	if ss == nil {
-		if pc_execption == "" {
-			return
-		} else if pc_execption != "" {
-			m := map[string]interface{}{
-				"pcid": pcid,
-				"ip":   ip,
-				"pce":  pc_execption,
-				"ss":   ss,
-				"time": nowTime,
-				"data": string(pcstatus)}
-
-			body, _ := GetHtmlWithTpl("views/execption.tpl", m)
-			email := Email{To: ToAddress,
-				Subject:  "haved a pc in execption",
-				Body:     body,
-				MailType: "html"}
-
-			SendEmail(email)
-			return
-		}
-	}
-
-	step := -1
-	if ss["step"] != nil {
-		step = int(ss["step"].(float64))
-	}
-	execption := ""
-	if ss["execption"] != nil {
-		execption = ss["execption"].(string)
-	}
-	sid := ""
-	if ss["sid"] != nil {
-		sid = ss["sid"].(string)
-	}
-
-	if execption != "" || pc_execption != "" {
-		m := map[string]interface{}{
+	if pc_execption != "" {
+		go SendEmailWithMap(map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
 			"pce":  pc_execption,
 			"ss":   ss,
 			"time": nowTime,
-			"data": string(pcstatus)}
+			"data": string(pcstatus)}, "haved a pc in execption", "views/execption.tpl")
+	}
+	if ss == nil {
+		return
+	}
 
-		body, _ := GetHtmlWithTpl("views/execption.tpl", m)
-		email := Email{To: ToAddress,
-			Subject:  "haved a spider in execption",
-			Body:     body,
-			MailType: "html"}
+	HistoryData[pcid] = string(pcstatus)
+	step := -1
+	if ss["step"] != nil {
+		step = int(ss["step"].(float64))
+	} else {
+		return
+	}
+	sid := ""
+	if ss["sid"] != nil {
+		sid = ss["sid"].(string)
+	} else {
+		return
+	}
+	if len(Wss) > 0 {
+		select {
+		case Messages <- pcstatus:
+			fmt.Println("websocket 获得信息")
+		default:
+			fmt.Println("websocket 处理消息繁忙")
+		}
+	}
 
+	execption := ""
+	if ss["execption"] != nil {
+		execption = ss["execption"].(string)
+	}
+
+	if execption != "" || pc_execption != "" {
 		go func() {
-			SendEmail(email)
+			SendEmailWithMap(map[string]interface{}{
+				"pcid": pcid,
+				"ip":   ip,
+				"pce":  pc_execption,
+				"ss":   ss,
+				"time": nowTime,
+				"data": string(pcstatus)}, "haved a spider in execption", "views/execption.tpl")
 			mysql.InsertExecption(&mysql.Execption{
 				Pcid:      pcid,
 				Ip:        ip,
@@ -153,19 +133,72 @@ func RecordPcLastTime(pcstatus []byte) { //记录个pc_id发来的最后消息�
 			Sid:  sid,
 			Step: step})
 	}()
+
+	//	if notIn(pcid) {
+	//		go func() {
+	//			time.Sleep(time.Millisecond * 500)
+	//			Messages <- pcstatus
+	//		}()
+	//	}
 }
 
-func notIn(id string) bool {
-	var count = 0
-	for k, _ := range History {
-		if k == id {
-			count = count + 1
-		}
-	}
-	return count == 0
-}
+//func notIn(id string) bool {
+//	var count = 0
+//	for k, _ := range History {
+//		if k == id {
+//			count = count + 1
+//		}
+//	}
+//	return count == 0
+//}
 
 func checkHB() {
+	for k, v := range History {
+		nowTime := time.Now().Unix()
+		missTime := nowTime - v
+		downTimeStr := time.Unix(v, 0).Format("2006-01-02 15:04:05")
+
+		if missTime < HeartbeatTime {
+			sendHbMessage(&Heartbeat{PCid: k, Hb: 1})
+		} else if missTime >= HeartbeatTime && PcDownSendEmailTime*60 > missTime {
+			sendHbMessage(&Heartbeat{PCid: k, Hb: 0})
+		} else {
+			delete(History, k)
+			go mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})
+			go SendEmailWithMap(map[string]interface{}{
+				"before":   missTime,
+				"pc_id":    k,
+				"downTime": downTimeStr,
+				"lastData": HistoryData[k]}, "haved a computer is down", "views/email.tpl")
+		}
+	}
+}
+
+func sendHbMessage(hb *Heartbeat) {
+	hbjson, _ := json.Marshal(hb)
+	select {
+	case Messages <- hbjson:
+	default:
+		fmt.Println("send hb error")
+	}
+}
+
+func init() {
+	fmt.Println("checkHB is init")
+	go record()
+	go check()
+}
+
+func record() {
+	for {
+		select {
+		case ps := <-PS:
+			go recordInfo(ps)
+		}
+	}
+}
+
+func check() {
 	t1 := time.NewTimer(checkTimer)
 	t2 := time.NewTimer(time.Second * 10)
 
@@ -173,50 +206,11 @@ func checkHB() {
 		select {
 
 		case <-t1.C:
-			for k, v := range History {
-				nowTime := time.Now().Unix()
-				missTime := nowTime - v
-				downTimeStr := time.Unix(v, 0).Format("2006-01-02 15:04:05")
-
-				if missTime > HeartBeatsTime/1000 {
-					sendPcDown(&HeartBeats{Cid: k, Hb: 0})
-				}
-				if missTime > PcDownSendEmailTime*60 {
-					go func() {
-						mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})
-						m := map[string]interface{}{
-							"before":   missTime,
-							"pc_id":    k,
-							"downTime": downTimeStr,
-							"lastData": HistoryData[k]}
-
-						body, _ := GetHtmlWithTpl("views/email.tpl", m)
-						email := Email{To: ToAddress,
-							Subject:  "haved a computer is down",
-							Body:     body,
-							MailType: "html"}
-						SendEmail(email)
-						delete(History, k)
-					}()
-
-				}
-			}
-			t1.Reset(time.Millisecond * time.Duration(HeartBeatsTime))
+			checkHB() //不能启用协程，不然可能到时map不安全与发送多天信息
+			t1.Reset(time.Second * time.Duration(HeartbeatTime))
 
 		case <-t2.C:
 			t2.Reset(time.Minute * time.Duration(PcDownSendEmailTime))
 		}
 	}
-}
-
-func sendPcDown(hb *HeartBeats) {
-	hbjson, _ := json.Marshal(hb)
-	Messages <- string(hbjson)
-}
-
-func init() {
-	fmt.Println("checkHB is init")
-	History = make(map[string]int64)
-	HistoryData = make(map[string]string)
-	go checkHB()
 }

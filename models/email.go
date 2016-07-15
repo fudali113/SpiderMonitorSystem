@@ -9,13 +9,14 @@ import (
 )
 
 const (
-	user     = "fuyi@shanlaohu.com"
-	password = "fudali133B"
-	host     = "smtp.exmail.qq.com:25"
+	user      = "fuyi@shanlaohu.com"
+	password  = "fudali133B"
+	host      = "smtp.exmail.qq.com:25"
+	DefaultTA = "591327191@qq.com"
 )
 
 var (
-	ToAddress = "591327191@qq.com"
+	ToAddress = DefaultTA
 )
 
 type Email struct {
@@ -35,6 +36,15 @@ func SendEmail(email Email) {
 		fmt.Println(err)
 		SendEmail(email)
 	}
+}
+func SendEmailWithMap(m map[string]interface{}, sub string, tpl string) {
+	body, _ := GetHtmlWithTpl(tpl, m)
+	email := Email{To: ToAddress,
+		Subject:  sub,
+		Body:     body,
+		MailType: "html"}
+
+	SendEmail(email)
 }
 func SendToMail(user, password, host, to, subject, body, mailtype string) error {
 	hp := strings.Split(host, ":")

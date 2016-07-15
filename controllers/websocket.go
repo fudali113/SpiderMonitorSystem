@@ -13,11 +13,11 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-type WSController struct {
+type WsController struct {
 	beego.Controller
 }
 
-func (this *WSController) Get() {
+func (this *WsController) Get() {
 	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
 		fmt.Println(err)

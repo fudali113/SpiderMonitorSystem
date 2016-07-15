@@ -91,7 +91,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 			}
       	}
     }
-    var websocket = new WebSocket("ws://"+WebSocketIP+":9090/ws");
+    var websocket = new WebSocket("ws://"+WebSocketIP+"/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 
@@ -130,76 +130,79 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		}
         $scope.$apply();
     }); 
+	$scope.computers = computer.computers 
+	$scope.showDetails = false
+	$scope.total = 0
+	$scope.active = 0
+	$scope.settingRequestAnimation = false
+    $scope.param = {}
 	
 	$http({
 		url:'/setting',
 		method:'get',
 	}).success(function(data){
 		$scope.param = data
-		animateLength = animateLengths[data.theme]
+		theme = data.theme
 	}).error(function(data){
 		alert("error")
 	});
-
-    $scope.param = {}
+	
 
     $scope.submitSetting = function(){
+		$scope.settingRequestAnimation = true
     		$http({
 			url:'/setting',
 			method:'post',
 			data:$scope.param
 		}).success(function(data){
-			$("#myAlertSuccess").show()
+			$scope.param = data
+			setTimeout("",500)
+			if(data.theme != theme){
+					window.location.reload();
+			}
+			$scope.settingRequestAnimation = false
 		}).error(function(data){
-			$("#myAlertError").show()
+			alert("error")
 		});
     }
     $scope.submitDefalutSetting = function(){
+		$scope.settingRequestAnimation = true
     		$http({
 			url:'/setting/default',
 			method:'post'
 		}).success(function(data){
 			if(data){
-				alert("Has returned to the default settings")
+				$scope.param = data
+				setTimeout("",1000)
+				if(data.theme != theme){
+					window.location.reload();
+				}
+				$scope.settingRequestAnimation = false
 			}
 		}).error(function(data){
 			alert("error")
 		});
     }
+	$scope.HideSettingAnimation = function(data){
+		if(data.theme != theme){
+			window.location.reload();
+		}
+		$scope.settingRequestAnimation = false
+	}
 	$scope.hideAttr = function(k){
-		    	var hides = ['sid','bid','step']
-		    	for (var i = hides.length - 1; i >= 0; i--) {
-		    		if (k == hides[i]) {
-		    			return true
-		    		}
-		    	}
-		    	return false
-		    }
-    $scope.param = {}
+	    	var hides = ['sid','bid','step']
+	    	for (var i = hides.length - 1; i >= 0; i--) {
+	    		if (k == hides[i]) {
+	    			return true
+	    		}
+	    	}
+	    	return false
+	    }
 
-    $scope.submitSetting = function(){
-    	$http({
-			url:'/setting',
-			method:'post',
-			data:$scope.param
-		}).success(function(data){
-			alert(data)
-		}).error(function(data){
-			alert("error")
-		});
-    }
-    $scope.submitDefalutSetting = function(){
-    	alert("go")
-    }
-
-	$scope.computers = computer.computers  //[newComputer("1234")]
-	$scope.showDetails = false
-	$scope.total = 0
-	$scope.active = 0
 	
 }])
 
-var animateLength = 140
+var theme = 0
 var animateLengths = [140,70,58,0]
 
 var newComputer = function(cid){
@@ -235,13 +238,13 @@ var newComputer = function(cid){
 		startStep : function(bfb){
 			var i = this.s
 			$("#"+this.cid+"_percent_"+i).text(bfb);
-			w =bfb*animateLength/100;
+			w =bfb*animateLengths[theme]/100;
 			$("#"+this.cid+"_animate_img_"+i).animate({width:w+"px"},bfb*100)
 		},
 		loadBegin : function(){
 			for(i=0;i<this.s;i++){
 				$("#"+this.cid+"_animate_img_"+i).stop(true,true);
-				$("#"+this.cid+"_animate_img_"+i).animate({width:animateLength+"px"},"fast")
+				$("#"+this.cid+"_animate_img_"+i).animate({width:animateLengths[theme]+"px"},"fast")
 				$("#"+this.cid+"_percent_"+i).text(100);
 			}
 		},
