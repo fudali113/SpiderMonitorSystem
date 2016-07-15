@@ -91,7 +91,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 			}
       	}
     }
-    var websocket = new WebSocket("ws://"+WebSocketIP+":9090/ws");
+    var websocket = new WebSocket("ws://"+WebSocketIP+"/ws");
 	websocket.onopen = function(evt) { 
             alert('websocket连接成功') 
         }; 

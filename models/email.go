@@ -36,6 +36,15 @@ func SendEmail(email Email) {
 		SendEmail(email)
 	}
 }
+func SendEmailWithMap(m map[string]interface{}, sub string, tpl string) {
+	body, _ := GetHtmlWithTpl(tpl, m)
+	email := Email{To: ToAddress,
+		Subject:  sub,
+		Body:     body,
+		MailType: "html"}
+
+	SendEmail(email)
+}
 func SendToMail(user, password, host, to, subject, body, mailtype string) error {
 	hp := strings.Split(host, ":")
 	auth := smtp.PlainAuth("", user, password, hp[0])

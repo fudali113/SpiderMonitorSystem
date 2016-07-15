@@ -18,7 +18,8 @@ type DefalutController struct {
 }
 
 func (this *DefalutController) Post() {
-	models.HeartBeatsTime = 5000
+	models.HeartBeatsTime = 5
+	models.PcDownSendEmailTime = 5
 	nowTheme = 0
 	models.ToAddress = "591327191.com"
 	this.Data["json"] = true
