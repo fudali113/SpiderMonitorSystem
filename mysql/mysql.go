@@ -5,7 +5,6 @@ import (
 
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/lib/pq"
 )
 
 var (
@@ -16,8 +15,6 @@ func init() {
 	fmt.Println("init mysql conn")
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", "root:Tt7896357@(120.26.235.113:6666)/monitor?charset=utf8")
-	orm.RegisterDriver("postgres", orm.DRPostgres)
-	orm.RegisterDataBase("pg", "postgres", "user=postgres password=Tt7896357 dbname=postgres sslmode=disable")
 	orm.Debug = true
 	fmt.Println("init mysql conn end")
 }

@@ -86,9 +86,9 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 	if len(Wss) > 0 {
 		select {
 		case Messages <- pcstatus:
-			fmt.Println("websocket 获得信息")
+			//fmt.Print("websocket get spider status : ")
 		default:
-			fmt.Println("websocket 处理消息繁忙")
+			fmt.Println("websocket send ss error ")
 		}
 	}
 
@@ -178,8 +178,9 @@ func sendHbMessage(hb *Heartbeat) {
 	hbjson, _ := json.Marshal(hb)
 	select {
 	case Messages <- hbjson:
+		//fmt.Print("websocket get heartbeat : ")
 	default:
-		fmt.Println("send hb error")
+		fmt.Println("websocket send hb error ")
 	}
 }
 

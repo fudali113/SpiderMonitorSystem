@@ -41,8 +41,7 @@ func myinit() {
 				}
 			}
 			after := time.Now().UnixNano()
-			fmt.Print("---------->")
-			fmt.Println(after - before)
+			fmt.Printf("time consuming : %d ns \n", after-before)
 		}
 	}
 }
