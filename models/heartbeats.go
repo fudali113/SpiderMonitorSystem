@@ -97,7 +97,7 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 		execption = ss["execption"].(string)
 	}
 
-	if execption != "" || pc_execption != "" {
+	if execption != "" {
 		go func() {
 			SendEmailWithMap(map[string]interface{}{
 				"pcid": pcid,

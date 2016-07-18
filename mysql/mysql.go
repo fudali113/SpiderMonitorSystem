@@ -3,6 +3,7 @@ package mysql
 import (
 	"fmt"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -11,10 +12,18 @@ var (
 //db = orm.NewOrm().Using("default")
 )
 
+var (
+	user   = beego.AppConfig.String("mysql.user")
+	passwd = beego.AppConfig.String("mysql.passwd")
+	host   = beego.AppConfig.String("mysql.host")
+	port   = beego.AppConfig.String("mysql.port")
+)
+
 func init() {
 	fmt.Println("init mysql conn")
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:Tt7896357@(120.26.235.113:6666)/monitor?charset=utf8")
+	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8", user, passwd, host, port)
+	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
 	orm.Debug = true
 	fmt.Println("init mysql conn end")
 }

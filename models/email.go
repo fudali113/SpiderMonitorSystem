@@ -6,16 +6,18 @@ import (
 	"html/template"
 	"net/smtp"
 	"strings"
+
+	"github.com/astaxie/beego"
 )
 
 const (
-	user      = "fuyi@shanlaohu.com"
-	password  = "fudali133B"
-	host      = "smtp.exmail.qq.com:25"
 	DefaultTA = "591327191@qq.com"
 )
 
 var (
+	user      = beego.AppConfig.String("email.user")
+	password  = beego.AppConfig.String("email.passwd")
+	host      = beego.AppConfig.String("email.host")
 	ToAddress = DefaultTA
 )
 
