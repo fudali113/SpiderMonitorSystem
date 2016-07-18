@@ -13,7 +13,7 @@ const ()
 
 var (
 	LocalIp  = getLocalIp()
-	Wss      = make([]*websocket.Conn, 5)
+	Wss      = make([]*websocket.Conn, 0)
 	Messages = make(chan []byte, 10000)
 )
 
@@ -41,7 +41,7 @@ func myinit() {
 				}
 			}
 			after := time.Now().UnixNano()
-			fmt.Printf("time consuming : %d ns \n", after-before)
+			fmt.Printf("time consuming : %d ws -> %d ns \n", len(Wss), after-before)
 		}
 	}
 }

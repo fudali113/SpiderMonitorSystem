@@ -15,7 +15,7 @@ type All struct {
 	Bid       string
 	Sid       string
 	All       string
-	Execption string
+	Exception string
 	Time      time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
@@ -31,13 +31,13 @@ type Finish struct {
 	Step int
 }
 
-type Execption struct {
+type Exception struct {
 	Id        int
 	Pcid      string
 	Ip        string
 	Step      int
 	Bid       string
-	Execption string
+	Exception string
 	Data      string
 	Time      time.Time `orm:"auto_now_add;type(datetime)"`
 }
@@ -56,5 +56,5 @@ func (a *HB) TableName() string {
 func init() {
 	fmt.Println("init db models")
 	// 需要在init中注册定义的model
-	orm.RegisterModel(new(All), new(Execption), new(HB), new(Finish))
+	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish))
 }

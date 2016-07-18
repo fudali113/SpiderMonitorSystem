@@ -9,14 +9,15 @@ import (
 
 type Heartbeat struct {
 	PCid string `json:"pc_id"`
+	Ip   string `json:"ip"`
 	Hb   int    `json:"hb"`
 }
 
 type PcStatus struct {
 	PCid         string                 `json:"pc_id"`
-	Ip           string                 `json:"pc_ip"`
+	Ip           string                 `json:"ip"`
 	Bank         string                 `json:"bank_name"`
-	Execption    string                 `json:"execption"`
+	Exception    string                 `json:"exception"`
 	SpiderStatus map[string]interface{} `json:"bank_status"`
 }
 
@@ -27,6 +28,7 @@ const (
 
 var (
 	History             = make(map[string]int64)
+	pcipmap             = make(map[string]string)
 	HistoryData         = make(map[string]string)
 	PS                  = make(chan []byte, 10000)
 	HeartbeatTime       = DefaultHT
@@ -51,11 +53,12 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 	}
 	ip := s.Ip
 	ss := s.SpiderStatus
-	pc_execption := s.Execption
+	pc_execption := s.Exception
 	bid := s.Bank
 	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
 	History[pcid] = time.Now().Unix()
+	pcipmap[pcid] = ip
 
 	if pc_execption != "" {
 		go SendEmailWithMap(map[string]interface{}{
@@ -106,12 +109,12 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 				"ss":   ss,
 				"time": nowTime,
 				"data": string(pcstatus)}, "haved a spider in execption", "views/execption.tpl")
-			mysql.InsertExecption(&mysql.Execption{
+			mysql.InsertExecption(&mysql.Exception{
 				Pcid:      pcid,
 				Ip:        ip,
 				Step:      step,
 				Bid:       bid,
-				Execption: execption,
+				Exception: execption,
 				Data:      string(pcstatus)})
 		}()
 
@@ -124,7 +127,7 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 			Step:      step,
 			Bid:       bid,
 			Sid:       sid,
-			Execption: execption,
+			Exception: execption,
 			All:       string(pcstatus)})
 
 		mysql.IOUFinish(&mysql.Finish{
@@ -159,9 +162,9 @@ func checkHB() {
 		downTimeStr := time.Unix(v, 0).Format("2006-01-02 15:04:05")
 
 		if missTime < HeartbeatTime {
-			sendHbMessage(&Heartbeat{PCid: k, Hb: 1})
+			sendHbMessage(&Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 1})
 		} else if missTime >= HeartbeatTime && PcDownSendEmailTime*60 > missTime {
-			sendHbMessage(&Heartbeat{PCid: k, Hb: 0})
+			sendHbMessage(&Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 0})
 		} else {
 			delete(History, k)
 			go mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})

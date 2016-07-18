@@ -23,6 +23,7 @@ func init() {
 	fmt.Println("init mysql conn")
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8", user, passwd, host, port)
+	fmt.Println(mysqlConnStr)
 	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
 	orm.Debug = true
 	fmt.Println("init mysql conn end")
@@ -41,7 +42,7 @@ func InsertAll(all *All) int64 {
 	return 1
 }
 
-func InsertExecption(all *Execption) int64 {
+func InsertExecption(all *Exception) int64 {
 	db := orm.NewOrm()
 	db.Using("default") // 默认使用 default，你可以指定为其他数据库
 	_, e := db.Insert(all)
