@@ -39,7 +39,8 @@ const (
 	checkTimer = time.Second * 5
 )
 
-func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时间
+func recordInfo(pcstatus []byte) {
+	fmt.Println("开始读取消息")
 	s := &PcStatus{}
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
@@ -86,14 +87,8 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 	} else {
 		return
 	}
-	if len(Wss) > 0 {
-		select {
-		case Messages <- pcstatus:
-			//fmt.Print("websocket get spider status : ")
-		default:
-			fmt.Println("websocket send ss error ")
-		}
-	}
+	fmt.Println("发送实体消息")
+	sendHbMessage(pcstatus)
 
 	execption := ""
 	if ss["execption"] != nil {
@@ -101,6 +96,7 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 	}
 
 	if execption != "" {
+		fmt.Println("有异常字段")
 		go func() {
 			SendEmailWithMap(map[string]interface{}{
 				"pcid": pcid,
@@ -119,7 +115,7 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 		}()
 
 	}
-
+	fmt.Println("插入数据")
 	go func() {
 		mysql.InsertAll(&mysql.All{
 			Pcid:      pcid,
@@ -156,17 +152,18 @@ func recordInfo(pcstatus []byte) { //记录个pc_id发来的最后消息的时�
 //}
 
 func checkHB() {
+	hbs := make([]*Heartbeat, 0)
 	for k, v := range History {
 		nowTime := time.Now().Unix()
 		missTime := nowTime - v
 		downTimeStr := time.Unix(v, 0).Format("2006-01-02 15:04:05")
-
 		if missTime < HeartbeatTime {
-			sendHbMessage(&Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 1})
+			hbs = append(hbs, &Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 1})
 		} else if missTime >= HeartbeatTime && PcDownSendEmailTime*60 > missTime {
-			sendHbMessage(&Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 0})
+			hbs = append(hbs, &Heartbeat{PCid: k, Ip: pcipmap[k], Hb: 0})
 		} else {
 			delete(History, k)
+			hbs = append(hbs, &Heartbeat{PCid: k, Ip: pcipmap[k], Hb: -1})
 			go mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})
 			go SendEmailWithMap(map[string]interface{}{
 				"before":   missTime,
@@ -175,15 +172,24 @@ func checkHB() {
 				"lastData": HistoryData[k]}, "haved a computer is down", "views/email.tpl")
 		}
 	}
+	if len(hbs) != 0 {
+		hbjson, err := json.Marshal(hbs)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			sendHbMessage(hbjson)
+		}
+	}
 }
 
-func sendHbMessage(hb *Heartbeat) {
-	hbjson, _ := json.Marshal(hb)
-	select {
-	case Messages <- hbjson:
-		//fmt.Print("websocket get heartbeat : ")
-	default:
-		fmt.Println("websocket send hb error ")
+func sendHbMessage(hb []byte) {
+	if len(Wss) > 0 {
+		select {
+		case Messages <- hb:
+			//fmt.Print("websocket get heartbeat : ")
+		default:
+			fmt.Println("websocket send hb error ")
+		}
 	}
 }
 

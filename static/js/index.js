@@ -99,8 +99,15 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
             alert('websocket断开连接') 
         }; 
     websocket.onmessage = function(evt) {
-			service.addComputer(JSON.parse(evt.data))
-        }; 
+		var data = JSON.parse(evt.data)
+		if(data instanceof Array ){
+			for (var i=0;i<data.length;i++){
+				service.addComputer(data[i])
+			}
+		}else{
+			service.addComputer(data)
+		}
+    }; 
     websocket.onerror = function(evt) { 
             alert('websocket出现错误') 
         }; 
@@ -218,13 +225,14 @@ var newComputer = function(cid){
 		bid:undefined,
 		nowData:{},
 		hository:new Array(6),
+		spider:[],
 		receiveData : function(data){
 			if (typeof data == 'string'){
 				var data = JSON.parse(data)
 			}
 			if(data.step == 0 || this.sid != data.sid){
 					this.sid = data.sid
-					this.bid = data.bid
+					this.bid = data.bank_name
 					$('#sid').html(data.sid)
 					$('#bid').html(data.bid)
 					this.hository = new Array(6)
@@ -257,4 +265,14 @@ var newComputer = function(cid){
 		}
 	}
 	return computer
+}
+
+var newSpider = function(bid){
+	return {
+		bank:bid,
+		banks:new Array(6),
+		record:function(data){
+			hository[data.step] = data
+		}
+	}
 }

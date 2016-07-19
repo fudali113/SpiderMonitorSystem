@@ -14,5 +14,6 @@ func init() {
 	beego.Router("/setting/default", &controllers.DefalutController{})
 	beego.Router("/message", &controllers.MainController{})
 	beego.Router("/ws", &controllers.WsController{})
-	beego.Router("/", &controllers.IndexController{})
+	beego.Router("/", &controllers.Index2Controller{})
+	beego.Router("/1", &controllers.IndexController{})
 }

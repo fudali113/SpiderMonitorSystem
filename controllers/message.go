@@ -28,6 +28,21 @@ func (this *IndexController) Get() {
 	this.TplName = "index.tpl"
 }
 
+type Index2Controller struct {
+	beego.Controller
+}
+
+func (this *Index2Controller) Get() {
+	addrs := strings.Split(this.Ctx.Request.RemoteAddr, "::1")
+	port := beego.AppConfig.String("httpport")
+	wsip := models.LocalIp
+	if len(addrs) > 1 {
+		wsip = "localhost"
+	}
+	this.Data["ip"] = wsip + ":" + port
+	this.TplName = "index2.tpl"
+}
+
 func (this *MainController) Post() {
 	defer this.Ctx.Request.Body.Close()
 	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
