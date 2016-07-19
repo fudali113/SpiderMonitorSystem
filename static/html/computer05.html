@@ -1,0 +1,23 @@
+<div>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<div class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#{{computer.id}}">
+					<strong>{{computer.id}}:<font color="#EE4000">{{computer.ip}}</font></strong>
+					</a>
+				<div style="float:right;text-align:center" ng-style="computer.hbStyle"  class="circle">
+					<strong>{{computer.hb | hb_filter}}</strong>
+				</div>
+				<div style="float:right;text-align:center;background-color:white"  class="circle">
+					<strong>{{computer.spiders.length}}</strong>
+				</div>
+			</div>
+		</div>
+
+		<div id="{{computer.id}}" class="panel-collapse collapse in">
+		   	<div class="panel-body">
+				<spider ng-repeat="spider in computer.spiders"></spider>
+		  	</div>
+	  	</div>
+	</div>
+</div>

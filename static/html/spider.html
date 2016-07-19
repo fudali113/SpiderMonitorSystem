@@ -1,0 +1,20 @@
+<div>
+	<div class="panel panel-info" style="float:left;width:320px;word-break:break-all;">
+		<div class="panel-heading">
+			<div class="panel-title">
+					<strong>{{spider.bank_name}}:<font color="#EE4000">{{spider.content.step}}</font></strong>
+			</div>
+		</div>
+
+		<div class="panel-collapse collapse in">
+		   	<div class="panel-body" style="padding:5px 5px 5px 5px">
+				<p><font color="#030303">sid:</font><font color="#EE4000">{{spider.content.sid}}</font></p>
+				<span ng-repeat="(k,v) in spider.content">
+					<span ng-hide="hideAttr(k)">
+						<p><font color="#030303">{{k}}:</font><font color="#EE4000">{{v}}</font></p>
+					</span>
+				</span>
+		  	</div>
+	  	</div>
+	</div>
+</div>
