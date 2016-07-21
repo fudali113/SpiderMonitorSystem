@@ -6,10 +6,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/astaxie/beego"
 	"github.com/gorilla/websocket"
 )
 
-const ()
+const (
+	writeWait = 1 * time.Second
+)
 
 var (
 	LocalIp  = getLocalIp()
@@ -17,37 +20,37 @@ var (
 	Messages = make(chan []byte, 10000)
 )
 
-func myinit() {
-	fmt.Println("init models")
+func websocketMessageFS() {
 	for {
 		select {
 		case message := <-Messages:
 			before := time.Now().UnixNano()
 			send(0, message)
 			after := time.Now().UnixNano()
-			fmt.Printf("time consuming : %d ws -> %d ns \n", len(Wss), after-before)
+			beego.Notice("time consuming : ", len(Wss), " ws  -->  ", after-before, " ns")
 		}
 	}
 }
 
 func send(j int, m []byte) {
+	beego.Informational("send func start : begin with ", j, " , wss length is ", len(Wss))
 	for i := j; i < len(Wss); i++ {
 		conn := Wss[i]
 		if conn != nil {
+			conn.SetWriteDeadline(time.Now().Add(writeWait))
 			err := conn.WriteMessage(websocket.TextMessage, m)
 			if err != nil {
 				go conn.Close()
-				fmt.Println("----->一个websocket退出了连接")
-				fmt.Println(err)
+				beego.Error("a websocket conn is close , err is ", err.Error())
 				if i == len(Wss)-1 {
 					Wss = Wss[:i] //管理websocket连接数组，清除已断开的连接
 				} else {
 					Wss = append(Wss[:i], Wss[i+1:]...)
 					send(i, m)
 				}
+				break
 			}
 		}
-		break
 	}
 }
 
@@ -65,5 +68,6 @@ func getLocalIp() string {
 }
 
 func init() {
-	go myinit()
+	beego.Informational("init websocketMessageFS")
+	go websocketMessageFS()
 }

@@ -5,24 +5,24 @@ CREATE TABLE `monitor`.`all_data` (
   `step` INT NULL,
   `bid` VARCHAR(45) NULL,
   `sid` VARCHAR(128) NULL,
-  `all` VARCHAR(1000) NULL,
-  `execption` VARCHAR(1000) NULL,
+  `all` VARCHAR(10000) NULL,
+  `exception` VARCHAR(5000) NULL,
   `deadtime` DATETIME NOT NULL,
   PRIMARY KEY (`id`));
 
 
-CREATE TABLE `monitor`.`execption` (
+CREATE TABLE `monitor`.`exception` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pcid` VARCHAR(45) NULL,
   `ip` VARCHAR(45) NULL,
   `step` VARCHAR(45) NULL,
   `bid` VARCHAR(45) NULL,
-  `execption` VARCHAR(1000) NULL,
+  `exception` VARCHAR(1000) NULL,
   `data` VARCHAR(1000) NULL,
   `deadtime` DATETIME NOT NULL,
   PRIMARY KEY (`id`));
 
-CREATE TABLE `monitor`.`heartbeats` (
+CREATE TABLE `monitor`.`heartbeat` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pcid` VARCHAR(45) NULL,
   `ip` VARCHAR(45) NULL,
