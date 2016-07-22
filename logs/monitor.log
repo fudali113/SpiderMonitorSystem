@@ -174,3 +174,51 @@
 2016/07/21 15:28:08 [websockets.go:30][N] time consuming :  1  ws  -->   187174  ns 
 2016/07/21 15:28:13 [websockets.go:30][N] time consuming :  1  ws  -->   65140  ns 
 2016/07/21 15:28:18 [websockets.go:30][N] time consuming :  1  ws  -->   157774  ns 
+2016/07/22 10:45:40 [router.go:854][C] the request url is  /ws 
+2016/07/22 10:45:40 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:09 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:09 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:15 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:15 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:16 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:16 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
