@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	_ "look/models"
 	_ "look/routers"
 
@@ -10,6 +8,8 @@ import (
 )
 
 func main() {
-	fmt.Println("begin")
+	beego.Notice("begin")
+	beego.SetLogger("file", `{"filename":"logs/monitor.log"}`)
+	beego.SetLevel(beego.LevelNotice)
 	beego.Run()
 }

@@ -11,8 +11,6 @@ CREATE TABLE `monitor`.`all_data` (
   PRIMARY KEY (`id`));
 ALTER TABLE all_data add UNIQUE KEY (sid,step);
 
-
-
 CREATE TABLE exception
 (
     id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -20,7 +18,9 @@ CREATE TABLE exception
     exception VARCHAR(5000),
     time DATETIME
 );
-CREATE TABLE `monitor`.`heartbeats` (
+
+
+CREATE TABLE `monitor`.`heartbeat` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pcid` VARCHAR(45) NULL,
   `ip` VARCHAR(45) NULL,

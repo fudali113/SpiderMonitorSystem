@@ -16,7 +16,7 @@ type StepExecAllRatio struct {
 func GetExecAllRatio() []StepExecAllRatio {
 	db := orm.NewOrm()
 	var sears []StepExecAllRatio
-	_, err := db.Raw("select step, count(step) normal , count(case when execption != '' then step end) exec  FROM all_data GROUP BY step").QueryRows(&sears)
+	_, err := db.Raw("select step, count(step) normal , count(case when exception != '' then step end) exec  FROM all_data GROUP BY step").QueryRows(&sears)
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -45,7 +45,7 @@ type PcDownRatio struct {
 func GetPcDownRatio() []PcDownRatio {
 	db := orm.NewOrm()
 	var sears []PcDownRatio
-	_, err := db.Raw("SELECT pcid , count(pcid) count from heartbeats GROUP BY pcid").QueryRows(&sears)
+	_, err := db.Raw("SELECT pcid , count(pcid) count from heartbeat GROUP BY pcid").QueryRows(&sears)
 	if err != nil {
 		fmt.Println(err)
 		return nil

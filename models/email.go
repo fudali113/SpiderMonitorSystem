@@ -2,7 +2,6 @@ package models
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
 	"net/smtp"
 	"strings"
@@ -35,7 +34,7 @@ func SendEmail(email Email) {
 	mailtype := email.MailType
 	err := SendToMail(user, password, host, to, subject, body, mailtype)
 	if err != nil {
-		fmt.Println(err)
+		beego.Error(err)
 		SendEmail(email)
 	}
 }
@@ -62,7 +61,7 @@ func SendToMail(user, password, host, to, subject, body, mailtype string) error 
 	send_to := strings.Split(to, ";")
 	err := smtp.SendMail(host, auth, user, send_to, msg)
 	if err == nil {
-		fmt.Println("send one email to " + to)
+		beego.Notice("send one email to : ", to)
 	}
 	return err
 }
@@ -71,7 +70,7 @@ func GetHtmlWithTpl(file string, m map[string]interface{}) (string, error) {
 	var body bytes.Buffer
 	t, err := template.ParseFiles(file)
 	if err != nil {
-		fmt.Println(err)
+		beego.Error(err)
 	} else {
 		t.Execute(&body, m)
 	}
@@ -80,26 +79,26 @@ func GetHtmlWithTpl(file string, m map[string]interface{}) (string, error) {
 	return bodyStr, err
 }
 
-func main() {
-	to := "591327191@qq.com"
+//func main() {
+//	to := "591327191@qq.com"
 
-	subject := "使用Golang发送邮件"
-	var body bytes.Buffer
-	t, err := template.ParseFiles("../views/email.tpl")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		m := map[string]string{
-			"before":   "1",
-			"pc_id":    "1",
-			"lastData": "1"}
-		t.Execute(&body, m)
-	}
+//	subject := "使用Golang发送邮件"
+//	var body bytes.Buffer
+//	t, err := template.ParseFiles("../views/email.tpl")
+//	if err != nil {
+//		fmt.Println(err)
+//	} else {
+//		m := map[string]string{
+//			"before":   "1",
+//			"pc_id":    "1",
+//			"lastData": "1"}
+//		t.Execute(&body, m)
+//	}
 
-	bodyStr := string(body.Bytes())
+//	bodyStr := string(body.Bytes())
 
-	email := Email{To: to, Subject: subject, Body: bodyStr, MailType: "html"}
-	fmt.Println("send email")
-	SendEmail(email)
+//	email := Email{To: to, Subject: subject, Body: bodyStr, MailType: "html"}
+//	beego.Error("send email")
+//	SendEmail(email)
 
-}
+//}

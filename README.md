@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-# learningBeego
 
-use beego development monitoring system
+# sms
 
- 39bdf47692adbe13e072b4ccdc82e24ceb855d6a
+a spider monitoring system
+use beego angularjs bootstrap
+

@@ -2,9 +2,10 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"look/mysql"
 	"time"
+
+	"github.com/astaxie/beego"
 )
 
 type Heartbeat struct {
@@ -40,11 +41,10 @@ const (
 )
 
 func recordInfo(pcstatus []byte) {
-	fmt.Println("开始读取消息")
 	s := &PcStatus{}
 	err := json.Unmarshal(pcstatus, s)
 	if err != nil {
-		fmt.Println(err)
+		beego.Error(err)
 		return
 	}
 
@@ -54,78 +54,71 @@ func recordInfo(pcstatus []byte) {
 	}
 	ip := s.Ip
 	ss := s.SpiderStatus
-	pc_execption := s.Exception
+	pc_exception := s.Exception
 	bid := s.Bank
 	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 
 	History[pcid] = time.Now().Unix()
 	pcipmap[pcid] = ip
 
-	if pc_execption != "" {
+	if pc_exception != "" {
+		beego.Warning("pc exception is ", pc_exception)
 		go SendEmailWithMap(map[string]interface{}{
 			"pcid": pcid,
 			"ip":   ip,
-			"pce":  pc_execption,
+			"pce":  pc_exception,
 			"ss":   ss,
 			"time": nowTime,
-			"data": string(pcstatus)}, "haved a pc in execption", "views/execption.tpl")
+			"data": string(pcstatus)}, "haved a pc in exception", "views/exception.tpl")
 	}
 	if ss == nil {
 		return
 	}
 
+	sendHbMessage(pcstatus)
+	go beego.Notice(string(pcstatus))
+
 	HistoryData[pcid] = string(pcstatus)
 	step := -1
 	if ss["step"] != nil {
 		step = int(ss["step"].(float64))
-	} else {
-		return
 	}
 	sid := ""
 	if ss["sid"] != nil {
 		sid = ss["sid"].(string)
-	} else {
-		return
-	}
-	fmt.Println("发送实体消息")
-	sendHbMessage(pcstatus)
-
-	execption := ""
-	if ss["execption"] != nil {
-		execption = ss["execption"].(string)
 	}
 
-	if execption != "" {
-		fmt.Println("有异常字段")
+	exception := ""
+	if ss["exception"] != nil {
+		exception = ss["exception"].(string)
+	}
+
+	adid := mysql.InsertAll(&mysql.All{
+		Pcid:      pcid,
+		Ip:        ip,
+		Step:      step,
+		Bid:       bid,
+		Sid:       sid,
+		Exception: exception,
+		All:       string(pcstatus)})
+
+	if exception != "" {
+		beego.Warning("bank_status.exception:", exception)
 		go func() {
 			SendEmailWithMap(map[string]interface{}{
 				"pcid": pcid,
 				"ip":   ip,
-				"pce":  pc_execption,
+				"pce":  pc_exception,
 				"ss":   ss,
 				"time": nowTime,
-				"data": string(pcstatus)}, "haved a spider in execption", "views/execption.tpl")
+				"data": string(pcstatus)}, "haved a spider in exception", "views/exception.tpl")
 			mysql.InsertExecption(&mysql.Exception{
-				Pcid:      pcid,
-				Ip:        ip,
-				Step:      step,
-				Bid:       bid,
-				Exception: execption,
-				Data:      string(pcstatus)})
+				Adid:      adid,
+				Exception: exception})
 		}()
 
 	}
-	fmt.Println("插入数据")
 	go func() {
-		mysql.InsertAll(&mysql.All{
-			Pcid:      pcid,
-			Ip:        ip,
-			Step:      step,
-			Bid:       bid,
-			Sid:       sid,
-			Exception: execption,
-			All:       string(pcstatus)})
-
 		mysql.IOUFinish(&mysql.Finish{
 			Pcid: pcid,
 			Bid:  bid,
@@ -133,23 +126,7 @@ func recordInfo(pcstatus []byte) {
 			Step: step})
 	}()
 
-	//	if notIn(pcid) {
-	//		go func() {
-	//			time.Sleep(time.Millisecond * 500)
-	//			Messages <- pcstatus
-	//		}()
-	//	}
 }
-
-//func notIn(id string) bool {
-//	var count = 0
-//	for k, _ := range History {
-//		if k == id {
-//			count = count + 1
-//		}
-//	}
-//	return count == 0
-//}
 
 func checkHB() {
 	hbs := make([]*Heartbeat, 0)
@@ -164,18 +141,19 @@ func checkHB() {
 		} else {
 			delete(History, k)
 			hbs = append(hbs, &Heartbeat{PCid: k, Ip: pcipmap[k], Hb: -1})
-			go mysql.InsertHB(&mysql.HB{Pcid: k, Deadtime: time.Unix(v, 0)})
+			go mysql.InsertHB(&mysql.HB{Pcid: k, Ip: pcipmap[k], Deadtime: time.Unix(v, 0)})
 			go SendEmailWithMap(map[string]interface{}{
 				"before":   missTime,
 				"pc_id":    k,
 				"downTime": downTimeStr,
 				"lastData": HistoryData[k]}, "haved a computer is down", "views/email.tpl")
+			beego.Error("a computer is down and send email")
 		}
 	}
 	if len(hbs) != 0 {
 		hbjson, err := json.Marshal(hbs)
 		if err != nil {
-			fmt.Println(err)
+			beego.Error(err)
 		} else {
 			sendHbMessage(hbjson)
 		}
@@ -186,15 +164,14 @@ func sendHbMessage(hb []byte) {
 	if len(Wss) > 0 {
 		select {
 		case Messages <- hb:
-			//fmt.Print("websocket get heartbeat : ")
 		default:
-			fmt.Println("websocket send hb error ")
+			beego.Warning("websocket send message error : ", string(hb))
 		}
 	}
 }
 
 func init() {
-	fmt.Println("checkHB is init")
+	beego.Notice("checkHB is init")
 	go record()
 	go check()
 }

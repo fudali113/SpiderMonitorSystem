@@ -1,0 +1,227 @@
+2016/07/21 15:07:17 [router.go:854][C] the request url is  /ws 
+2016/07/21 15:07:17 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:246 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:200 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:184 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/21 15:07:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/21 15:07:35 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:07:35 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:07:35 [websockets.go:30][N] time consuming :  1  ws -> %d ns 207453 
+2016/07/21 15:07:35 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:07:35 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:07:35 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:07:36 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:07:36 [websockets.go:30][N] time consuming :  1  ws -> %d ns 313958 
+2016/07/21 15:07:41 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:07:41 [websockets.go:30][N] time consuming :  1  ws -> %d ns 313552 
+2016/07/21 15:07:46 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:07:46 [websockets.go:30][N] time consuming :  1  ws -> %d ns 445319 
+2016/07/21 15:13:23 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:13:23 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:13:23 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:13:23 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:13:30 [router.go:854][C] the request url is  /ws 
+2016/07/21 15:13:30 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:246 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:200 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:184 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/21 15:13:30 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/21 15:13:34 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:34 [websockets.go:30][N] time consuming :  1 , ws ->  142259  ns 
+2016/07/21 15:13:39 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:39 [websockets.go:30][N] time consuming :  1 , ws ->  374773  ns 
+2016/07/21 15:13:44 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:44 [websockets.go:30][N] time consuming :  1 , ws ->  221027  ns 
+2016/07/21 15:13:49 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:49 [websockets.go:30][N] time consuming :  1 , ws ->  303635  ns 
+2016/07/21 15:13:54 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:54 [websockets.go:30][N] time consuming :  1 , ws ->  284710  ns 
+2016/07/21 15:13:59 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:13:59 [websockets.go:30][N] time consuming :  1 , ws ->  297169  ns 
+2016/07/21 15:14:04 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:04 [websockets.go:30][N] time consuming :  1 , ws ->  113486  ns 
+2016/07/21 15:14:09 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:09 [websockets.go:30][N] time consuming :  1 , ws ->  129541  ns 
+2016/07/21 15:14:15 [router.go:854][C] the request url is  /ws 
+2016/07/21 15:14:15 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:246 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:200 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:184 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/21 15:14:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/21 15:14:23 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:23 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:14:23 [websockets.go:30][N] time consuming :  1  ws  -->   274655  ns 
+2016/07/21 15:14:23 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:14:23 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:14:23 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:14:26 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:26 [websockets.go:30][N] time consuming :  1  ws  -->   236927  ns 
+2016/07/21 15:14:31 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:31 [websockets.go:30][N] time consuming :  1  ws  -->   275916  ns 
+2016/07/21 15:14:36 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:36 [websockets.go:30][N] time consuming :  1  ws  -->   303414  ns 
+2016/07/21 15:14:41 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:41 [websockets.go:30][N] time consuming :  1  ws  -->   115334  ns 
+2016/07/21 15:14:46 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:46 [websockets.go:30][N] time consuming :  1  ws  -->   359259  ns 
+2016/07/21 15:14:51 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:51 [websockets.go:30][N] time consuming :  1  ws  -->   146964  ns 
+2016/07/21 15:14:56 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:14:56 [websockets.go:30][N] time consuming :  1  ws  -->   306952  ns 
+2016/07/21 15:15:01 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:01 [websockets.go:30][N] time consuming :  1  ws  -->   202338  ns 
+2016/07/21 15:15:06 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:06 [websockets.go:30][N] time consuming :  1  ws  -->   292789  ns 
+2016/07/21 15:15:11 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:11 [websockets.go:30][N] time consuming :  1  ws  -->   182138  ns 
+2016/07/21 15:15:16 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:16 [websockets.go:30][N] time consuming :  1  ws  -->   318508  ns 
+2016/07/21 15:15:21 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:21 [websockets.go:30][N] time consuming :  1  ws  -->   322573  ns 
+2016/07/21 15:15:26 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:26 [websockets.go:30][N] time consuming :  1  ws  -->   311923  ns 
+2016/07/21 15:15:31 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:31 [websockets.go:30][N] time consuming :  1  ws  -->   327254  ns 
+2016/07/21 15:15:36 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:36 [websockets.go:30][N] time consuming :  1  ws  -->   304075  ns 
+2016/07/21 15:15:41 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:41 [websockets.go:30][N] time consuming :  1  ws  -->   135210  ns 
+2016/07/21 15:15:46 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:46 [websockets.go:30][N] time consuming :  1  ws  -->   305530  ns 
+2016/07/21 15:15:51 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:51 [websockets.go:30][N] time consuming :  1  ws  -->   366557  ns 
+2016/07/21 15:15:56 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:15:56 [websockets.go:30][N] time consuming :  1  ws  -->   277532  ns 
+2016/07/21 15:16:01 [websockets.go:36][N] send func start : begin with  0  , wss length is  1 
+2016/07/21 15:16:01 [websockets.go:30][N] time consuming :  1  ws  -->   298371  ns 
+2016/07/21 15:20:05 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:20:05 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:20:05 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:20:06 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:20:16 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:20:16 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:20:16 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:20:16 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:20:50 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:20:50 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:20:50 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:20:51 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:20:52 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:20:52 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:20:52 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:20:52 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:22:14 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:22:14 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:22:14 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:22:14 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:22:16 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:22:17 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:22:17 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:22:17 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:22:18 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:22:18 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:22:18 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:22:18 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:26:46 [asm_amd64.s:1998][N] {"pc_id":"test1hggjj","bank_name":"v1dfsbvf1","exception":"","ip":"192.168.0.101","bank_status":{"step":2,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","exception":""}} 
+2016/07/21 15:26:46 [mysql.go:33][N] 插入 all_data  
+2016/07/21 15:26:46 [mysql.go:35][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-2' for key 'sid' 
+2016/07/21 15:26:46 [mysql.go:57][N] 插入 finish 
+2016/07/21 15:26:52 [router.go:854][C] the request url is  /ws 
+2016/07/21 15:26:52 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/21 15:26:52 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/21 15:26:53 [websockets.go:30][N] time consuming :  1  ws  -->   99874  ns 
+2016/07/21 15:26:58 [websockets.go:30][N] time consuming :  1  ws  -->   106185  ns 
+2016/07/21 15:27:03 [websockets.go:30][N] time consuming :  1  ws  -->   148010  ns 
+2016/07/21 15:27:08 [websockets.go:30][N] time consuming :  1  ws  -->   66804  ns 
+2016/07/21 15:27:13 [websockets.go:30][N] time consuming :  1  ws  -->   169163  ns 
+2016/07/21 15:27:18 [websockets.go:30][N] time consuming :  1  ws  -->   150630  ns 
+2016/07/21 15:27:23 [websockets.go:30][N] time consuming :  1  ws  -->   153401  ns 
+2016/07/21 15:27:28 [websockets.go:30][N] time consuming :  1  ws  -->   155682  ns 
+2016/07/21 15:27:33 [websockets.go:30][N] time consuming :  1  ws  -->   92936  ns 
+2016/07/21 15:27:38 [websockets.go:30][N] time consuming :  1  ws  -->   150982  ns 
+2016/07/21 15:27:43 [websockets.go:30][N] time consuming :  1  ws  -->   66775  ns 
+2016/07/21 15:27:48 [websockets.go:30][N] time consuming :  1  ws  -->   143845  ns 
+2016/07/21 15:27:53 [websockets.go:30][N] time consuming :  1  ws  -->   65267  ns 
+2016/07/21 15:27:58 [websockets.go:30][N] time consuming :  1  ws  -->   181375  ns 
+2016/07/21 15:28:03 [websockets.go:30][N] time consuming :  1  ws  -->   245227  ns 
+2016/07/21 15:28:08 [websockets.go:30][N] time consuming :  1  ws  -->   187174  ns 
+2016/07/21 15:28:13 [websockets.go:30][N] time consuming :  1  ws  -->   65140  ns 
+2016/07/21 15:28:18 [websockets.go:30][N] time consuming :  1  ws  -->   157774  ns 
+2016/07/22 10:45:40 [router.go:854][C] the request url is  /ws 
+2016/07/22 10:45:40 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 10:45:40 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:09 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:09 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:09 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:15 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:15 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 11:26:16 [router.go:854][C] the request url is  /ws 
+2016/07/22 11:26:16 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 14:57:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/22 14:58:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/22 15:55:49 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 

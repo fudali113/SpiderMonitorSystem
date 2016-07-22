@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"io/ioutil"
 	"look/models"
 	"strings"
@@ -46,9 +45,6 @@ func (this *Index2Controller) Get() {
 func (this *MainController) Post() {
 	defer this.Ctx.Request.Body.Close()
 	body, err := ioutil.ReadAll(this.Ctx.Request.Body)
-	fmt.Println(len(body))
-	fmt.Println(string(body))
-
 	if err == nil && body != nil {
 		select {
 		case models.PS <- body:

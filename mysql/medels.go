@@ -1,9 +1,9 @@
 package mysql
 
 import (
-	"fmt"
 	"time"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -33,12 +33,8 @@ type Finish struct {
 
 type Exception struct {
 	Id        int
-	Pcid      string
-	Ip        string
-	Step      int
-	Bid       string
+	Adid      int64
 	Exception string
-	Data      string
 	Time      time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
@@ -50,11 +46,10 @@ type HB struct {
 }
 
 func (a *HB) TableName() string {
-	return "heartbeats"
+	return "heartbeat"
 }
 
 func init() {
-	fmt.Println("init db models")
-	// 需要在init中注册定义的model
+	beego.Notice("init db models")
 	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish))
 }
