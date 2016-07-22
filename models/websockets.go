@@ -36,6 +36,7 @@ func send(j int, m []byte) {
 		if conn != nil {
 			err := conn.WriteMessage(websocket.TextMessage, m)
 			if err != nil {
+				fmt.Println("----->开始关闭一个websocket退出了连接")
 				go conn.Close()
 				fmt.Println("----->一个websocket退出了连接")
 				fmt.Println(err)
