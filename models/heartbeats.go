@@ -103,7 +103,7 @@ func recordInfo(pcstatus []byte) {
 		All:       string(pcstatus)})
 
 	if exception != "" {
-		beego.Warning("bank_status.exception:%s", exception)
+		beego.Warning("bank_status.exception:", exception)
 		go func() {
 			SendEmailWithMap(map[string]interface{}{
 				"pcid": pcid,

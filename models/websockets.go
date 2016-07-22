@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	writeWait = 1 * time.Second
+	writeWait = 10 * time.Millisecond
 )
 
 var (

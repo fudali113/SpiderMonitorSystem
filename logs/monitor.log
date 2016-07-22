@@ -222,3 +222,6 @@
 2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
 2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
 2016/07/22 11:26:16 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/22 14:57:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/22 14:58:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/22 15:55:49 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
