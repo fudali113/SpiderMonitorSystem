@@ -6,20 +6,68 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/css/BootSideMenu.css" />
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
 <link rel="stylesheet" href="/static/css/index.css" />
 <body>
-<div id="stepexecallratio" style="height:400px"></div>
-<div id="pcdownratio" style="height:480px;width:630px; float:left"></div>
-<div id="stepfinishratio" style="height:480px;width:630px ; float:left"></div>	
+<div style="width:100%;height:100%;overflow:auto">
+	<div id="stepexecallratio" style="height:400px"></div>
+	<div id="pcdownratio" style="height:480px;width:630px; float:left"></div>
+	<div id="stepfinishratio" style="height:480px;width:630px ; float:left"></div>	
+</div>
+<div id="searchMenu" style="text-align:center;width: 393px;margin:auto auto auto auto;">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">搜索</h3>
+		</div>
+		<div class="panel-body">
+			<from id="searchFrom">
+				<div class="panel-group" id="accordion" data-toggle="collapse">
+					<div class="panel panel-success" >
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+								   href="#collapseOne">
+									日期：
+								</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" >
+							<div class="panel-body">
+								<div class="form-group">
+									<label for="startTime" class="col-sm-4 control-label">开始日期:</label>
+									<div class="col-sm-8">
+										<input type='text' class='regist_input' name="startTime" readonly="readonly" id="startTime"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="endTime" class="col-sm-4 control-label">结束日期:</label>
+									<div class="col-sm-8">
+										<input type='text' class='regist_input' name="endTime" readonly="readonly" id="endTime"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</from>
+			<button type="submit" class="btn btn-success " id="search" style="width: 310px" >搜索</button>
+		</div>
+	</div>
+</div>
 </body>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/js/BootSideMenu.js"></script>
 <script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script src="/static/js/echarts.js"></script>
 <script type="text/javascript">
 
 $(function(){
-	
+	$('#startTime').datetimepicker({format: 'yyyy-mm-dd',autoclose:true,todayBtn:"linked",minView:2});
+    $('#endTime').datetimepicker({format: 'yyyy-mm-dd',autoclose:true,todayBtn:"linked",minView:2});
+	$('#searchMenu').BootSideMenu({side:"right"});
 	stepexecallratio("stepexecallratio")
 	stepfinishratio("stepfinishratio")
 	pcdownratio("pcdownratio")
