@@ -219,7 +219,9 @@ func record() {
 
 func trafficMonitor() {
 	mtc := MTC.GetAndReset(time.Now().Unix())
-	mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
+	if mtc != 0 {
+		mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
+	}
 }
 
 func check() {
