@@ -25,19 +25,18 @@ type PcStatus struct {
 const (
 	DefaultHT    int64 = 5
 	DefaultPDSET int64 = 5
+	checkTimer         = time.Second * 5
 )
 
 var (
 	History             = &SI64Map{M: make(map[string]int64)}
-	pcipmap             = &S2Map{M: make(map[string]string)}
-	HistoryData         = &S2Map{M: make(map[string]string)}
+	STC                 = &SI64Map{M: make(map[string]int64)} //StepTimeConsuming
+	pcipmap             = &S2Map{M: make(map[string]string)}  //pcid与ip映射
+	HistoryData         = &S2Map{M: make(map[string]string)}  //pcid最后有效数据
 	PS                  = make(chan []byte, 10000)
-	HeartbeatTime       = DefaultHT
-	PcDownSendEmailTime = DefaultPDSET
-)
-
-const (
-	checkTimer = time.Second * 5
+	HeartbeatTime       = DefaultHT       //检查心跳时间
+	PcDownSendEmailTime = DefaultPDSET    // 多久没有心跳发送邮件时间
+	MTC                 = &TrafficCount{} //每分钟流量计数器
 )
 
 func recordInfo(pcstatus []byte) {
@@ -56,7 +55,8 @@ func recordInfo(pcstatus []byte) {
 	ss := s.SpiderStatus
 	pc_exception := s.Exception
 	bid := s.Bank
-	nowTime := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
+	nowTime := time.Now().Unix()
+	nowTimeStr := time.Unix(nowTime, 0).Format("2006-01-02 15:04:05")
 
 	History.Put(pcid, time.Now().Unix())
 	pcipmap.Put(pcid, ip)
@@ -68,14 +68,13 @@ func recordInfo(pcstatus []byte) {
 			"ip":   ip,
 			"pce":  pc_exception,
 			"ss":   ss,
-			"time": nowTime,
+			"time": nowTimeStr,
 			"data": string(pcstatus)}, "haved a pc in exception", "views/exception.tpl")
 	}
-	if ss == nil {
+	if ss == nil { //如果ss为空，返回
 		return
 	}
 
-	sendHbMessage(pcstatus)
 	go beego.Notice(string(pcstatus))
 
 	HistoryData.Put(pcid, string(pcstatus))
@@ -88,17 +87,45 @@ func recordInfo(pcstatus []byte) {
 		sid = ss["sid"].(string)
 	}
 
+	MTC.Incr()
+	//检测爬虫每步用时
+	var timeConsuming int64 = 0
+	if sid != "" && step >= 0 {
+		v, ok := STC.GetAndExist(sid)
+		if ok {
+			timeConsuming = nowTime - v
+		}
+		if step == 6 {
+			STC.Delete(sid) //完成第6步，删除此sid
+		} else {
+			STC.Put(sid, nowTime)
+		}
+	}
+	if timeConsuming == 0 {
+		sendHbMessage(pcstatus)
+	} else {
+		s.SpiderStatus["stc"] = timeConsuming
+		jsonStr, err := json.Marshal(s)
+		if err != nil {
+			sendHbMessage(pcstatus)
+		} else {
+			sendHbMessage(jsonStr)
+		}
+	}
+	//检测爬虫每步用时
+
 	exception := ""
 	if ss["exception"] != nil {
 		exception = ss["exception"].(string)
 	}
 
-	adid := mysql.InsertAll(&mysql.All{
+	adid := mysql.InsertAll(&mysql.All{ // 插入数据并获取插入数据id供exception插入使用
 		Pcid:      pcid,
 		Ip:        ip,
 		Step:      step,
 		Bid:       bid,
 		Sid:       sid,
+		Stc:       timeConsuming,
 		Exception: exception,
 		All:       string(pcstatus)})
 
@@ -110,7 +137,7 @@ func recordInfo(pcstatus []byte) {
 				"ip":   ip,
 				"pce":  pc_exception,
 				"ss":   ss,
-				"time": nowTime,
+				"time": nowTimeStr,
 				"data": string(pcstatus)}, "haved a spider in exception", "views/exception.tpl")
 			mysql.InsertExecption(&mysql.Exception{
 				Adid:      adid,
@@ -161,6 +188,10 @@ func checkHB() {
 	}
 }
 
+func checkStep() {
+	//nowTime := time.Now().Unix()
+}
+
 func sendHbMessage(hb []byte) {
 	if len(Wss) > 0 {
 		select {
@@ -186,9 +217,14 @@ func record() {
 	}
 }
 
+func trafficMonitor() {
+	mtc := MTC.GetAndReset(time.Now().Unix())
+	mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
+}
+
 func check() {
 	t1 := time.NewTimer(checkTimer)
-	t2 := time.NewTimer(time.Second * 10)
+	t2 := time.NewTimer(time.Minute * 1)
 
 	for {
 		select {
@@ -198,7 +234,8 @@ func check() {
 			t1.Reset(time.Second * time.Duration(HeartbeatTime))
 
 		case <-t2.C:
-			t2.Reset(time.Minute * time.Duration(PcDownSendEmailTime))
+			trafficMonitor()
+			t2.Reset(time.Minute * 1)
 		}
 	}
 }

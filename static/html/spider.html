@@ -2,7 +2,10 @@
 	<div class="panel panel-info" style="float:left;width:320px;word-break:break-all;">
 		<div class="panel-heading">
 			<div class="panel-title">
-					<strong>{{spider.bank_name}}:<font color="#EE4000">{{spider.content.step}}</font></strong>
+					<strong>{{spider.bank_name}}:
+						<font color="red">step:{{spider.content.step}};</font>
+						<font color="red" ng-hide="spider.content.stc == undefined">stc:{{spider.content.stc}}s</font>
+					</strong>
 			</div>
 		</div>
 

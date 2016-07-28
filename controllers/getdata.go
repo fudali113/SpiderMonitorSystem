@@ -13,19 +13,25 @@ type DataController struct {
 }
 
 func (this *DataController) StepExecAllRatio() {
-	this.Data["json"] = mysql.GetExecAllRatio()
+	t := &mysql.TimeFilter{Start: this.GetString("start"), End: this.GetString("end")}
+	fmt.Println(t)
+	this.Data["json"] = mysql.GetExecAllRatio(t)
 	fmt.Println(this.Data["json"])
 	this.ServeJSON()
 }
 
 func (this *DataController) StepFinishRatio() {
-	this.Data["json"] = mysql.GetStepFinish()
+	t := &mysql.TimeFilter{Start: this.GetString("start"), End: this.GetString("end")}
+	fmt.Println(t)
+	this.Data["json"] = mysql.GetStepFinish(t)
 	fmt.Println(this.Data["json"])
 	this.ServeJSON()
 }
 
 func (this *DataController) PcDownRatio() {
-	this.Data["json"] = mysql.GetPcDownRatio()
+	t := &mysql.TimeFilter{Start: this.GetString("start"), End: this.GetString("end")}
+	fmt.Println(t)
+	this.Data["json"] = mysql.GetPcDownRatio(t)
 	fmt.Println(this.Data["json"])
 	this.ServeJSON()
 }

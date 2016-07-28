@@ -14,6 +14,7 @@ type All struct {
 	Step      int
 	Bid       string
 	Sid       string
+	Stc       int64
 	All       string
 	Exception string
 	Time      time.Time `orm:"auto_now_add;type(datetime)"`
@@ -28,7 +29,8 @@ type Finish struct {
 	Pcid string
 	Sid  string
 	Bid  string
-	Step int `orm:"column(Step)"`
+	Step int
+	Time time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
 type Exception struct {
@@ -45,11 +47,17 @@ type HB struct {
 	Deadtime time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
+type Traffic struct {
+	Id    int
+	Count int
+	Time  time.Time `orm:"auto_now_add;type(datetime)"`
+}
+
 func (a *HB) TableName() string {
 	return "heartbeat"
 }
 
 func init() {
 	beego.Notice("init db models")
-	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish))
+	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish), new(Traffic))
 }

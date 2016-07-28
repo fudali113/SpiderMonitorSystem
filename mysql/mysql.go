@@ -74,3 +74,14 @@ func InsertHB(all *HB) int64 {
 	}
 	return r
 }
+
+func InsertTraffic(all *Traffic) int64 {
+	db := orm.NewOrm()
+	r, e := db.Insert(all)
+	beego.Notice("插入 Traffic ")
+	if e != nil {
+		beego.Error(e)
+		return 0
+	}
+	return r
+}

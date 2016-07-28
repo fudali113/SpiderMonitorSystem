@@ -199,7 +199,7 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		$scope.settingRequestAnimation = false
 	}
 	$scope.hideAttr = function(k){
-	    	var hides = ['sid','bid','step','bank_name']
+	    	var hides = ['sid','bid','step','bank_name','stc']
 	    	for (var i = hides.length - 1; i >= 0; i--) {
 	    		if (k == hides[i]) {
 	    			return true
