@@ -29,3 +29,21 @@ func Test_myput(t *testing.T) {
 		t.Error("ooooo")
 	}
 }
+
+func myput() int64 {
+	const workers = 100
+	var wg sync.WaitGroup
+	wg.Add(workers)
+	m := &SI64Map{M: make(map[string]int64)}
+	m.Put("oo", 0)
+	for i := 1; i <= workers; i++ {
+		go func(i int) {
+			for j := 0; j < i; j++ {
+				m.Put("oo", m.Get("oo")+1)
+			}
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
+	return m.Get("oo")
+}

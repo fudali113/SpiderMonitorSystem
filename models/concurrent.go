@@ -4,7 +4,7 @@ import (
 	"sync"
 )
 
-type TrafficCount struct {
+type TrafficCount struct { //计数器
 	sync.RWMutex
 	C  int
 	BT int64 //beginUnixTime
@@ -43,7 +43,7 @@ func (this *TrafficCount) GetAndReset(bt int64) int {
 	return count
 }
 
-type SI64Map struct {
+type SI64Map struct { //String int map
 	sync.RWMutex
 	M map[string]int64
 }
@@ -73,7 +73,7 @@ func (this *SI64Map) Delete(k string) {
 	this.Unlock()
 }
 
-type S2Map struct {
+type S2Map struct { //string string map
 	sync.RWMutex
 	M map[string]string
 }
@@ -90,20 +90,32 @@ func (this *S2Map) Get(k string) string {
 	return this.M[k]
 }
 
-func myput() int64 {
-	const workers = 100
-	var wg sync.WaitGroup
-	wg.Add(workers)
-	m := &SI64Map{M: make(map[string]int64)}
-	m.Put("oo", 0)
-	for i := 1; i <= workers; i++ {
-		go func(i int) {
-			for j := 0; j < i; j++ {
-				m.Put("oo", m.Get("oo")+1)
-			}
-			wg.Done()
-		}(i)
-	}
-	wg.Wait()
-	return m.Get("oo")
+type SSIMap struct { //String stepInfo map
+	sync.RWMutex
+	M map[string]StepInfo
+}
+
+func (this *SSIMap) Put(k string, v StepInfo) {
+	this.Lock()
+	this.M[k] = v
+	this.Unlock()
+}
+
+func (this *SSIMap) Get(k string) StepInfo {
+	this.RLock()
+	defer this.RUnlock()
+	return this.M[k]
+}
+
+func (this *SSIMap) GetAndExist(k string) (v StepInfo, ok bool) {
+	this.RLock()
+	defer this.RUnlock()
+	v, ok = this.M[k]
+	return
+}
+
+func (this *SSIMap) Delete(k string) {
+	this.Lock()
+	delete(this.M, k)
+	this.Unlock()
 }
