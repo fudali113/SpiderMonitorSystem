@@ -24,6 +24,7 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8&loc=Local", user, passwd, host, port)
 	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
+	orm.Debug = true
 }
 
 func InsertAll(all *All) int64 {
@@ -53,7 +54,7 @@ func InsertExecption(all *Exception) int64 {
 func IOUFinish(all *Finish) int64 {
 	db := orm.NewOrm()
 	db.Using("default") // 默认使用 default，你可以指定为其他数据库
-	r, e := db.InsertOrUpdate(all)
+	r, e := db.InsertOrUpdate(all, "cndichdsio", "Step=Step+1")
 	beego.Notice("插入 finish")
 	if e != nil {
 		beego.Error(e)

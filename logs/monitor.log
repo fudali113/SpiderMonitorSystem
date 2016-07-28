@@ -225,3 +225,56 @@
 2016/07/22 14:57:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
 2016/07/22 14:58:02 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
 2016/07/22 15:55:49 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/26 11:55:36 [router.go:854][C] the request url is  /ws 
+2016/07/26 11:55:36 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/26 11:55:36 [router.go:861][C] /usr/local/go/src/runtime/asm_amd64.s:472 
+2016/07/26 11:55:36 [router.go:861][C] /usr/local/go/src/runtime/panic.go:443 
+2016/07/26 11:55:36 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/template.go:53 
+2016/07/26 11:55:36 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:245 
+2016/07/26 11:55:36 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:199 
+2016/07/26 11:55:36 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:183 
+2016/07/26 11:55:36 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/router.go:785 
+2016/07/26 11:55:36 [router.go:861][C] /usr/local/go/src/net/http/server.go:2081 
+2016/07/26 11:55:36 [router.go:861][C] /usr/local/go/src/net/http/server.go:1472 
+2016/07/26 11:55:36 [router.go:861][C] /usr/local/go/src/runtime/asm_amd64.s:1998 
+2016/07/26 11:55:36 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/07/26 11:56:41 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 11:56:42 [mysql.go:34][N] 插入 all_data  
+2016/07/26 11:56:42 [mysql.go:58][N] 插入 finish 
+2016/07/26 11:57:59 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 11:57:59 [mysql.go:34][N] 插入 all_data  
+2016/07/26 11:57:59 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 11:57:59 [mysql.go:58][N] 插入 finish 
+2016/07/26 11:59:11 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 11:59:11 [mysql.go:34][N] 插入 all_data  
+2016/07/26 11:59:11 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 11:59:11 [mysql.go:58][N] 插入 finish 
+2016/07/26 12:04:13 [heartbeats.go:150][E] a computer is down and send email 
+2016/07/26 12:04:14 [email.go:64][N] send one email to :  591327191@qq.com 
+2016/07/26 12:04:54 [mysql.go:70][N] 插入 heartbeat  
+2016/07/26 13:56:42 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 13:57:07 [mysql.go:34][N] 插入 all_data  
+2016/07/26 13:57:07 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 13:57:07 [mysql.go:58][N] 插入 finish 
+2016/07/26 13:58:00 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 13:58:00 [mysql.go:34][N] 插入 all_data  
+2016/07/26 13:58:00 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 13:58:00 [mysql.go:58][N] 插入 finish 
+2016/07/26 13:58:07 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 13:58:07 [mysql.go:34][N] 插入 all_data  
+2016/07/26 13:58:07 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 13:58:07 [mysql.go:58][N] 插入 finish 
+2016/07/26 14:00:44 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 14:00:44 [mysql.go:34][N] 插入 all_data  
+2016/07/26 14:00:44 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 14:00:44 [mysql.go:58][N] 插入 finish 
+2016/07/26 14:05:46 [heartbeats.go:150][E] a computer is down and send email 
+2016/07/26 14:05:48 [email.go:64][N] send one email to :  591327191@qq.com 
+2016/07/26 14:06:27 [mysql.go:70][N] 插入 heartbeat  
+2016/07/26 14:19:21 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":1,"sid":"tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/26 14:19:21 [mysql.go:34][N] 插入 all_data  
+2016/07/26 14:19:21 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtygjnhgjngjnbgjyhkjnuyhjnuju6jnujst-1' for key 'sid' 
+2016/07/26 14:19:21 [mysql.go:58][N] 插入 finish 
+2016/07/26 14:24:25 [heartbeats.go:150][E] a computer is down and send email 
+2016/07/26 14:24:27 [email.go:64][N] send one email to :  591327191@qq.com 
+2016/07/26 14:25:07 [mysql.go:70][N] 插入 heartbeat  

@@ -28,7 +28,7 @@ type Finish struct {
 	Pcid string
 	Sid  string
 	Bid  string
-	Step int
+	Step int `orm:"column(Step)"`
 }
 
 type Exception struct {
