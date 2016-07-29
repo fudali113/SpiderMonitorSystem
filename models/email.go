@@ -20,13 +20,6 @@ var (
 	ToAddress = DefaultTA
 )
 
-type Email struct {
-	To       string
-	Subject  string
-	Body     string
-	MailType string
-}
-
 func SendEmail(email Email) {
 	to := email.To
 	subject := email.Subject

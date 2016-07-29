@@ -8,20 +8,6 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type Heartbeat struct {
-	PCid string `json:"pc_id"`
-	Ip   string `json:"ip"`
-	Hb   int    `json:"hb"`
-}
-
-type PcStatus struct {
-	PCid         string                 `json:"pc_id"`
-	Ip           string                 `json:"ip"`
-	Bank         string                 `json:"bank_name"`
-	Exception    string                 `json:"exception"`
-	SpiderStatus map[string]interface{} `json:"bank_status"`
-}
-
 const (
 	DefaultHT    int64 = 5
 	DefaultPDSET int64 = 5
@@ -30,13 +16,13 @@ const (
 
 var (
 	History             = &SI64Map{M: make(map[string]int64)}
-	STC                 = &SI64Map{M: make(map[string]int64)} //StepTimeConsuming
-	pcipmap             = &S2Map{M: make(map[string]string)}  //pcid与ip映射
-	HistoryData         = &S2Map{M: make(map[string]string)}  //pcid最后有效数据
-	PS                  = make(chan []byte, 10000)
-	HeartbeatTime       = DefaultHT       //检查心跳时间
-	PcDownSendEmailTime = DefaultPDSET    // 多久没有心跳发送邮件时间
-	MTC                 = &TrafficCount{} //每分钟流量计数器
+	pcipmap             = &S2Map{M: make(map[string]string)}    //pcid与ip映射
+	HistoryData         = &S2Map{M: make(map[string]string)}    //pcid最后有效数据
+	PS                  = make(chan []byte, 10000)              //PcStatus
+	HeartbeatTime       = DefaultHT                             //检查心跳时间
+	PcDownSendEmailTime = DefaultPDSET                          // 多久没有心跳发送邮件时间
+	STC                 = &SSIMap{M: make(map[string]StepInfo)} //StepTimeConsuming
+	MTC                 = &TrafficCount{}                       //每分钟流量计数器
 )
 
 func recordInfo(pcstatus []byte) {
@@ -74,8 +60,7 @@ func recordInfo(pcstatus []byte) {
 	if ss == nil { //如果ss为空，返回
 		return
 	}
-
-	go beego.Notice(string(pcstatus))
+	beego.Notice(string(pcstatus))
 
 	HistoryData.Put(pcid, string(pcstatus))
 	step := -1
@@ -93,23 +78,29 @@ func recordInfo(pcstatus []byte) {
 	if sid != "" && step >= 0 {
 		v, ok := STC.GetAndExist(sid)
 		if ok {
-			timeConsuming = nowTime - v
+			s := v.Step
+			if s != step {
+				timeConsuming = nowTime - v.Time
+			} else {
+				beego.Notice("return ")
+				return
+			}
 		}
 		if step == 6 {
 			STC.Delete(sid) //完成第6步，删除此sid
 		} else {
-			STC.Put(sid, nowTime)
+			STC.Put(sid, StepInfo{Time: nowTime, Step: step, Bank: bid, Pcid: pcid})
 		}
 	}
 	if timeConsuming == 0 {
-		sendHbMessage(pcstatus)
+		sendMessage(pcstatus)
 	} else {
 		s.SpiderStatus["stc"] = timeConsuming
 		jsonStr, err := json.Marshal(s)
 		if err != nil {
-			sendHbMessage(pcstatus)
+			sendMessage(pcstatus)
 		} else {
-			sendHbMessage(jsonStr)
+			sendMessage(jsonStr)
 		}
 	}
 	//检测爬虫每步用时
@@ -183,16 +174,35 @@ func checkHB() {
 		if err != nil {
 			beego.Error(err)
 		} else {
-			sendHbMessage(hbjson)
+			sendMessage(hbjson)
 		}
 	}
 }
 
-func checkStep() {
-	//nowTime := time.Now().Unix()
+func trafficMonitor() { //流量统计
+	mtc := MTC.GetAndReset(time.Now().Unix())
+	if mtc != 0 {
+		mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
+	}
 }
 
-func sendHbMessage(hb []byte) {
+func checkSpider() { //检查爬虫
+	t := time.Now().Unix()
+	for k, v := range STC.M {
+		beego.Notice("bianli spider", k, v)
+		if t-v.Time > 15 {
+			v, err := json.Marshal(map[string]string{"pc_id": v.Pcid, "delete": v.Bank})
+			if err != nil {
+				beego.Error("删除失效Spider失败", err)
+			} else {
+				STC.Delete(k)
+				sendMessage(v)
+			}
+		}
+	}
+}
+
+func sendMessage(hb []byte) { //发送消息
 	if len(Wss) > 0 {
 		select {
 		case Messages <- hb:
@@ -217,16 +227,9 @@ func record() {
 	}
 }
 
-func trafficMonitor() {
-	mtc := MTC.GetAndReset(time.Now().Unix())
-	if mtc != 0 {
-		mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
-	}
-}
-
 func check() {
 	t1 := time.NewTimer(checkTimer)
-	t2 := time.NewTimer(time.Minute * 1)
+	t2 := time.NewTimer(time.Second * 60)
 
 	for {
 		select {
@@ -237,7 +240,8 @@ func check() {
 
 		case <-t2.C:
 			trafficMonitor()
-			t2.Reset(time.Minute * 1)
+			checkSpider()
+			t2.Reset(time.Second * 60)
 		}
 	}
 }
