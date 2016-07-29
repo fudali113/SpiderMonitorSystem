@@ -8,27 +8,6 @@ import (
 	"github.com/astaxie/beego"
 )
 
-type Heartbeat struct {
-	PCid string `json:"pc_id"`
-	Ip   string `json:"ip"`
-	Hb   int    `json:"hb"`
-}
-
-type PcStatus struct {
-	PCid         string                 `json:"pc_id"`
-	Ip           string                 `json:"ip"`
-	Bank         string                 `json:"bank_name"`
-	Exception    string                 `json:"exception"`
-	SpiderStatus map[string]interface{} `json:"bank_status"`
-}
-
-type StepInfo struct {
-	Time int64
-	Step int
-	Bank string
-	Pcid string
-}
-
 const (
 	DefaultHT    int64 = 5
 	DefaultPDSET int64 = 5
@@ -200,6 +179,29 @@ func checkHB() {
 	}
 }
 
+func trafficMonitor() { //流量统计
+	mtc := MTC.GetAndReset(time.Now().Unix())
+	if mtc != 0 {
+		mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
+	}
+}
+
+func checkSpider() { //检查爬虫
+	t := time.Now().Unix()
+	for k, v := range STC.M {
+		beego.Notice("bianli spider", k, v)
+		if t-v.Time > 15 {
+			v, err := json.Marshal(map[string]string{"pc_id": v.Pcid, "delete": v.Bank})
+			if err != nil {
+				beego.Error("删除失效Spider失败", err)
+			} else {
+				STC.Delete(k)
+				sendMessage(v)
+			}
+		}
+	}
+}
+
 func sendMessage(hb []byte) { //发送消息
 	if len(Wss) > 0 {
 		select {
@@ -221,29 +223,6 @@ func record() {
 		select {
 		case ps := <-PS:
 			go recordInfo(ps)
-		}
-	}
-}
-
-func trafficMonitor() { //流量统计
-	mtc := MTC.GetAndReset(time.Now().Unix())
-	if mtc != 0 {
-		mysql.InsertTraffic(&mysql.Traffic{Count: mtc})
-	}
-}
-
-func checkSpider() { //检查爬虫
-	t := time.Now().Unix()
-	for k, v := range STC.M {
-		beego.Notice("bianli spider", k, v)
-		if t-v.Time > 15 {
-			v, err := json.Marshal(map[string]string{"pc_id": v.Pcid, "delete": v.Bank})
-			if err != nil {
-				beego.Error("删除失效Spider失败", err)
-			} else {
-				STC.Delete(k)
-				sendMessage(v)
-			}
 		}
 	}
 }
