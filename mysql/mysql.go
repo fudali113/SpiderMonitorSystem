@@ -24,7 +24,7 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8&loc=Local", user, passwd, host, port)
 	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
-	orm.Debug = true
+//	orm.Debug = true
 }
 
 func InsertAll(all *All) int64 {
