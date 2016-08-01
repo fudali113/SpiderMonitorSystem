@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -23,14 +24,17 @@ func GetSysInfo(pcid, who string) []byte {
 func GetResponse(url string) []byte {
 	res, err := http.Get(url)
 	if err != nil {
-		beego.Notice("获取数据   info/all  get请求", err)
+		beego.Error("获取数据   info/all  get请求", err)
 		return nil
 	}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		beego.Notice(" 获取数据  info/all  response body 读取", err)
+		beego.Error(" 获取数据  info/all  response body 读取", err)
 		return nil
 	}
+	var oo map[string]interface{}
+	json.Unmarshal(body, &oo)
+	fmt.Println(oo)
 	return body
 }
 
@@ -39,5 +43,6 @@ func CreatUrl(host, port, who string) string {
 }
 
 func GetPcIP(pcid string) string {
-	return pcipmap.Get(pcid)
+	return "192.168.0.113"
+	//return pcipmap.Get(pcid)
 }

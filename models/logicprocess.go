@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"look/mysql"
 	"time"
 
@@ -202,6 +203,17 @@ func checkSpider() { //检查爬虫
 	}
 }
 
+func sendComputerStatus() {
+	for k, _ := range History.M {
+		body := GetSysInfo(k, "all")
+		perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
+		last := []byte(`}`)
+		changeBody := append(perfix, body...)
+		changeBody = append(changeBody, last...)
+		sendMessage(changeBody)
+	}
+}
+
 func sendMessage(hb []byte) { //发送消息
 	if len(Wss) > 0 {
 		select {
@@ -241,6 +253,7 @@ func check() {
 		case <-t2.C:
 			trafficMonitor()
 			checkSpider()
+			sendComputerStatus()
 			t2.Reset(time.Second * 60)
 		}
 	}

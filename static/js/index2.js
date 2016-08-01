@@ -56,6 +56,11 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 				}
 			}
 			if (nowComputer != undefined) {
+				if (data.sys != undefined){
+					this.computers[nowComputer].sys.cpu = data.sys.cpu[0]
+					this.computers[nowComputer].sys.mem = data.sys.mem.usedpercent
+					return
+				}
 				if (data.hb == -1){
 					this.computers.splice(newComputer,1)
 				}else{
@@ -216,6 +221,10 @@ var newComputer = function(cid){
 		hb:1, //heartbeat
 		hbStyle:{
 			background:"blue"
+		},
+		sys:{
+			cpu:0,
+			mem:0	
 		},
 		ip:undefined,
 		id:cid,
