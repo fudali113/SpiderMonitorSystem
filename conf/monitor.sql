@@ -62,3 +62,17 @@ CREATE TABLE monitor.traffic
     time DATETIME
 );
 CREATE UNIQUE INDEX traffic_id_uindex ON monitor.traffic (id);
+
+
+
+CREATE TABLE `comp_status` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pcid` varchar(128) DEFAULT NULL,
+  `cpu` int(11) DEFAULT NULL,
+  `mem` int(11) DEFAULT NULL,
+  `io` int(11) DEFAULT NULL,
+  `net` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `data` varchar(3000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

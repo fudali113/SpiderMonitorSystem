@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"look/mysql"
+	"strconv"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -211,6 +212,17 @@ func sendComputerStatus() {
 		changeBody := append(perfix, body...)
 		changeBody = append(changeBody, last...)
 		sendMessage(changeBody)
+		go func() {
+			var data CompSysStatus
+			json.Unmarshal(body, &data)
+			cpu := data.Cpu[0]
+			mem, _ := strconv.Atoi(data.Mem["userpercent"])
+			mysql.InsertCS(&mysql.CompStatus{
+				Pcid: k,
+				Cpu:  cpu,
+				Mem:  mem,
+			})
+		}()
 	}
 }
 

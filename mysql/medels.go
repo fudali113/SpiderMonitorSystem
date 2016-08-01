@@ -57,7 +57,18 @@ func (a *HB) TableName() string {
 	return "heartbeat"
 }
 
+type CompStatus struct {
+	Id   int
+	Pcid string
+	Cpu  int
+	Mem  int
+	Io   int
+	Net  int
+	Data string
+	Time time.Time `orm:"auto_now_add;type(datetime)"`
+}
+
 func init() {
 	beego.Notice("init db models")
-	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish), new(Traffic))
+	orm.RegisterModel(new(All), new(Exception), new(HB), new(Finish), new(Traffic), new(CompStatus))
 }

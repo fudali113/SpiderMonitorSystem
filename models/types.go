@@ -27,3 +27,10 @@ type Email struct {
 	Body     string
 	MailType string
 }
+
+type CompSysStatus struct {
+	Cpu []int
+	Mem map[string]string
+	Io  []map[string]string
+	Net []map[string]string
+}

@@ -24,7 +24,7 @@ func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8&loc=Local", user, passwd, host, port)
 	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
-//	orm.Debug = true
+	//	orm.Debug = true
 }
 
 func InsertAll(all *All) int64 {
@@ -79,6 +79,17 @@ func InsertTraffic(all *Traffic) int64 {
 	db := orm.NewOrm()
 	r, e := db.Insert(all)
 	beego.Notice("插入 Traffic ")
+	if e != nil {
+		beego.Error(e)
+		return 0
+	}
+	return r
+}
+
+func InsertCS(all *CompStatus) int64 {
+	db := orm.NewOrm()
+	r, e := db.Insert(all)
+	beego.Notice("插入 computer status ")
 	if e != nil {
 		beego.Error(e)
 		return 0
