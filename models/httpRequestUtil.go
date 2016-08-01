@@ -1,0 +1,43 @@
+package models
+
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+
+	"github.com/astaxie/beego"
+)
+
+var (
+	port = "8888"
+)
+
+func GetSysInfo(pcid, who string) []byte {
+	pcip := GetPcIP(pcid)
+	if pcip == "" {
+		return []byte(`{"err":"error pcid"}`)
+	}
+	return GetResponse(CreatUrl(pcip, port, who))
+}
+
+func GetResponse(url string) []byte {
+	res, err := http.Get(url)
+	if err != nil {
+		beego.Notice("获取数据   info/all  get请求", err)
+		return nil
+	}
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		beego.Notice(" 获取数据  info/all  response body 读取", err)
+		return nil
+	}
+	return body
+}
+
+func CreatUrl(host, port, who string) string {
+	return fmt.Sprintf("http://%s:%s/info/%s", host, port, who)
+}
+
+func GetPcIP(pcid string) string {
+	return pcipmap.Get(pcid)
+}

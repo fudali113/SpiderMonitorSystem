@@ -2,14 +2,17 @@
 	<div class="panel panel-info" style="float:left;width:320px;word-break:break-all;">
 		<div class="panel-heading">
 			<div class="panel-title">
-					<strong>{{spider.bank_name}}:
+					<strong>{{spider.bank_name}}</strong>
+					<div style="float:right;text-align:center;background:white" class="ellipse" >
+						<font color="white">--</font>
 						<font color="red">step:{{spider.content.step}}</font>
 						<font color="red" ng-hide="spider.content.stc == undefined">; stc:{{spider.content.stc}}s</font>
-					</strong>
+						<font color="white">--</font>
+					</div>
 			</div>
 		</div>
 
-		<div class="panel-collapse collapse in" style="height:250px; overflow:auto">
+		<div class="panel-collapse collapse in" style="height:160px; overflow:auto">
 		   	<div class="panel-body" style="padding:5px 5px 5px 5px">
 				<p><font color="#030303">sid:</font><font color="#EE4000">{{spider.content.sid}}</font></p>
 				<span ng-repeat="(k,v) in spider.content">

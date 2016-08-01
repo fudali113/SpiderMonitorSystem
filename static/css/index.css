@@ -41,6 +41,13 @@ li {
 	-moz-border-radius : 10px;
 } 
 
+.ellipse{
+	height: 20px; 
+	background-color: #a72525; 
+	-webkit-border-radius: 10px; 
+	-moz-border-radius : 8px;
+}
+
 .text_c{
 	text-align: "center";
 }
