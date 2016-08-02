@@ -59,6 +59,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 				if (data.sys != undefined){
 					this.computers[nowComputer].sys.cpu = data.sys.cpu[0]
 					this.computers[nowComputer].sys.mem = data.sys.mem.usedpercent
+					this.computers[nowComputer].sys.proc = data.sys.proc
 					return
 				}
 				if (data.hb == -1){
@@ -224,7 +225,8 @@ var newComputer = function(cid){
 		},
 		sys:{
 			cpu:0,
-			mem:0	
+			mem:0,
+			proc:0
 		},
 		ip:undefined,
 		id:cid,

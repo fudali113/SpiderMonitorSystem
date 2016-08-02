@@ -11,7 +11,7 @@ system.directive('cpu', function() {
         restrict: 'E',
         template: '<div class="panel panel-info" style="height:300px;width:600px"><div style="height:300px;width:600px"></div></div>',
         replace: true,
-		link: function($scope, element, attrs) {  
+		link: function($scope, element, attrs) {
 			var getOption = function(){
 				return {
 				    title: {
@@ -58,12 +58,12 @@ system.directive('cpu', function() {
 				    ]
 				};
 			}
-			
-			var dom = echarts.init(document.getElementById($scope.id)); 
+
+			var dom = echarts.init(document.getElementById($scope.id));
 			dom.setOption(getOption())
 			$scope.$on( 'sysinfo.update.link', function( event ) {
 				dom.setOption(getOption())
-		    }); 
+		    });
 		}
     };
 });
@@ -71,7 +71,7 @@ system.directive('cpu', function() {
 system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) {
 	$rootScope.updateTime = 5000
 	$rootScope.stopOrRun = true
-	
+
 	var getNowTimeStr = function(){
 		var d = new Date()
 		var getDouble = function(i){
@@ -79,12 +79,12 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 		}
 		return getDouble(d.getHours())+':'+getDouble(d.getMinutes())+':'+getDouble(d.getSeconds())
 	}
-	
+
 	var service = {
 		data:{
 			date:[getNowTimeStr()],
 			cpudata:[0],
-			memdata:[0]
+			memdata:[50]
 		},
 		addData:function(data){
 			this.data.date.push(getNowTimeStr())
@@ -93,7 +93,7 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 			$rootScope.$broadcast('sysinfo.update');
 		}
 	}
-	
+
 	var getSysinfo = function(){
 		if (!$rootScope.stopOrRun) return
 		$http({
@@ -109,21 +109,52 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 
 system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',function($rootScope,$scope,$http,sysinfo){
 	$scope.$on( 'sysinfo.update', function( event ) {
-        $scope.date = sysinfo.data.date
+    $scope.date = sysinfo.data.date
 		$scope.cpudata = sysinfo.data.cpudata
 		$scope.memdata = sysinfo.data.memdata
 		$rootScope.$broadcast( 'sysinfo.update.link' );
-    }); 
-	
+  });
 	$scope.date=[]
 	$scope.cpudata=[]
 	$scope.memdata=[]
-	
+  $scope.modalContent={}
+  $scope.procs_order="pid"
+  $scope.procs=[
+    {pid:11,name:"dsfd",threads:7,memper:13,io:54654},
+    {pid:6,name:"fgvfdg",threads:7,memper:13,io:54654},
+    {pid:54,name:"yksfd",threads:7,memper:13,io:54654},
+    {pid:3,name:"ghfd",threads:7,memper:13,io:54654},
+    {pid:1,name:"asfd",threads:7,memper:13,io:54654}
+  ]
+
 	$scope.stopOrRun='run'
 	$scope.SORBackground = {background:'#00FF7F'}
 	$scope.switchStopRun = function(){
 		$scope.stopOrRun = !$rootScope.stopOrRun ? 'run' : 'stop'
 		$scope.SORBackground.background =  !$rootScope.stopOrRun ? '#53FF53' : '#FF5151'
 		$rootScope.stopOrRun = !$rootScope.stopOrRun
+    if($rootScope.stopOrRun) setProcInte()
+    else colseProcInte()
 	}
+  $scope.showModal=function(proc){
+    $scope.modalContent=proc
+    $('#myModal').modal('show')
+  }
+  var getProcs = function(){
+    $http({
+			url:'/'+pcid+'/info/procs',
+			method:'get',
+		}).success(function(data){
+			$scope.procs=data
+		})
+  }
+
+  var setProcInte = function(){
+    $scope.procIntervalID = setInterval(getProcs,5000)
+  }
+  var colseProcInte = function(){
+    clearInterval($scope.procIntervalID)
+  }
+  setProcInte()
+
 }]);

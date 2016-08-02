@@ -19,6 +19,23 @@ func GetSysInfo(pcid, who string) []byte {
 	if pcip == "" {
 		return []byte(`{"err":"error pcid"}`)
 	}
+	if who == "procs" {
+		procs := []map[string]int{}
+		for i := 0; i < 100; i++ {
+			procs = append(procs, map[string]int{
+				"pid":     rand.Intn(100),
+				"name":    rand.Intn(100),
+				"io":      rand.Intn(100),
+				"memper":  rand.Intn(100),
+				"threads": rand.Intn(100),
+			})
+		}
+		res, err := json.Marshal(procs)
+		if err != nil {
+			return []byte(`{"err":"error pcid"}`)
+		}
+		return res
+	}
 	return GetResponse(CreatUrl(pcip, port, who))
 }
 
