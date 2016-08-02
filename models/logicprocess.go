@@ -214,8 +214,11 @@ func sendComputerStatus() {
 		sendMessage(changeBody)
 		go func() {
 			var data CompSysStatus
+			var cpu int
 			json.Unmarshal(body, &data)
-			cpu := data.Cpu[0]
+			if data.Cpu != nil || len(data.Cpu) > 0 {
+				cpu = data.Cpu[0]
+			}
 			mem, _ := strconv.Atoi(data.Mem["usedpercent"])
 			mysql.InsertCS(&mysql.CompStatus{
 				Pcid: k,

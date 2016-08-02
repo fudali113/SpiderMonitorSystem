@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 
 	"github.com/astaxie/beego"
@@ -22,6 +23,7 @@ func GetSysInfo(pcid, who string) []byte {
 }
 
 func GetResponse(url string) []byte {
+	return []byte(fmt.Sprintf(`{"cpu":[%d],"mem":{"usedpercent":%d}}`, rand.Intn(30), 40+rand.Intn(10)))
 	res, err := http.Get(url)
 	if err != nil {
 		beego.Error("获取数据   info/all  get请求", err)
