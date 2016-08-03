@@ -9,7 +9,7 @@ system.directive('cpu', function() {
 			memdata:"="
 			},
         restrict: 'E',
-        template: '<div class="panel panel-info" style="height:300px;width:600px"><div style="height:300px;width:600px"></div></div>',
+        template: '<div style="height:300px;width:600px"></div>',
         replace: true,
 		link: function($scope, element, attrs) {
 			var getOption = function(){
@@ -84,14 +84,34 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 		data:{
 			date:[getNowTimeStr()],
 			cpudata:[0],
-			memdata:[50]
+			memdata:[50],
+			detailInfo:{}
 		},
 		addData:function(data){
 			this.data.date.push(getNowTimeStr())
 			this.data.cpudata.push(data.cpu[0])
-			this.data.memdata.push(data.mem.usedpercent)
+			this.data.memdata.push(data.memInfo.usedPercent)
+      this.data.SDI = data
+			this.data.detailInfo.cpu = jsonStringify(data.cpuInfo," ")
+			this.data.detailInfo.mem = jsonStringify(data.memInfo," ")
+			this.data.detailInfo.io = jsonStringify(data.ioInfo," ")
+			this.data.detailInfo.net = jsonStringify(data.netInfo," ")
 			$rootScope.$broadcast('sysinfo.update');
 		}
+	}
+
+	function jsonStringify(data,space){
+	    var seen=[];
+	    return JSON.stringify(data,function(key,val){
+	        if(!val||typeof val !=='object'){
+	            return val;
+	        }
+	        if(seen.indexOf(val)!==-1){
+	            return '[Circular]';
+	        }
+	        seen.push(val);
+	        return val;
+	    },space);
 	}
 
 	var getSysinfo = function(){
@@ -110,22 +130,26 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',function($rootScope,$scope,$http,sysinfo){
 	$scope.$on( 'sysinfo.update', function( event ) {
     $scope.date = sysinfo.data.date
+    $scope.SDI = sysinfo.data.SDI
 		$scope.cpudata = sysinfo.data.cpudata
 		$scope.memdata = sysinfo.data.memdata
+		$scope.detailInfo=sysinfo.data.detailInfo
 		$rootScope.$broadcast( 'sysinfo.update.link' );
   });
+  $scope.pcid = pcid
 	$scope.date=[]
 	$scope.cpudata=[]
 	$scope.memdata=[]
-  $scope.modalContent={}
-  $scope.procs_order="pid"
-  $scope.procs=[
-    {pid:11,name:"dsfd",threads:7,memper:13,io:54654},
-    {pid:6,name:"fgvfdg",threads:7,memper:13,io:54654},
-    {pid:54,name:"yksfd",threads:7,memper:13,io:54654},
-    {pid:3,name:"ghfd",threads:7,memper:13,io:54654},
-    {pid:1,name:"asfd",threads:7,memper:13,io:54654}
-  ]
+	$scope.detailInfo={}
+	$scope.modalContent={}
+	$scope.procs_order="pid"
+	$scope.procs=[
+	  {pid:11,name:"dsfd",threads:7,memper:13,io:54654},
+	  {pid:6,name:"fgvfdg",threads:7,memper:13,io:54654},
+	  {pid:54,name:"yksfd",threads:7,memper:13,io:54654},
+	  {pid:3,name:"ghfd",threads:7,memper:13,io:54654},
+	  {pid:1,name:"asfd",threads:7,memper:13,io:54654}
+	]
 
 	$scope.stopOrRun='run'
 	$scope.SORBackground = {background:'#00FF7F'}

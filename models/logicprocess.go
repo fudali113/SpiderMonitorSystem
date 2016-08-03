@@ -207,11 +207,13 @@ func checkSpider() { //检查爬虫
 func sendComputerStatus() {
 	for k, _ := range History.M {
 		body := GetSysInfo(k, "all")
-		perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
-		last := []byte(`}`)
-		changeBody := append(perfix, body...)
-		changeBody = append(changeBody, last...)
-		sendMessage(changeBody)
+		go func() {
+			perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
+			last := []byte(`}`)
+			changeBody := append(perfix, body...)
+			changeBody = append(changeBody, last...)
+			sendMessage(changeBody)
+		}()
 		go func() {
 			var data CompSysStatus
 			var cpu int

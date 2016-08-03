@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"time"
 
 	"github.com/astaxie/beego"
 )
@@ -40,20 +41,21 @@ func GetSysInfo(pcid, who string) []byte {
 }
 
 func GetResponse(url string) []byte {
-	return []byte(fmt.Sprintf(`{"cpu":[%d],"mem":{"usedpercent":%d}}`, rand.Intn(30), 40+rand.Intn(10)))
+	//return []byte(fmt.Sprintf(`{"cpu":[%d],"mem":{"usedpercent":%d}}`, rand.Intn(30), 40+rand.Intn(10)))
+	begin := time.Now().Unix()
 	res, err := http.Get(url)
 	if err != nil {
 		beego.Error("获取数据   info/all  get请求", err)
-		return nil
+		return []byte(`{"err":"error get request"}`)
 	}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		beego.Error(" 获取数据  info/all  response body 读取", err)
-		return nil
+		return []byte(`{"err":"error ioutil handle"}`)
 	}
-	var oo map[string]interface{}
-	json.Unmarshal(body, &oo)
-	fmt.Println(oo)
+	end := time.Now().Unix()
+	beego.Notice(string(body))
+	beego.Notice(fmt.Sprintf("%s : time comsuming -------------> %d s ", url, end-begin))
 	return body
 }
 
