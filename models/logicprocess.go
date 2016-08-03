@@ -207,15 +207,20 @@ func checkSpider() { //检查爬虫
 func sendComputerStatus() {
 	for k, _ := range History.M {
 		body := GetSysInfo(k, "all")
-		perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
-		last := []byte(`}`)
-		changeBody := append(perfix, body...)
-		changeBody = append(changeBody, last...)
-		sendMessage(changeBody)
+		go func() {
+			perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
+			last := []byte(`}`)
+			changeBody := append(perfix, body...)
+			changeBody = append(changeBody, last...)
+			sendMessage(changeBody)
+		}()
 		go func() {
 			var data CompSysStatus
+			var cpu int
 			json.Unmarshal(body, &data)
-			cpu := data.Cpu[0]
+			if data.Cpu != nil || len(data.Cpu) > 0 {
+				cpu = data.Cpu[0]
+			}
 			mem, _ := strconv.Atoi(data.Mem["usedpercent"])
 			mysql.InsertCS(&mysql.CompStatus{
 				Pcid: k,

@@ -11,14 +11,14 @@
 <div class="panel panel-info" ng-controller="computers">
 	<div class="panel-heading">
 	  	<div class="panel-title">
-					<a href="#">
-					Spider Monitor System
-					</a>
-				<div style="float:right;">
-				<smss></smss>
-				</div>
+				<a href="#">
+				Spider Monitor System
+				</a>
+			<div style="float:right;">
+			<smss></smss>
 			</div>
 		</div>
+	</div>
 	<div class="panel-body">
 		<div ng-show="showDetails">
 			<setting></setting>

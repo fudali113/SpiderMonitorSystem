@@ -13,9 +13,9 @@ monitor.directive('computer', function() {
         restrict: 'E',
         templateUrl: '/static/html/computer05.html',
         replace: true,
-        link:function(scope, el, attr) { 
-		
-		} 
+        link:function(scope, el, attr) {
+
+		}
     };
 });
 
@@ -24,7 +24,7 @@ monitor.directive('smss',function(){
 		restrict: 'E',
 		replace: true,
 		link:function(scope){
-			
+
 		},
 		templateUrl: '/static/html/smss.html'
 	}
@@ -37,7 +37,7 @@ monitor.directive('setting',function(){
 		link:function(scope){
 			$('.alert').hide()
 			scope.setting = function(){
-				
+
 			}
 		},
 		templateUrl: '/static/html/setting.html'
@@ -48,17 +48,19 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
       	addComputer: function (data) {
-      		
+
   			var nowComputer = undefined
         		for (var i = this.computers.length - 1; i >= 0; i--) {
 				if(data.pc_id == this.computers[i].id){
-					nowComputer = i 
+					nowComputer = i
 				}
 			}
 			if (nowComputer != undefined) {
 				if (data.sys != undefined){
+          if (!(data.sys.err == undefined || data.sys.err == "")) return
 					this.computers[nowComputer].sys.cpu = data.sys.cpu[0]
-					this.computers[nowComputer].sys.mem = data.sys.mem.usedpercent
+					this.computers[nowComputer].sys.mem = data.sys.mem.usedPercent
+					this.computers[nowComputer].sys.proc = data.sys.proc
 					return
 				}
 				if (data.hb == -1){
@@ -96,12 +98,12 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
       	}
     }
     var websocket = new WebSocket("ws://"+WebSocketIP+"/ws");
-	websocket.onopen = function(evt) { 
-        alert('websocket连接成功') 
-    }; 
-    websocket.onclose = function(evt) { 
-        alert('websocket断开连接') 
-    }; 
+	websocket.onopen = function(evt) {
+        alert('websocket连接成功')
+    };
+    websocket.onclose = function(evt) {
+        alert('websocket断开连接')
+    };
     websocket.onmessage = function(evt) {
 		var data = JSON.parse(evt.data)
 		if(data instanceof Array ){
@@ -111,16 +113,16 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 		}else{
 			service.addComputer(data)
 		}
-    }; 
-    websocket.onerror = function(evt) { 
-        alert('websocket出现错误') 
-    }; 
+    };
+    websocket.onerror = function(evt) {
+        alert('websocket出现错误')
+    };
     return service
 }]);
 
 monitor.filter('hb_filter',function(){
 	return function(input){
-		var r = input == 0 ? 0 : 1 
+		var r = input == 0 ? 0 : 1
 		return r
 	}
 })
@@ -143,14 +145,14 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 		$scope.active = activeNum
 		$scope.total = total
         $scope.$apply();
-    }); 
-	$scope.computers = computer.computers 
+    });
+	$scope.computers = computer.computers
 	$scope.showDetails = false
 	$scope.total = 0
 	$scope.active = 0
 	$scope.settingRequestAnimation = false
     $scope.param = {}
-	
+
 	$http({
 		url:'/setting',
 		method:'get',
@@ -160,7 +162,7 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 	}).error(function(data){
 		alert("error")
 	});
-	
+
 
     $scope.submitSetting = function(){
 		$scope.settingRequestAnimation = true
@@ -213,7 +215,7 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 	    	return false
 	    }
 
-	
+
 }])
 
 var newComputer = function(cid){
@@ -224,7 +226,8 @@ var newComputer = function(cid){
 		},
 		sys:{
 			cpu:0,
-			mem:0	
+			mem:0,
+			proc:0
 		},
 		ip:undefined,
 		id:cid,

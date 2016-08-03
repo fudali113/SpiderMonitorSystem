@@ -5,65 +5,117 @@ system.directive('cpu', function() {
 		scope:{
 			id:"@",
 			date:"=",
-			data:"="
+			cpudata:"=",
+			memdata:"="
 			},
         restrict: 'E',
-        template: '<div style="height:300px;width:400px"></div>',
+        template: '<div style="height:300px;width:600px"></div>',
         replace: true,
-		link: function($scope, element, attrs) {  
+		link: function($scope, element, attrs) {
 			var getOption = function(){
 				return {
+				    title: {
+				        text: 'cpu,mem占用百分比'
+				    },
+				    tooltip: {
+				        trigger: 'axis'
+				    },
+				    legend: {
+				        data:['cpu','mem']
+				    },
+				    grid: {
+				        left: '3%',
+				        right: '4%',
+				        bottom: '3%',
+				        containLabel: true
+				    },
+				    toolbox: {
+				        feature: {
+				            saveAsImage: {}
+				        }
+				    },
 				    xAxis: {
 				        type: 'category',
 				        boundaryGap: false,
 				        data: $scope.date
 				    },
 				    yAxis: {
-				        boundaryGap: [0, '50%'],
 				        type: 'value'
 				    },
 				    series: [
 				        {
-				            name:'成交',
+				            name:'cpu',
 				            type:'line',
-				            smooth:true,
-				            symbol: 'none',
-				            stack: 'a',
-				            areaStyle: {
-				                normal: {}
-				            },
-				            data: $scope.data
+				            stack: '利用率',
+				            data:$scope.cpudata
+				        },
+				        {
+				            name:'mem',
+				            type:'line',
+				            stack: '占用率',
+				            data:$scope.memdata
 				        }
 				    ]
 				};
 			}
-			var dom = echarts.init(document.getElementById($scope.id)); 
+
+			var dom = echarts.init(document.getElementById($scope.id));
 			dom.setOption(getOption())
 			$scope.$on( 'sysinfo.update.link', function( event ) {
 				dom.setOption(getOption())
-		    }); 
+		    });
 		}
     };
 });
 
 system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) {
+	$rootScope.updateTime = 5000
+	$rootScope.stopOrRun = true
+
+	var getNowTimeStr = function(){
+		var d = new Date()
+		var getDouble = function(i){
+			return i < 10 ? '0'+i : i
+		}
+		return getDouble(d.getHours())+':'+getDouble(d.getMinutes())+':'+getDouble(d.getSeconds())
+	}
+
 	var service = {
 		data:{
-			date:[],
-			data:[]
+			date:[getNowTimeStr()],
+			cpudata:[0],
+			memdata:[50],
+			detailInfo:{}
 		},
 		addData:function(data){
-			var d = new Date()
-			var getDouble = function(i){
-				return i < 10 ? '0'+i : i
-			}
-			this.data.date.push(getDouble(d.getHours())+':'+getDouble(d.getMinutes())+':'+getDouble(d.getSeconds()) )
-			this.data.data.push(data.cpu[0])
-			$rootScope.$broadcast( 'sysinfo.update' );
+			this.data.date.push(getNowTimeStr())
+			this.data.cpudata.push(data.cpu[0])
+			this.data.memdata.push(data.memInfo.usedPercent)
+      this.data.SDI = data
+			this.data.detailInfo.cpu = jsonStringify(data.cpuInfo," ")
+			this.data.detailInfo.mem = jsonStringify(data.memInfo," ")
+			this.data.detailInfo.io = jsonStringify(data.ioInfo," ")
+			this.data.detailInfo.net = jsonStringify(data.netInfo," ")
+			$rootScope.$broadcast('sysinfo.update');
 		}
 	}
-	
+
+	function jsonStringify(data,space){
+	    var seen=[];
+	    return JSON.stringify(data,function(key,val){
+	        if(!val||typeof val !=='object'){
+	            return val;
+	        }
+	        if(seen.indexOf(val)!==-1){
+	            return '[Circular]';
+	        }
+	        seen.push(val);
+	        return val;
+	    },space);
+	}
+
 	var getSysinfo = function(){
+		if (!$rootScope.stopOrRun) return
 		$http({
 			url:'/'+pcid+'/info/all',
 			method:'get',
@@ -77,10 +129,56 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 
 system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',function($rootScope,$scope,$http,sysinfo){
 	$scope.$on( 'sysinfo.update', function( event ) {
-        $scope.data = sysinfo.data.data
-		$scope.date = sysinfo.data.date
+    $scope.date = sysinfo.data.date
+    $scope.SDI = sysinfo.data.SDI
+		$scope.cpudata = sysinfo.data.cpudata
+		$scope.memdata = sysinfo.data.memdata
+		$scope.detailInfo=sysinfo.data.detailInfo
 		$rootScope.$broadcast( 'sysinfo.update.link' );
-    }); 
-	$scope.data=[]
+  });
+  $scope.pcid = pcid
 	$scope.date=[]
+	$scope.cpudata=[]
+	$scope.memdata=[]
+	$scope.detailInfo={}
+	$scope.modalContent={}
+	$scope.procs_order="pid"
+	$scope.procs=[
+	  {pid:11,name:"dsfd",threads:7,memper:13,io:54654},
+	  {pid:6,name:"fgvfdg",threads:7,memper:13,io:54654},
+	  {pid:54,name:"yksfd",threads:7,memper:13,io:54654},
+	  {pid:3,name:"ghfd",threads:7,memper:13,io:54654},
+	  {pid:1,name:"asfd",threads:7,memper:13,io:54654}
+	]
+
+	$scope.stopOrRun='run'
+	$scope.SORBackground = {background:'#00FF7F'}
+	$scope.switchStopRun = function(){
+		$scope.stopOrRun = !$rootScope.stopOrRun ? 'run' : 'stop'
+		$scope.SORBackground.background =  !$rootScope.stopOrRun ? '#53FF53' : '#FF5151'
+		$rootScope.stopOrRun = !$rootScope.stopOrRun
+    if($rootScope.stopOrRun) setProcInte()
+    else colseProcInte()
+	}
+  $scope.showModal=function(proc){
+    $scope.modalContent=proc
+    $('#myModal').modal('show')
+  }
+  var getProcs = function(){
+    $http({
+			url:'/'+pcid+'/info/procs',
+			method:'get',
+		}).success(function(data){
+			$scope.procs=data
+		})
+  }
+
+  var setProcInte = function(){
+    $scope.procIntervalID = setInterval(getProcs,5000)
+  }
+  var colseProcInte = function(){
+    clearInterval($scope.procIntervalID)
+  }
+  setProcInte()
+
 }]);
