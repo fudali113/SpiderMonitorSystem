@@ -1,9 +1,7 @@
 package controllers
 
 import (
-	"fmt"
 	"look/models"
-	"time"
 
 	"github.com/astaxie/beego"
 )
