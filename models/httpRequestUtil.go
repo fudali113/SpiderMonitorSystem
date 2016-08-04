@@ -18,28 +18,10 @@ func GetSysInfo(pcid, who string) ([]byte, error) {
 	if pcip == "" {
 		return []byte(`{"err":"error pcid"}`) , fmt.Errorf("pcid can`t empty")
 	}
-	// if who == "procs" {
-	// 	procs := []map[string]int{}
-	// 	for i := 0; i < 100; i++ {
-	// 		procs = append(procs, map[string]int{
-	// 			"pid":     rand.Intn(100),
-	// 			"name":    rand.Intn(100),
-	// 			"io":      rand.Intn(100),
-	// 			"memper":  rand.Intn(100),
-	// 			"threads": rand.Intn(100),
-	// 		})
-	// 	}
-	// 	res, err := json.Marshal(procs)
-	// 	if err != nil {
-	// 		return []byte(`{"err":"error pcid"}`)
-	// 	}
-	// 	return res
-	// }
 	return GetResponse(CreatUrl(pcip, port, who))
 }
 
 func GetResponse(url string) ([]byte, error) {
-	//return []byte(fmt.Sprintf(`{"cpu":[%d],"mem":{"usedpercent":%d}}`, rand.Intn(30), 40+rand.Intn(10)))
 	begin := time.Now().Unix()
 	res, err := http.Get(url)
 	if err != nil {

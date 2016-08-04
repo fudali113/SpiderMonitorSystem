@@ -207,7 +207,15 @@ func checkSpider() { //检查爬虫
 func sendComputerStatus() {
 	for k, _ := range History.M {
 		body, err := GetSysInfo(k, "all")
+		var data CompSysStatus
+		var cpu int
+		json.Unmarshal(body, &data)
+		if data.Cpu != nil || len(data.Cpu) > 0 {
+			cpu = data.Cpu[0]
+		}
+		mem, _ := strconv.Atoi(data.Mem["usedPercent"])
 		if err != nil {
+			beego.Error(err)
 			continue
 		}
 		go func() {
@@ -217,20 +225,12 @@ func sendComputerStatus() {
 			changeBody = append(changeBody, last...)
 			sendMessage(changeBody)
 		}()
-		go func() {
-			var data CompSysStatus
-			var cpu int
-			json.Unmarshal(body, &data)
-			if data.Cpu != nil || len(data.Cpu) > 0 {
-				cpu = data.Cpu[0]
-			}
-			mem, _ := strconv.Atoi(data.Mem["usedpercent"])
-			mysql.InsertCS(&mysql.CompStatus{
+		go mysql.InsertCS(&mysql.CompStatus{
 				Pcid: k,
 				Cpu:  cpu,
 				Mem:  mem,
+				Data: string(body),
 			})
-		}()
 	}
 }
 
