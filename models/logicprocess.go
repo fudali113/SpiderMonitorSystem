@@ -206,7 +206,10 @@ func checkSpider() { //检查爬虫
 
 func sendComputerStatus() {
 	for k, _ := range History.M {
-		body := GetSysInfo(k, "all")
+		body, err := GetSysInfo(k, "all")
+		if err != nil {
+			continue
+		}
 		go func() {
 			perfix := []byte(fmt.Sprintf(`{"pc_id":"%s","sys":`, k))
 			last := []byte(`}`)

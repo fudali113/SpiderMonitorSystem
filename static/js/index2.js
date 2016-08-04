@@ -57,7 +57,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
 			}
 			if (nowComputer != undefined) {
 				if (data.sys != undefined){
-          if (!(data.sys.err == undefined || data.sys.err == "")) return
+          			if (!(data.sys.err == undefined || data.sys.err == "")) return
 					this.computers[nowComputer].sys.cpu = data.sys.cpu[0]
 					this.computers[nowComputer].sys.mem = data.sys.mem.usedPercent
 					this.computers[nowComputer].sys.proc = data.sys.proc
@@ -248,8 +248,11 @@ var newComputer = function(cid){
 }
 
 var newSpider = function(bid,data){
+	var d = new Date()
+	_nowtime = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDay()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()
 	return {
 		bank_name:bid,
-		content:data
+		content:data,
+		nowtime:_nowtime
 	}
 }

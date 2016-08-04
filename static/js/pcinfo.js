@@ -1,6 +1,6 @@
 var system = angular.module('system', []);
 
-system.directive('cpu', function() {
+system.directive('cpumemper', function() {
     return {
 		scope:{
 			id:"@",
@@ -68,6 +68,38 @@ system.directive('cpu', function() {
     };
 });
 
+system.directive('cpu', function() {
+	return {
+		restrict: 'E',
+		template: '<div><font size="5">User:{{cpu.user}}</font><br/>'+
+		'<font size="5">System:{{cpu.system}}</font><br/>'+
+		'<font size="5">Idle:{{cpu.idle}}</font><br/>'+
+		'</div>',
+		replace: true,
+		link:function () {
+
+		}
+	}
+});
+
+system.directive('mem', function() {
+	return {
+		scope:{
+			mem:"="
+		},
+		restrict: 'E',
+		template: '<div><font size="5">Total:{{detailInfo.mem.total}}</font><br/>'+
+		'<font size="5">Available:{{detailInfo.mem.available}}</font><br/>'+
+		'<font size="5">Used:{{detailInfo.mem.used}}</font><br/>'+
+		'<font size="5">UsedPercent:{{detailInfo.mem.usedPercent}}</font><br/>'+
+		'</div>',
+		replace: true,
+		link:function () {
+
+		}
+	}
+});
+
 system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) {
 	$rootScope.updateTime = 5000
 	$rootScope.stopOrRun = true
@@ -91,11 +123,17 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 			this.data.date.push(getNowTimeStr())
 			this.data.cpudata.push(data.cpu[0])
 			this.data.memdata.push(data.memInfo.usedPercent)
-      this.data.SDI = data
-			this.data.detailInfo.cpu = jsonStringify(data.cpuInfo," ")
+      		this.data.SDI = data
+			this.data.detailInfo.cpus = data.cpuInfo
 			this.data.detailInfo.mem = jsonStringify(data.memInfo," ")
 			this.data.detailInfo.io = jsonStringify(data.ioInfo," ")
 			this.data.detailInfo.net = jsonStringify(data.netInfo," ")
+			$rootScope.$broadcast('sysinfo.update');
+		},
+		addCpuMemData:function (data) {
+			this.data.date.push(getNowTimeStr())
+			this.data.cpudata.push(data.cpu)
+			this.data.memdata.push(data.mem)
 			$rootScope.$broadcast('sysinfo.update');
 		}
 	}
@@ -123,7 +161,19 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 			service.addData(data)
 		})
 	}
-	setInterval(getSysinfo,5000)
+	var getSimpleInfo = function(){
+		if (!$rootScope.stopOrRun) return
+		$http({
+			url:'/'+pcid+'/info/simple',
+			method:'get',
+		}).success(function(data){
+			service.addCpuMemData(data)
+		})
+	}
+	getSysinfo()
+	getSimpleInfo()
+	setInterval(getSysinfo,60000)
+	setInterval(getSimpleInfo,5000)
 	return service
 }]);
 
@@ -131,10 +181,10 @@ system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',functio
 	$scope.$on( 'sysinfo.update', function( event ) {
     $scope.date = sysinfo.data.date
     $scope.SDI = sysinfo.data.SDI
-		$scope.cpudata = sysinfo.data.cpudata
-		$scope.memdata = sysinfo.data.memdata
-		$scope.detailInfo=sysinfo.data.detailInfo
-		$rootScope.$broadcast( 'sysinfo.update.link' );
+	$scope.cpudata = sysinfo.data.cpudata
+	$scope.memdata = sysinfo.data.memdata
+	$scope.detailInfo=sysinfo.data.detailInfo
+	$rootScope.$broadcast( 'sysinfo.update.link' );
   });
   $scope.pcid = pcid
 	$scope.date=[]
@@ -143,13 +193,7 @@ system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',functio
 	$scope.detailInfo={}
 	$scope.modalContent={}
 	$scope.procs_order="pid"
-	$scope.procs=[
-	  {pid:11,name:"dsfd",threads:7,memper:13,io:54654},
-	  {pid:6,name:"fgvfdg",threads:7,memper:13,io:54654},
-	  {pid:54,name:"yksfd",threads:7,memper:13,io:54654},
-	  {pid:3,name:"ghfd",threads:7,memper:13,io:54654},
-	  {pid:1,name:"asfd",threads:7,memper:13,io:54654}
-	]
+	$scope.procs=[]
 
 	$scope.stopOrRun='run'
 	$scope.SORBackground = {background:'#00FF7F'}
@@ -166,7 +210,7 @@ system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',functio
   }
   var getProcs = function(){
     $http({
-			url:'/'+pcid+'/info/procs',
+			url:'/'+pcid+'/info/proc',
 			method:'get',
 		}).success(function(data){
 			$scope.procs=data
@@ -174,11 +218,12 @@ system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',functio
   }
 
   var setProcInte = function(){
-    $scope.procIntervalID = setInterval(getProcs,5000)
+    $scope.procIntervalID = setInterval(getProcs,60000)
   }
   var colseProcInte = function(){
     clearInterval($scope.procIntervalID)
   }
+  getProcs()
   setProcInte()
 
 }]);
