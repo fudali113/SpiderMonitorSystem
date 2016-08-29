@@ -1,0 +1,223 @@
+2016/07/28 18:27:15 [router.go:854][C] the request url is  /ws 
+2016/07/28 18:27:15 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/28 18:27:15 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/28 18:27:17 [router.go:854][C] the request url is  /ws 
+2016/07/28 18:27:17 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/07/28 18:27:17 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/07/28 18:27:47 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:27:47 [websockets.go:30][N] time consuming :  2  ws  -->   208767  ns 
+2016/07/28 18:27:47 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:27:47 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:27:47 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:27:48 [mysql.go:81][N] 插入 Traffic  
+2016/07/28 18:27:48 [websockets.go:45][E] a websocket conn is close , err is  write tcp [::1]:9090->[::1]:37636: write: broken pipe 
+2016/07/28 18:27:48 [websockets.go:30][N] time consuming :  1  ws  -->   391178  ns 
+2016/07/28 18:27:53 [websockets.go:30][N] time consuming :  1  ws  -->   173746  ns 
+2016/07/28 18:27:58 [websockets.go:30][N] time consuming :  1  ws  -->   142122  ns 
+2016/07/28 18:28:03 [websockets.go:30][N] time consuming :  1  ws  -->   132185  ns 
+2016/07/28 18:28:03 [websockets.go:30][N] time consuming :  1  ws  -->   66044  ns 
+2016/07/28 18:28:03 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:03 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:03 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:03 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:08 [websockets.go:30][N] time consuming :  1  ws  -->   174431  ns 
+2016/07/28 18:28:10 [websockets.go:30][N] time consuming :  1  ws  -->   45743  ns 
+2016/07/28 18:28:10 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:10 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:10 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:10 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:12 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:12 [websockets.go:30][N] time consuming :  1  ws  -->   106873  ns 
+2016/07/28 18:28:12 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:12 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:13 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:13 [websockets.go:30][N] time consuming :  1  ws  -->   129226  ns 
+2016/07/28 18:28:13 [websockets.go:30][N] time consuming :  1  ws  -->   41804  ns 
+2016/07/28 18:28:13 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:13 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:13 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:13 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:14 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:14 [websockets.go:30][N] time consuming :  1  ws  -->   104410  ns 
+2016/07/28 18:28:14 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:14 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:14 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:14 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:14 [websockets.go:30][N] time consuming :  1  ws  -->   165642  ns 
+2016/07/28 18:28:14 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:14 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:14 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:14 [websockets.go:30][N] time consuming :  1  ws  -->   42269  ns 
+2016/07/28 18:28:14 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:15 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:15 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:15 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:15 [asm_amd64.s:1998][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/07/28 18:28:15 [websockets.go:30][N] time consuming :  1  ws  -->   115594  ns 
+2016/07/28 18:28:15 [mysql.go:34][N] 插入 all_data  
+2016/07/28 18:28:15 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbgjyhkjnuyhjnuju6jnujst-5' for key 'sid' 
+2016/07/28 18:28:15 [mysql.go:58][N] 插入 finish 
+2016/07/28 18:28:18 [websockets.go:30][N] time consuming :  1  ws  -->   162760  ns 
+2016/07/28 18:28:23 [websockets.go:30][N] time consuming :  1  ws  -->   106442  ns 
+2016/07/28 18:28:28 [websockets.go:30][N] time consuming :  1  ws  -->   130278  ns 
+2016/07/28 18:28:33 [websockets.go:30][N] time consuming :  1  ws  -->   54620  ns 
+2016/07/28 18:28:38 [websockets.go:30][N] time consuming :  1  ws  -->   101338  ns 
+2016/07/28 18:28:43 [websockets.go:30][N] time consuming :  1  ws  -->   134670  ns 
+2016/07/28 18:28:48 [mysql.go:81][N] 插入 Traffic  
+2016/07/28 18:28:48 [websockets.go:30][N] time consuming :  1  ws  -->   104331  ns 
+2016/07/28 18:28:53 [websockets.go:30][N] time consuming :  1  ws  -->   54248  ns 
+2016/07/28 18:28:58 [websockets.go:30][N] time consuming :  1  ws  -->   197839  ns 
+2016/07/28 18:29:03 [websockets.go:30][N] time consuming :  1  ws  -->   58013  ns 
+2016/07/28 18:29:08 [websockets.go:30][N] time consuming :  1  ws  -->   171264  ns 
+2016/07/28 18:29:13 [websockets.go:30][N] time consuming :  1  ws  -->   53985  ns 
+2016/07/28 18:29:18 [websockets.go:30][N] time consuming :  1  ws  -->   160159  ns 
+2016/07/28 18:29:23 [websockets.go:30][N] time consuming :  1  ws  -->   121933  ns 
+2016/08/02 19:57:06 [router.go:854][C] the request url is  /ws 
+2016/08/02 19:57:06 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/08/02 19:57:06 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/08/02 19:57:14 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/08/02 19:57:22 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:25 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:32 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:35 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:42 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:45 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:52 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:57:55 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:02 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:05 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:12 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:15 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:22 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/02 19:58:25 [httpRequestUtil.go:27][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:04:36 [router.go:854][C] the request url is  /ws 
+2016/08/03 18:04:36 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:472 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/dk/go/src/runtime/panic.go:443 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/template.go:53 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:245 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:199 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/controller.go:183 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/project/look/src/github.com/astaxie/beego/router.go:785 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:2081 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/dk/go/src/net/http/server.go:1472 
+2016/08/03 18:04:36 [router.go:861][C] /home/fuyi/dk/go/src/runtime/asm_amd64.s:1998 
+2016/08/03 18:04:37 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 
+2016/08/03 18:08:09 [logicprocess.go:65][N] {"pc_id":"testbhbrgtgggfnhjj","bank_name":"gonudfan","exception":"","ip":"192.168.0.101","bank_status":{"step":5,"sid":"tegbzzseghbtyghgjnbguyju6jst","bank_name":"gonan","oo":"hhhhhhhhhhhhhhhhhhhhh"}} 
+2016/08/03 18:08:09 [websockets.go:30][N] time consuming :  1  ws  -->   190591  ns 
+2016/08/03 18:08:09 [mysql.go:34][N] 插入 all_data  
+2016/08/03 18:08:09 [mysql.go:36][E] Error 1062: Duplicate entry 'tegbzzseghbtyghgjnbguyju6jst-5' for key 'sid' 
+2016/08/03 18:08:09 [websockets.go:30][N] time consuming :  1  ws  -->   68144  ns 
+2016/08/03 18:08:09 [mysql.go:58][N] 插入 finish 
+2016/08/03 18:08:14 [websockets.go:30][N] time consuming :  1  ws  -->   155649  ns 
+2016/08/03 18:08:19 [mysql.go:81][N] 插入 Traffic  
+2016/08/03 18:08:19 [logicprocess.go:194][N] bianli spider tegbzzseghbtyghgjnbguyju6jst {1470218889 5 gonudfan testbhbrgtgggfnhjj} 
+2016/08/03 18:08:22 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:22 [websockets.go:30][N] time consuming :  1  ws  -->   110153  ns 
+2016/08/03 18:08:22 [websockets.go:30][N] time consuming :  1  ws  -->   67709  ns 
+2016/08/03 18:08:22 [mysql.go:92][N] 插入 computer status  
+2016/08/03 18:08:25 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:27 [websockets.go:30][N] time consuming :  1  ws  -->   123420  ns 
+2016/08/03 18:08:28 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:32 [websockets.go:30][N] time consuming :  1  ws  -->   125084  ns 
+2016/08/03 18:08:35 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:37 [websockets.go:30][N] time consuming :  1  ws  -->   60459  ns 
+2016/08/03 18:08:38 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:42 [websockets.go:30][N] time consuming :  1  ws  -->   129391  ns 
+2016/08/03 18:08:45 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:47 [websockets.go:30][N] time consuming :  1  ws  -->   57799  ns 
+2016/08/03 18:08:48 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:52 [websockets.go:30][N] time consuming :  1  ws  -->   89383  ns 
+2016/08/03 18:08:55 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:08:57 [websockets.go:30][N] time consuming :  1  ws  -->   139869  ns 
+2016/08/03 18:08:58 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:02 [websockets.go:30][N] time consuming :  1  ws  -->   84485  ns 
+2016/08/03 18:09:05 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:07 [websockets.go:30][N] time consuming :  1  ws  -->   87513  ns 
+2016/08/03 18:09:08 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:12 [websockets.go:30][N] time consuming :  1  ws  -->   63211  ns 
+2016/08/03 18:09:15 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:17 [websockets.go:30][N] time consuming :  1  ws  -->   86802  ns 
+2016/08/03 18:09:18 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:22 [logicprocess.go:194][N] bianli spider tegbzzseghbtyghgjnbguyju6jst {1470218889 5 gonudfan testbhbrgtgggfnhjj} 
+2016/08/03 18:09:22 [websockets.go:30][N] time consuming :  1  ws  -->   128040  ns 
+2016/08/03 18:09:25 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:25 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:25 [websockets.go:30][N] time consuming :  1  ws  -->   74120  ns 
+2016/08/03 18:09:25 [websockets.go:30][N] time consuming :  1  ws  -->   57696  ns 
+2016/08/03 18:09:25 [mysql.go:92][N] 插入 computer status  
+2016/08/03 18:09:28 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:30 [websockets.go:30][N] time consuming :  1  ws  -->   54249  ns 
+2016/08/03 18:09:35 [websockets.go:30][N] time consuming :  1  ws  -->   152854  ns 
+2016/08/03 18:09:35 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:38 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:40 [websockets.go:30][N] time consuming :  1  ws  -->   155744  ns 
+2016/08/03 18:09:45 [websockets.go:30][N] time consuming :  1  ws  -->   153691  ns 
+2016/08/03 18:09:45 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:48 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:50 [websockets.go:30][N] time consuming :  1  ws  -->   166654  ns 
+2016/08/03 18:09:55 [websockets.go:30][N] time consuming :  1  ws  -->   91781  ns 
+2016/08/03 18:09:55 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:09:58 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:00 [websockets.go:30][N] time consuming :  1  ws  -->   134666  ns 
+2016/08/03 18:10:05 [websockets.go:30][N] time consuming :  1  ws  -->   61484  ns 
+2016/08/03 18:10:05 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:08 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:10 [websockets.go:30][N] time consuming :  1  ws  -->   169177  ns 
+2016/08/03 18:10:15 [websockets.go:30][N] time consuming :  1  ws  -->   151447  ns 
+2016/08/03 18:10:17 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:20 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:20 [websockets.go:30][N] time consuming :  1  ws  -->   56788  ns 
+2016/08/03 18:10:23 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:28 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:28 [websockets.go:30][N] time consuming :  1  ws  -->   141588  ns 
+2016/08/03 18:10:28 [websockets.go:30][N] time consuming :  1  ws  -->   65161  ns 
+2016/08/03 18:10:28 [mysql.go:92][N] 插入 computer status  
+2016/08/03 18:10:31 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:33 [websockets.go:30][N] time consuming :  1  ws  -->   172447  ns 
+2016/08/03 18:10:34 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:38 [websockets.go:30][N] time consuming :  1  ws  -->   157999  ns 
+2016/08/03 18:10:42 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:43 [websockets.go:30][N] time consuming :  1  ws  -->   141927  ns 
+2016/08/03 18:10:45 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:48 [websockets.go:30][N] time consuming :  1  ws  -->   89369  ns 
+2016/08/03 18:10:52 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:53 [websockets.go:30][N] time consuming :  1  ws  -->   212829  ns 
+2016/08/03 18:10:55 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:10:58 [websockets.go:30][N] time consuming :  1  ws  -->   64403  ns 
+2016/08/03 18:11:02 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:11:03 [websockets.go:30][N] time consuming :  1  ws  -->   114617  ns 
+2016/08/03 18:11:05 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:11:08 [websockets.go:30][N] time consuming :  1  ws  -->   140292  ns 
+2016/08/03 18:11:12 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:11:13 [websockets.go:30][N] time consuming :  1  ws  -->   108249  ns 
+2016/08/03 18:11:15 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
+2016/08/03 18:11:18 [websockets.go:30][N] time consuming :  1  ws  -->   70863  ns 
+2016/08/03 18:11:23 [websockets.go:30][N] time consuming :  1  ws  -->   169940  ns 
