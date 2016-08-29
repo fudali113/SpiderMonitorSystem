@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"look/models"
 
 	"github.com/astaxie/beego"
@@ -18,9 +17,13 @@ type WsController struct {
 }
 
 func (this *WsController) Get() {
+	this.Ctx.Request.Header.Set("Access-Control-Allow-Origin","*")
+	origin := this.Ctx.Request.Header.Get("Origin")
+	beego.Info(origin)
+	this.Ctx.Request.Header.Del("Origin")
 	ws, err := upgrader.Upgrade(this.Ctx.ResponseWriter, this.Ctx.Request, nil)
 	if err != nil {
-		fmt.Println(err)
+		beego.Error("websocket连接出错:",err)
 	} else {
 		models.Wss = append(models.Wss, ws)
 	}

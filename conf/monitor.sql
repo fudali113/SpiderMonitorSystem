@@ -1,67 +1,17 @@
-CREATE TABLE `monitor`.`all_data` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `pcid` VARCHAR(45) NULL,
-  `ip` VARCHAR(45) NULL,
-  `step` INT NULL,
-  `bid` VARCHAR(45) NULL,
-  `sid` VARCHAR(128) NULL,
-  `stc` INT DEFAULT 0 NULL,
-  `all` VARCHAR(10000) NULL,
-  `exception` VARCHAR(5000) NULL,
-  `time` DATETIME NOT NULL,
-  PRIMARY KEY (`id`));
-ALTER TABLE all_data add UNIQUE KEY (sid,step);
-
-
-
-
-
-CREATE TABLE exception
-(
-    id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    adid INT(11),
-    exception VARCHAR(5000),
-    time DATETIME
-);
-
-
-
-
-
-CREATE TABLE `monitor`.`heartbeat` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `pcid` VARCHAR(45) NULL,
-  `ip` VARCHAR(45) NULL,
-  `deadtime` DATETIME NOT NULL,
-  PRIMARY KEY (`id`));
-
-
-
-
-
-CREATE TABLE `monitor`.`finish` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `pcid` VARCHAR(45) NULL ,
-  `bid` VARCHAR(45) NULL;
-  `sid` VARCHAR(128) NOT NULL,
-  `step` VARCHAR(45) NULL,
-  `time` DATETIME NOT NULL,
-  PRIMARY KEY (`id`, `sid`));
-
-ALTER TABLE `monitor`.`finish` 
-ADD UNIQUE INDEX `sid_UNIQUE` (`sid` ASC);
-
-
-
-
-
-CREATE TABLE monitor.traffic
-(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    count INT,
-    time DATETIME
-);
-CREATE UNIQUE INDEX traffic_id_uindex ON monitor.traffic (id);
+CREATE TABLE `all_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pcid` varchar(45) DEFAULT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `step` int(11) DEFAULT NULL,
+  `bid` varchar(45) DEFAULT NULL,
+  `sid` varchar(128) DEFAULT NULL,
+  `all` varchar(10000) DEFAULT NULL,
+  `exception` varchar(5000) DEFAULT NULL,
+  `time` datetime NOT NULL,
+  `stc` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sid` (`sid`,`step`)
+) ENGINE=InnoDB AUTO_INCREMENT=35530 DEFAULT CHARSET=utf8;
 
 
 
@@ -75,4 +25,45 @@ CREATE TABLE `comp_status` (
   `time` datetime DEFAULT NULL,
   `data` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36486 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `exception` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adid` int(11) DEFAULT NULL,
+  `exception` varchar(5000) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=536 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `finish` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` varchar(128) NOT NULL,
+  `step` varchar(45) DEFAULT NULL,
+  `pcid` varchar(45) DEFAULT NULL,
+  `bid` varchar(45) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`sid`),
+  UNIQUE KEY `finish_sid_uindex` (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=42963 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `heartbeat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pcid` varchar(45) DEFAULT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `deadtime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=288 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `traffic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `count` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `traffic_id_uindex` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2963 DEFAULT CHARSET=utf8;

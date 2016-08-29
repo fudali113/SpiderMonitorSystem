@@ -48,7 +48,7 @@ monitor.service( 'computer', [ '$rootScope', function( $rootScope ) {
     var service = {
       	computers: [],
       	addComputer: function (data) {
-
+			data.bank_name = getBankName(data.bank_name)
   			var nowComputer = undefined
         		for (var i = this.computers.length - 1; i >= 0; i--) {
 				if(data.pc_id == this.computers[i].id){
@@ -217,6 +217,22 @@ monitor.controller('computers',['$scope','$http','computer',function($scope,$htt
 
 
 }])
+
+var bankMap = {
+	"BankHengFeng.exe":"恒丰",
+	"BankJiaoTong.exe":"交通",
+	"BankZhongXin.exe":"中信",
+	"BankZhongGuo.exe":"中国",
+	"BankChongQinNongShang.exe":"重庆农商",
+	"BankHaErBin.exe":"哈尔滨",
+	"BankDaLian.exe":"大连",
+	"BankGongShang.exe":"工商"
+}
+
+var getBankName = function(n){
+	var name = bankMap[n]
+	return name == undefined ? n : name
+}
 
 var newComputer = function(cid){
 	var computer = {

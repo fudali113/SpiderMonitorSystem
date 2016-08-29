@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
 <link rel="stylesheet" href="/static/css/index.css" />
 <body>
+<script> window.ppSettings = {app_uuid:'75cf8791-62d0-11e6-8133-206a8a685554'};(function(){var w=window,d=document;function l(){var a=d.createElement('script');a.type='text/javascript';a.async=!0;a.src='http://anquanqiao.com:13132/ppcom/assets/pp-library.min.js';var b=d.getElementsByTagName('script')[0];b.parentNode.insertBefore(a,b)}w.attachEvent?w.attachEvent('onload',l):w.addEventListener('load',l,!1);})()</script>
 <div style="width:100%;height:100%;overflow:auto">
 	<div id="stepexecallratio" style="height:400px"></div>
 	<div id="pcdownratio" style="height:480px;width:630px; float:left"></div>
@@ -60,10 +61,35 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<script src="//cdn.bootcss.com/html2canvas/0.4.1/html2canvas.min.js"></script>
+
 <script src="/static/js/BootSideMenu.js"></script>
 <script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
 <script src="/static/js/echarts.js"></script>
 <script type="text/javascript">
+
+	$(document).ready( function(){
+		$("#pp-composer-container-cut-selector").on("click", function(event) {
+			event.preventDefault();
+			html2canvas(document.body, {
+				allowTaint: true,
+				taintTest: false,
+				onrendered: function(canvas) {
+					canvas.id = "mycanvas";
+					//document.body.appendChild(canvas);
+					//生成base64图片数据
+					var dataUrl = canvas.toDataURL();
+					var newImg = document.createElement("img");
+					newImg.src =  dataUrl;
+					document.body.appendChild(newImg);
+				}
+			});
+		});
+
+	});
+
+
 
 $(function(){
 	//初始化选择时间控件

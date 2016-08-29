@@ -125,9 +125,9 @@ system.service( 'sysinfo', [ '$rootScope','$http', function( $rootScope,$http ) 
 			this.data.memdata.push(data.memInfo.usedPercent)
       		this.data.SDI = data
 			this.data.detailInfo.cpus = data.cpuInfo
-			this.data.detailInfo.mem = jsonStringify(data.memInfo," ")
+			this.data.detailInfo.mem = jsonStringify(data.memInfo,null,2)
 			this.data.detailInfo.io = jsonStringify(data.ioInfo," ")
-			this.data.detailInfo.net = jsonStringify(data.netInfo," ")
+			this.data.detailInfo.net = jsonStringify(data.netInfo,"")
 			$rootScope.$broadcast('sysinfo.update');
 		},
 		addCpuMemData:function (data) {
@@ -206,8 +206,18 @@ system.controller('sysinfoshow',['$rootScope','$scope','$http','sysinfo',functio
 	}
   $scope.showModal=function(proc){
     $scope.modalContent=proc
+	  var pid = proc.pid
+	  $http({
+		  url:'/'+pcid+'/proc/'+pid+'/other',
+		  method:'get',
+	  }).success(function(data){
+		  $scope.modalContent.port = data.port
+		  $scope.modalContent.io = data.io
+		  $scope.$apply()
+	  })
     $('#myModal').modal('show')
   }
+
   var getProcs = function(){
     $http({
 			url:'/'+pcid+'/info/proc',

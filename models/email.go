@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultTA = "591327191@qq.com"
+	DefaultTA = "alert@shanlaohu.com"
 )
 
 var (
@@ -27,7 +27,7 @@ func SendEmail(email Email) {
 	mailtype := email.MailType
 	err := SendToMail(user, password, host, to, subject, body, mailtype)
 	if err != nil {
-		beego.Error(err)
+		beego.Error("send email error : ",err)
 		SendEmail(email)
 	}
 }

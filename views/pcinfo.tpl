@@ -117,16 +117,38 @@
 		    <div class="modal-dialog">
 		       <div class="modal-content">
 		          <div class="modal-header">
+		             <button type="button" class="close">
+                  		                   ≒
+                  		             </button>
 		             <button type="button" class="close"
 		                data-dismiss="modal" aria-hidden="true">
 		                   &times;
 		             </button>
 		             <h4 class="modal-title" id="myModalLabel">
-		                <font size="5">process detail info</font>
+		                <font color="#53FF53" size="5" ng-bind="modalContent.name+' '"></font><font size="5">detail info</font>
 		             </h4>
 		          </div>
 		          <div class="modal-body">
-		             <p ng-bind="modalContent.pid"></p>
+		             <font size="4">pid:</font><font ng-bind="modalContent.pid"></font><br/>
+		             <font size="4">io:</font><font ng-bind="modalContent.io"></font>
+		             <table class="table table-bordered table-hover " style="boder:1px">
+                       <thead>
+                          <tr>
+                             <th>proto</th>
+                             <th>local</th>
+                             <th>remote</th>
+                             <th>status</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                         <tr ng-repeat="po in modalContent.port | filter:procs_query | orderBy:procs_order" ng-click="showModal(proc)">
+                          <td ng-bind="po.proto"></td>
+                          <td ng-bind="po.local"></td>
+                          <td ng-bind="po.remote"></td>
+                          <td ng-bind="po.status"></td>
+                         </tr>
+                       </tbody>
+                      </table>
 		          </div>
 		       </div><!-- /.modal-content -->
 		 </div><!-- /.modal -->

@@ -10,15 +10,20 @@ import (
 )
 
 var (
-	port = "8888"
+	port = beego.AppConfig.String("performance.monitor.port")
 )
 
 func GetSysInfo(pcid, who string) ([]byte, error) {
-	pcip := GetPcIP(pcid)
-	if pcip == "" {
+	if host == "" {
 		return []byte(`{"err":"error pcid"}`) , fmt.Errorf("pcid can`t empty")
 	}
-	return GetResponse(CreatUrl(pcip, port, who))
+	return GetResponse(CreatUrl(pcid, port, who))
+}
+
+func GetPidInfo(pcid,pid string) ([]byte ,error) {
+	host := GetPcIP(pcid)
+	url := fmt.Sprintf("http://%s:%s/info/proc/port?pid=%s",host,port,pid)
+	return GetResponse(url)
 }
 
 func GetResponse(url string) ([]byte, error) {
@@ -39,8 +44,8 @@ func GetResponse(url string) ([]byte, error) {
 	return body, nil
 }
 
-func CreatUrl(host, port, who string) string {
-	return fmt.Sprintf("http://%s:%s/info/%s", host, port, who)
+func CreatUrl(pcid, port, who string) string {
+	return fmt.Sprintf("http://%s:%s/info/%s", GetPcIP(pcid), port, who)
 }
 
 func GetPcIP(pcid string) string {

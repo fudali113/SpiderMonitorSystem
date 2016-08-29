@@ -8,6 +8,7 @@ import (
 
 func init() {
 	beego.AutoRouter(&controllers.DataController{})
+	beego.Router("/:pcid/proc/:pid/other", &controllers.PidInfoController{})
 	beego.Router("/:pcid/info/:who(all|cpu|mem|io|net|proc|simple)", &controllers.SMController{})
 	beego.Router("/:pcid/show", &controllers.PcInfoController{})
 	beego.Router("/ss", &controllers.SSController{})
