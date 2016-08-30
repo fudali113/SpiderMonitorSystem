@@ -25,7 +25,7 @@ func (this *DefalutController) Post() {
 	models.HeartbeatTime = models.DefaultHT
 	models.PcDownSendEmailTime = models.DefaultPDSET
 	nowTheme = defaultT
-	models.ToAddress = models.DefaultTA
+	models.ToAddress = models.ToAddress
 	result := map[string]interface{}{
 		"time":     strconv.FormatInt(models.HeartbeatTime, 10),
 		"theme":    strconv.Itoa(nowTheme),

@@ -17,12 +17,13 @@ var (
 	passwd = beego.AppConfig.String("mysql.passwd")
 	host   = beego.AppConfig.String("mysql.host")
 	port   = beego.AppConfig.String("mysql.port")
+	dbname   = beego.AppConfig.String("mysql.dbname")
 )
 
 func init() {
 	beego.Notice("init mysql conn")
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/monitor?charset=utf8&loc=Local", user, passwd, host, port)
+	mysqlConnStr := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&loc=Local", user, passwd, host, port , dbname)
 	orm.RegisterDataBase("default", "mysql", mysqlConnStr)
 	//	orm.Debug = true
 }

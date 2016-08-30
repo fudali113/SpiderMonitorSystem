@@ -9,7 +9,7 @@ import (
 
 func main() {
 	beego.Notice("begin")
-	beego.SetLogger("file", `{"filename":"logs/monitor.log"}`)
+	//beego.SetLogger("file", `{"filename":"./logs/monitor.log"}`)
 	beego.SetLevel(beego.LevelNotice)
 	beego.Run()
 }

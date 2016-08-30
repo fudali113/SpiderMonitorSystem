@@ -9,15 +9,12 @@ import (
 	"github.com/astaxie/beego"
 )
 
-const (
-	DefaultTA = "alert@shanlaohu.com"
-)
 
 var (
 	user      = beego.AppConfig.String("email.user")
 	password  = beego.AppConfig.String("email.passwd")
 	host      = beego.AppConfig.String("email.host")
-	ToAddress = DefaultTA
+	ToAddress = beego.AppConfig.String("email.ToAddress")
 )
 
 func SendEmail(email Email) {

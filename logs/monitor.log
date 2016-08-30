@@ -221,3 +221,16 @@
 2016/08/03 18:11:15 [httpRequestUtil.go:48][E] 获取数据   info/all  get请求 Get http://192.168.0.113:8888/info/all: dial tcp 192.168.0.113:8888: getsockopt: no route to host 
 2016/08/03 18:11:18 [websockets.go:30][N] time consuming :  1  ws  -->   70863  ns 
 2016/08/03 18:11:23 [websockets.go:30][N] time consuming :  1  ws  -->   169940  ns 
+2016/08/30 00:19:45 [router.go:854][C] the request url is  /ws 
+2016/08/30 00:19:45 [router.go:855][C] Handler crashed with error can't find templatefile in the path:wscontroller/get.tpl 
+2016/08/30 00:19:45 [router.go:861][C] /usr/local/go/src/runtime/asm_amd64.s:472 
+2016/08/30 00:19:45 [router.go:861][C] /usr/local/go/src/runtime/panic.go:443 
+2016/08/30 00:19:45 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/template.go:53 
+2016/08/30 00:19:45 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:245 
+2016/08/30 00:19:45 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:199 
+2016/08/30 00:19:45 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/controller.go:183 
+2016/08/30 00:19:45 [router.go:861][C] /Users/doob/project/monitor/src/github.com/astaxie/beego/router.go:785 
+2016/08/30 00:19:45 [router.go:861][C] /usr/local/go/src/net/http/server.go:2081 
+2016/08/30 00:19:45 [router.go:861][C] /usr/local/go/src/net/http/server.go:1472 
+2016/08/30 00:19:45 [router.go:861][C] /usr/local/go/src/runtime/asm_amd64.s:1998 
+2016/08/30 00:19:46 [staticfile.go:51][W] Can't find/open the file:  /favicon.ico file not find 

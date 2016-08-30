@@ -20,7 +20,7 @@ var (
 	History             = &SI64Map{M: make(map[string]int64)}
 	pcipmap             = &S2Map{M: make(map[string]string)}    //pcid与ip映射
 	HistoryData         = &S2Map{M: make(map[string]string)}    //pcid最后有效数据
-	PS                  = make(chan []byte, 10000)              //PcStatus
+	PS                  = make(chan []byte, 10000)              //PcStatus channel
 	HeartbeatTime       = DefaultHT                             //检查心跳时间
 	PcDownSendEmailTime = DefaultPDSET                          // 多久没有心跳发送邮件时间
 	STC                 = &SSIMap{M: make(map[string]StepInfo)} //StepTimeConsuming
@@ -94,6 +94,7 @@ func recordInfo(pcstatus []byte) {
 			STC.Put(sid, StepInfo{Time: nowTime, Step: step, Bank: bid, Pcid: pcid})
 		}
 	}
+	beego.Notice("发送消息到前端")
 	if timeConsuming == 0 {
 		sendMessage(pcstatus)
 	} else {
@@ -273,7 +274,7 @@ func check() {
 		case <-t2.C:
 			trafficMonitor()
 			checkSpider()
-			sendComputerStatus()
+			//sendComputerStatus()
 			t2.Reset(time.Second * 60)
 		}
 	}
